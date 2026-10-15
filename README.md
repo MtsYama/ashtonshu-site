@@ -44,7 +44,7 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 - 电话号码。
 - 贺卡的印刷文件,上面有真实姓名。网站只用占位名字的展示图。
 - 作品集简历页上的实习时间那一行,只跟 placement 申请有关。
-- 所有页面都带 `<meta name="robots" content="noindex">`,搜索引擎不收录。决定公开时再删掉。
+- 页面原先带 `<meta name="robots" content="noindex">`;2026-10-15 起删掉了,ashton.is 允许搜索引擎收录。
 
 ## 怎么更新
 
@@ -57,7 +57,7 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 
 ## 以后接自己的域名
 
-现在还没加 CNAME。买好域名后(比如 `ashtonshu.com`):
+仓库根目录的 `CNAME` 现在写的是 `ashton.is`。下面是接域名的步骤，留作以后换域名时参考:
 
 1. 在仓库根目录新建一个叫 `CNAME` 的文件,里面只写一行域名,例如 `ashtonshu.com`,提交并推送。也可以在仓库 Settings → Pages → Custom domain 里填,GitHub 会自动生成这个文件。
 2. 在域名商的 DNS 设置里加记录:
