@@ -9,87 +9,118 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=Poppins:wght@700&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&amp;display=swap">
   <link rel="stylesheet" href="css/style.css">
   <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="wrap bar">
-      <a class="brand" href="index.html">
-        <img src="img/mark.png" alt="" width="36" height="36">
-        <span>Ashton Z. Shu</span>
-      </a>
-      <nav class="site-nav" aria-label="Main">
-        <ul>
-          <li><a href="index.html" aria-current="page">Home</a></li>
-          <li><a href="work/index.html">Work</a></li>
-          <li><a href="about.html">About</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><button class="theme-toggle" type="button" data-mode="light" aria-label="Switch to dark mode"><svg class="ti ti-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="ti ti-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><span class="tt-label">Dark</span></button></li>
-        </ul>
-      </nav>
-    </div>
+  <header class="site-header is-over" data-tone="ink">
+    <a class="wordmark" href="index.html">Ashton Z. Shu</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="work/index.html">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><button class="theme-toggle" type="button" data-mode="light" aria-label="Switch to dark mode"><svg class="ti ti-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="ti ti-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><span class="tt-label">Dark</span></button></li>
+      </ul>
+    </nav>
   </header>
 
   <main id="main">
-    <section class="intro wrap">
-      <h1 class="display is-line"><span class="is-static">Ashton is</span> <span class="is-cycle" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, a concept artist, a community builder, and an electrical engineer.</span></h1>
-      <p class="lede">Exploring how AI and human creativity can learn from each other. Based in Greater Sudbury, Ontario.</p>
+    <section class="show" aria-roledescription="carousel" aria-label="Featured work" data-hero>
+      <div class="slides">
+        <div class="slide slide-intro is-active" role="group" aria-roledescription="slide" aria-label="1 of 6" data-tone="ink" data-duration="11500">
+          <h1 class="is-line"><span class="is-static">Ashton is</span> <span class="is-cycle" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, a concept artist, a community builder, and an electrical engineer.</span></h1>
+        </div>
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 6: Superlinear Academy" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy.html" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
+          <img src="img/sl-hero.jpg" alt="Superlinear Academy website with the redesigned logo over the article library" width="1920" height="1080" decoding="async">
+        </div>
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="3 of 6: ZSA Moonlander" data-tone="light" data-name="ZSA Moonlander" data-href="work/zsa-moonlander.html" style="--bg:#c6c6c2;--pz:1.3">
+          <img src="img/zs-mag.jpg" alt="Open magazine with a ZSA Moonlander keyboard spread" width="922" height="683" decoding="async">
+        </div>
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="4 of 6: Wine &amp; Dance" data-tone="dark" data-name="Wine &amp; Dance" data-href="work/wine-and-dance.html" style="--bg:#2c2c2a;--pz:1.3">
+          <img src="img/wd-hero.jpg" alt="Wine &amp; Dance title over a dimmed photo of the calendar" width="1920" height="1080" decoding="async">
+        </div>
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="5 of 6: Postcards" data-tone="light" data-name="Postcards" data-href="work/postcards.html" style="--bg:#dadada;--pz:1.06">
+          <img src="img/pm-2.jpg" alt="Two postcards leaning on a wall, showing the inside of the car and of the flower pot" width="1200" height="800" decoding="async">
+        </div>
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="6 of 6: hack4change" data-tone="dark" data-name="hack4change" data-href="work/hack4change.html" style="--bg:#2b1f27;--pz:1.15">
+          <img src="img/h4-hero.jpg" alt="hack4change logo over a black and white photo of the host city" width="1920" height="1080" decoding="async">
+        </div>
+      </div>
+      <p class="show-caption"><a href="#" hidden></a></p>
     </section>
 
-    <section class="wrap" aria-labelledby="featured">
-      <h2 class="label-rule" id="featured">Selected work</h2>
-      <ul class="cards">
+    <section class="intro" aria-label="Introduction">
+      <p class="statement">Exploring how AI and human creativity can learn from each other.</p>
+      <p class="statement-sub">Based in Greater Sudbury, Ontario.</p>
+    </section>
+
+    <section class="frame home-work" aria-labelledby="featured">
+      <h2 class="vh" id="featured">Selected work</h2>
+      <ul class="cards is-hover">
         <li class="card">
           <a href="work/superlinear-academy.html">
-            <span class="thumb"><img src="img/sl-hero.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async"></span>
-            <span class="te"><span class="te-name">Superlinear Academy</span><span class="te-sub">Visual Identity Redesign</span></span>
+            <figure>
+              <span class="thumb"><img src="img/sl-hero.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async"></span>
+              <figcaption><span class="card-name">Superlinear Academy</span><span class="card-sub">Visual Identity Redesign</span></figcaption>
+            </figure>
           </a>
         </li>
         <li class="card">
           <a href="work/wine-and-dance.html">
-            <span class="thumb"><img src="img/wd-mock.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async"></span>
-            <span class="te"><span class="te-name">Wine &amp; Dance</span><span class="te-sub">Calendar Illustration Design</span></span>
+            <figure>
+              <span class="thumb"><img src="img/wd-mock.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async"></span>
+              <figcaption><span class="card-name">Wine &amp; Dance</span><span class="card-sub">Calendar Illustration Design</span></figcaption>
+            </figure>
           </a>
         </li>
         <li class="card">
           <a href="work/greeting-cards.html">
-            <span class="thumb"><img src="img/gc-three-languages.jpg" alt="" width="1053" height="714" loading="lazy" decoding="async"></span>
-            <span class="te"><span class="te-name">Greeting Cards</span><span class="te-sub">Trilingual Card System</span></span>
-            <span class="pill">personal project</span>
+            <figure>
+              <span class="thumb"><img src="img/gc-three-languages.jpg" alt="" width="1053" height="714" loading="lazy" decoding="async"></span>
+              <figcaption><span class="card-name">Greeting Cards</span><span class="card-sub">Trilingual Card System</span></figcaption>
+            </figure>
           </a>
         </li>
         <li class="card">
           <a href="work/hack4change.html">
-            <span class="thumb"><img src="img/h4-hero.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async"></span>
-            <span class="te"><span class="te-name">hack4change</span><span class="te-sub">Designathon Team Project</span></span>
+            <figure>
+              <span class="thumb"><img src="img/h4-hero.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async"></span>
+              <figcaption><span class="card-name">hack4change</span><span class="card-sub">Designathon Team Project</span></figcaption>
+            </figure>
           </a>
         </li>
       </ul>
-      <p class="more"><a class="pill" href="work/index.html">All work</a></p>
+      <p class="more"><a class="arrow-link" href="work/index.html">All work</a></p>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="wrap">
-      <div class="foot">
-        <div class="sig">
-          <img src="img/mark.png" alt="" width="56" height="56">
-          <div>
-            <p class="studio">MX Studio</p>
-            <p class="who">Ashton Z. Shu, Student RGD Designer</p>
-          </div>
-        </div>
-        <ul class="foot-links">
-          <li><a href="mailto:shuzhengshen@outlook.com"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg><span>shuzhengshen@outlook.com</span></a></li>
-          <li><a href="https://www.linkedin.com/in/ashton-z-shu/"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg><span>LinkedIn</span></a></li>
-          <li><a href="https://www.instagram.com/mts_yama/"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg><span>Instagram</span></a></li>
-        </ul>
-        <p class="copy">&copy; 2026 Ashton Z. Shu</p>
+    <div class="foot">
+      <div class="foot-sig">
+        <p>MX Studio</p>
+        <p>Ashton Z. Shu, Student RGD Designer</p>
       </div>
+      <div class="foot-contact">
+        <p><a class="icon-link" href="mailto:shuzhengshen@outlook.com"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg><span>shuzhengshen@outlook.com</span></a></p>
+        <p>Greater Sudbury, Ontario</p>
+      </div>
+      <div class="foot-links">
+        <ul>
+          <li><a href="work/index.html">Work</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <ul>
+          <li><a class="icon-link" href="https://www.linkedin.com/in/ashton-z-shu/"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg><span>LinkedIn</span></a></li>
+          <li><a class="icon-link" href="https://www.instagram.com/mts_yama/"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg><span>Instagram</span></a></li>
+        </ul>
+      </div>
+      <p class="foot-top"><a href="#top">Back to top</a></p>
+      <p class="copy">&copy; 2026 Ashton Z. Shu</p>
     </div>
   </footer>
 
@@ -101,38 +132,133 @@
       if (last) last.nodeValue = last.nodeValue.replace(/(\S)\s+(\S+\s*)$/, '$1\u00a0$2');
     });
   </script>
-
+  <script src="js/site.js"></script>
   <script>
-    // hero: finish the sentence "Ashton is ..." (stays on the first phrase when reduced motion is on)
+    // slideshow: one slide at a time, cross-fading on a timer. Dots, arrow keys and swipes move it;
+    // it waits while the caption or dots are hovered or focused, and stays put with reduced motion.
+    // The first slide finishes the sentence "Ashton is ..." with the cycling phrase of the old home page.
     (function () {
-      var el = document.querySelector('.is-cycle');
-      if (!el) return;
+      var show = document.querySelector('.show');
+      if (!show) return;
+      var stage = show.querySelector('.slides');
+      var slides = [].slice.call(stage.querySelectorAll('.slide'));
+      var header = document.querySelector('.site-header');
+      var capBox = show.querySelector('.show-caption'), cap = capBox.querySelector('a');
+      var el = show.querySelector('.is-cycle');
       var words = ['a graphic designer.', 'a concept artist.', 'a community builder.', 'an electrical engineer.'];
-      function fit() {            // reserve the tallest phrase so the page doesn't jump
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var cur = 0, i = 0, playing = !reduce, holds = {}, timer = 0, tick = 0, capTimer = 0, prevTimer = 0;
+
+      function fit() {            // reserve the tallest phrase so the slide doesn't jump
         var keep = el.textContent, h = 0;
         el.style.minHeight = '';
         words.forEach(function (w) { el.textContent = w; h = Math.max(h, el.offsetHeight); });
         el.textContent = keep; el.style.minHeight = h + 'px';
       }
       fit(); window.addEventListener('resize', fit);
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var i = 0;
-      setInterval(function () {
-        el.classList.add('is-out');
-        setTimeout(function () { i = (i + 1) % words.length; el.textContent = words[i]; el.classList.remove('is-out'); }, 300);
-      }, 2900);
+      if (document.fonts) document.fonts.ready.then(fit);
+
+      function cycle() {          // a new phrase every 2.9 s while the first slide shows
+        clearInterval(tick);
+        if (!playing || cur !== 0) return;
+        tick = setInterval(function () {
+          el.classList.add('is-out');
+          setTimeout(function () { i = (i + 1) % words.length; el.textContent = words[i]; el.classList.remove('is-out'); }, 300);
+        }, 2900);
+      }
+
+      var nav = document.createElement('div');
+      nav.className = 'show-nav';
+      var dots = slides.map(function (s, n) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'show-dot';
+        b.setAttribute('aria-label', 'Slide ' + (n + 1) + ': ' + (s.getAttribute('data-name') || 'Introduction'));
+        b.addEventListener('click', function () { go(n); });
+        nav.appendChild(b);
+        return b;
+      });
+      var pause = document.createElement('button');
+      pause.type = 'button';
+      pause.className = 'show-pause';
+      pause.addEventListener('click', function () { setPlaying(!playing); });
+      nav.appendChild(pause);
+      show.appendChild(nav);
+
+      function held() { for (var k in holds) if (holds[k]) return true; return false; }
+      function schedule() {
+        clearTimeout(timer);
+        if (!playing || held()) return;
+        timer = setTimeout(function () { go(cur + 1); }, +slides[cur].getAttribute('data-duration') || 5000);
+      }
+      function setPlaying(on) {
+        playing = on;
+        pause.classList.toggle('is-paused', !on);
+        pause.setAttribute('aria-label', on ? 'Pause slideshow' : 'Play slideshow');
+        stage.setAttribute('aria-live', on ? 'off' : 'polite');
+        schedule(); cycle();
+      }
+      function paint() {
+        var s = slides[cur], tone = s.getAttribute('data-tone') || 'ink';
+        var name = s.getAttribute('data-name'), href = s.getAttribute('data-href');
+        show.setAttribute('data-tone', tone);
+        header.setAttribute('data-tone', tone);
+        dots.forEach(function (d, n) { if (n === cur) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+        capBox.classList.add('is-out');
+        clearTimeout(capTimer);
+        capTimer = setTimeout(function () {
+          cap.hidden = !name;
+          if (name) { cap.textContent = name; cap.setAttribute('href', href); }
+          capBox.classList.remove('is-out');
+        }, reduce ? 0 : 200);
+      }
+      function go(n) {
+        n = (n + slides.length) % slides.length;
+        if (n !== cur) {
+          var from = slides[cur];
+          slides.forEach(function (s) { s.classList.remove('is-prev'); });
+          from.classList.remove('is-active');
+          from.classList.add('is-prev');
+          clearTimeout(prevTimer);
+          prevTimer = setTimeout(function () { from.classList.remove('is-prev'); }, 650);
+          slides[n].classList.add('is-active');
+          cur = n;
+          if (cur === 0) { i = 0; el.textContent = words[0]; el.classList.remove('is-out'); }
+          paint(); cycle();
+        }
+        schedule();
+      }
+
+      [capBox, nav].forEach(function (x, k) {
+        x.addEventListener('mouseenter', function () { holds['hover' + k] = true; schedule(); });
+        x.addEventListener('mouseleave', function () { holds['hover' + k] = false; schedule(); });
+      });
+      show.addEventListener('focusin', function (e) { holds.focus = e.target.matches(':focus-visible'); schedule(); });
+      show.addEventListener('focusout', function (e) { if (!show.contains(e.relatedTarget)) { holds.focus = false; schedule(); } });
+      document.addEventListener('visibilitychange', function () { holds.page = document.hidden; schedule(); });
+      show.addEventListener('keydown', function (e) {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        e.preventDefault();
+        go(cur + (e.key === 'ArrowRight' ? 1 : -1));
+        if (document.activeElement && document.activeElement.classList.contains('show-dot')) dots[cur].focus();
+      });
+      var sx = 0, sy = 0;
+      stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+      stage.addEventListener('touchend', function (e) {
+        var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > 1.5 * Math.abs(dy)) go(cur + (dx < 0 ? 1 : -1));
+      }, { passive: true });
+      stage.addEventListener('click', function () {
+        var href = slides[cur].getAttribute('data-href');
+        if (href) window.location.href = href;
+      });
+
+      paint();
+      setPlaying(playing);
     })();
   </script>
 
   <script>
-    // sticky header: a hairline appears once the page scrolls under it
-    (function () {
-      var head = document.querySelector('.site-header');
-      if (!head) return;
-      function onScroll() { head.classList.toggle('is-stuck', window.scrollY > 4); }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-    })();
     // light / dark: follows the system until the visitor picks one; the choice is kept in this browser only
     (function () {
       var b = document.querySelector('.theme-toggle'), root = document.documentElement;

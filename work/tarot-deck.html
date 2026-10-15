@@ -9,82 +9,99 @@
   <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=Poppins:wght@700&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&amp;display=swap">
   <link rel="stylesheet" href="../css/style.css">
   <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <header class="site-header">
-    <div class="wrap bar">
-      <a class="brand" href="../index.html">
-        <img src="../img/mark.png" alt="" width="36" height="36">
-        <span>Ashton Z. Shu</span>
-      </a>
-      <nav class="site-nav" aria-label="Main">
-        <ul>
-          <li><a href="../index.html">Home</a></li>
-          <li><a href="../work/index.html" aria-current="true">Work</a></li>
-          <li><a href="../about.html">About</a></li>
-          <li><a href="../contact.html">Contact</a></li>
-          <li><button class="theme-toggle" type="button" data-mode="light" aria-label="Switch to dark mode"><svg class="ti ti-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="ti ti-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><span class="tt-label">Dark</span></button></li>
-        </ul>
-      </nav>
-    </div>
+  <header class="site-header" data-tone="mixed">
+    <a class="wordmark" href="../index.html">Ashton Z. Shu</a>
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="../work/index.html" aria-current="true">Work</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+        <li><button class="theme-toggle" type="button" data-mode="light" aria-label="Switch to dark mode"><svg class="ti ti-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="ti ti-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><span class="tt-label">Dark</span></button></li>
+      </ul>
+    </nav>
   </header>
 
   <main id="main">
-    <section class="opener wrap" aria-labelledby="title">
-      <div>
-        <p class="eyebrow"><span class="te-name">Tarot Deck</span></p>
-        <h1 id="title">Tarot Deck Illustration &amp; Print Design</h1>
-        <div class="body">
-          <p>A tarot deck exploring the emotional journey of a single character through symbolic visual storytelling.</p>
-          <p>Each card represents a moment in her life, expressed through minimal geometric illustration and textured print aesthetics.</p>
-        </div>
-        <p class="pill">student project</p>
-      </div>
-      <div class="art">
-        <img src="../img/ta-open.jpg" alt="Tarot cards spread on a table, each with a silhouetted figure" width="1200" height="800" fetchpriority="high" decoding="async">
-      </div>
-    </section>
+    <figure class="p-hero" data-hero style="--pos:50% 0%">
+      <img src="../img/ta-open.jpg" alt="Tarot cards spread on a table, each with a silhouetted figure" width="1200" height="800" fetchpriority="high" decoding="async">
+    </figure>
 
-    <div class="details">
-      <div class="details-body">
-        <div class="detail full">
-          <div class="art">
-            <img src="../img/ta-more.jpg" alt="Five tarot card designs, including the Lovers, the Hermit, the Moon and the Star" width="1955" height="1100" loading="lazy" decoding="async">
-          </div>
-        </div>
-      </div>
+    <header class="p-head">
+      <h1>Tarot Deck</h1>
+      <p class="p-sub">Tarot Deck Illustration &amp; Print Design</p>
+      <p class="p-meta">student project</p>
+    </header>
+
+    <div class="p-text">
+      <p>A tarot deck exploring the emotional journey of a single character through symbolic visual storytelling.</p>
+      <p>Each card represents a moment in her life, expressed through minimal geometric illustration and textured print aesthetics.</p>
     </div>
 
-    <nav class="wrap" aria-label="More projects">
-      <div class="pager">
-        <a class="prev" href="drink-packaging.html"><span class="pager-dir">Previous</span><span class="te-name">Drink Packaging</span></a>
-        <a class="next" href="greeting-cards.html"><span class="pager-dir">Next</span><span class="te-name">Greeting Cards</span></a>
-      </div>
+    <div class="p-art p-sec">
+      <img src="../img/ta-more.jpg" alt="Five tarot card designs, including the Lovers, the Hermit, the Moon and the Star" width="1955" height="1100" loading="lazy" decoding="async">
+    </div>
+
+    <nav class="p-more" aria-label="More projects">
+      <ul class="cards">
+        <li class="card">
+          <a href="drink-packaging.html">
+            <figure>
+              <span class="thumb"><img src="../img/dr-open.jpg" alt="" width="1110" height="1090" style="object-position:50% 0%" loading="lazy" decoding="async"></span>
+              <figcaption><span class="p-dir">Previous</span><span class="card-name">Drink Packaging</span></figcaption>
+            </figure>
+          </a>
+        </li>
+        <li class="card">
+          <a href="greeting-cards.html">
+            <figure>
+              <span class="thumb"><img src="../img/gc-three-languages.jpg" alt="" width="1053" height="714" loading="lazy" decoding="async"></span>
+              <figcaption><span class="p-dir">Next</span><span class="card-name">Greeting Cards</span></figcaption>
+            </figure>
+          </a>
+        </li>
+      </ul>
+      <p class="p-all"><a class="arrow-link" href="index.html">All work</a></p>
     </nav>
   </main>
 
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <ol>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="index.html">Work</a></li>
+      <li><span aria-current="page">Tarot Deck</span></li>
+    </ol>
+  </nav>
+
   <footer class="site-footer">
-    <div class="wrap">
-      <div class="foot">
-        <div class="sig">
-          <img src="../img/mark.png" alt="" width="56" height="56">
-          <div>
-            <p class="studio">MX Studio</p>
-            <p class="who">Ashton Z. Shu, Student RGD Designer</p>
-          </div>
-        </div>
-        <ul class="foot-links">
-          <li><a href="mailto:shuzhengshen@outlook.com"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg><span>shuzhengshen@outlook.com</span></a></li>
-          <li><a href="https://www.linkedin.com/in/ashton-z-shu/"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg><span>LinkedIn</span></a></li>
-          <li><a href="https://www.instagram.com/mts_yama/"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg><span>Instagram</span></a></li>
-        </ul>
-        <p class="copy">&copy; 2026 Ashton Z. Shu</p>
+    <div class="foot">
+      <div class="foot-sig">
+        <p>MX Studio</p>
+        <p>Ashton Z. Shu, Student RGD Designer</p>
       </div>
+      <div class="foot-contact">
+        <p><a class="icon-link" href="mailto:shuzhengshen@outlook.com"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg><span>shuzhengshen@outlook.com</span></a></p>
+        <p>Greater Sudbury, Ontario</p>
+      </div>
+      <div class="foot-links">
+        <ul>
+          <li><a href="../work/index.html">Work</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+        <ul>
+          <li><a class="icon-link" href="https://www.linkedin.com/in/ashton-z-shu/"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg><span>LinkedIn</span></a></li>
+          <li><a class="icon-link" href="https://www.instagram.com/mts_yama/"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg><span>Instagram</span></a></li>
+        </ul>
+      </div>
+      <p class="foot-top"><a href="#top">Back to top</a></p>
+      <p class="copy">&copy; 2026 Ashton Z. Shu</p>
     </div>
   </footer>
 
@@ -96,16 +113,9 @@
       if (last) last.nodeValue = last.nodeValue.replace(/(\S)\s+(\S+\s*)$/, '$1\u00a0$2');
     });
   </script>
+  <script src="../js/site.js"></script>
 
   <script>
-    // sticky header: a hairline appears once the page scrolls under it
-    (function () {
-      var head = document.querySelector('.site-header');
-      if (!head) return;
-      function onScroll() { head.classList.toggle('is-stuck', window.scrollY > 4); }
-      window.addEventListener('scroll', onScroll, { passive: true });
-      onScroll();
-    })();
     // light / dark: follows the system until the visitor picks one; the choice is kept in this browser only
     (function () {
       var b = document.querySelector('.theme-toggle'), root = document.documentElement;

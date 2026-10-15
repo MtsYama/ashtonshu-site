@@ -4,30 +4,39 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 
 线上地址:https://mtsyama.github.io/ashtonshu-site/
 
-视觉沿用 2026 年 10 月的 placement 作品集 v3:Inter 正文,Poppins 700 做大标题,细体大编号,描边胶囊标签,白底黑字加黑色竖线。
+版式参照 Daikoku Design Institute 的网站(https://daikoku.ndc.co.jp/):首页一屏大图轮播,页头只有左边的名字和右边几个字的导航,作品归档是一格格的图,鼠标移上去才显示名字,项目页是大图加居中的一栏文字。只用 Inter 一种字体,全站常规字重,白底或浅灰底,深色只出现在作品图本身。
 
 ## 页面
 
 | 文件 | 内容 |
 |---|---|
-| `index.html` | 首页:名字、一句话介绍、前 6 个项目 |
-| `work/index.html` | 全部 10 个项目 |
-| `work/superlinear-academy.html` | 01 Superlinear Academy |
-| `work/hack4change.html` | 02 hack4change |
-| `work/wine-and-dance.html` | 03 Wine & Dance |
-| `work/zsa-moonlander.html` | 04 ZSA Moonlander |
-| `work/drink-packaging.html` | 05 Drink Packaging |
-| `work/tarot-deck.html` | 06 Tarot Deck |
-| `work/greeting-cards.html` | 07 Greeting Cards |
-| `work/postcards.html` | 08 Postcards |
-| `work/campaign-works.html` | 09 Campaign Works |
-| `work/photography.html` | 10 Photography |
-| `about.html` | 头像、三行简介、简历 |
-| `contact.html` | 邮箱、LinkedIn、联系表单 |
+| `index.html` | 首页:全屏轮播(第一张是 “Ashton is ...” 那句轮换的话,后面 5 张是项目)、一句话介绍、4 个项目 |
+| `work/index.html` | 作品归档,分 Projects 和 Personal work 两组 |
+| `work/superlinear-academy.html` | Superlinear Academy |
+| `work/hack4change.html` | hack4change |
+| `work/wine-and-dance.html` | Wine & Dance |
+| `work/zsa-moonlander.html` | ZSA Moonlander |
+| `work/drink-packaging.html` | Drink Packaging |
+| `work/tarot-deck.html` | Tarot Deck |
+| `work/campaign-works.html` | Campaign Works |
+| `work/greeting-cards.html` | Greeting Cards(Personal work) |
+| `work/postcards.html` | Postcards(Personal work) |
+| `work/photography.html` | Photography(Personal work) |
+| `about.html` | 名字、头像、LinkedIn 上的简介、简历 |
+| `contact.html` | 邮箱、LinkedIn、Instagram、联系表单 |
 
 联系表单点“Send”会打开访客自己的邮件程序,内容已经填好,不经过任何第三方表单服务。
 
-`css/style.css` 是全站样式,`img/` 放全部图片。项目文字、标题和标签都照搬作品集,一字没改。
+`css/style.css` 是全站样式,`js/site.js` 管页头:页头一直在屏幕顶上,压在首页轮播或项目大图上时是透明的,字跟着图换黑白;往下滚过大图后变成一条窄一些的白条,底下一根细线。`img/` 放全部图片。项目文字、标题和标签都照搬作品集,一字没改。页头最右边的月亮/太阳切换明暗(手机上只显示图标),默认跟着访客的系统设置走。页脚和联系页里的 LinkedIn、Instagram 显示成图标加名字。
+
+## 首页轮播
+
+- 每张图停 5 秒,淡入淡出;第一张那句话把四个说法轮一遍(约 11.5 秒)再往下走。点圆点、按左右方向键、手机上左右滑都能换,右下角的小按钮暂停。系统开了“减少动态效果”时不自动播放,那句话也不轮换。
+- 一张项目图就是 `index.html` 里一个 `<div class="slide is-fit">`,改这几处:
+  - `data-name` 和 `data-href`:左下角显示的项目名和它链到的页面。
+  - `data-tone`:图偏暗写 `dark`(页头和圆点用白字),偏亮写 `light`(黑字)。
+  - `style` 里的 `--bg`:手机竖屏时整张图完整放在中间,上下空出来的地方用这个颜色,取图片上下边缘的颜色最自然。
+  - `--zoom`(电脑上把图放大一点,裁掉边上不想要的部分)和 `--pz`(手机上把图放大一点),不写就是 1。
 
 ## 没放进来的内容
 
@@ -41,7 +50,8 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 
 - 改文字:直接改对应的 `.html`。页头和页脚每个页面各有一份,要改就每页都改,用编辑器的全局替换最快。
 - 换图:把新图放进 `img/`,改 `src`,顺手改 `width`、`height` 和 `alt`。网页用的图长边 2000 像素以内的 JPEG 就够。
-- 加项目:复制 `work/` 下任意一页改内容;在 `work/index.html` 加一张卡片(首页只放前 6 个);再改前后两个项目页底部的 Previous / Next 链接,编号顺延。
+- 项目页顶部的大图:电脑上裁成 2:1,`style` 里的 `--pos` 决定保留图的哪一部分(例如 `50% 0%` 是保留上沿);页头的字压在图上,所以 `<header class="site-header">` 的 `data-tone` 按图来写:`dark`、`light`,图太花时写 `mixed`(字底下垫白块)。不想裁的图给 `figure` 加 `is-fit`,整张放在浅灰底上。
+- 加项目:复制 `work/` 下任意一页改内容;在 `work/index.html` 对应的组(Projects 或 Personal work)里加一张卡片;再改前后两个项目页底部 “More projects” 里的两张卡片(链接、缩略图、名字)。想上首页轮播就照上面加一张 slide,同时把每张的 `aria-label` 里的 “x of 6” 改对。
 - 本地预览:在这个文件夹里运行 `python -m http.server`,浏览器打开 http://localhost:8000/ 。直接双击 `index.html` 也能看。
 - 发布:`git add -A`,`git commit`,`git push`。GitHub Pages 一两分钟后更新。
 
