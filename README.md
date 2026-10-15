@@ -23,7 +23,7 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 | `work/campaign-works.html` | 09 Campaign Works |
 | `work/photography.html` | 10 Photography |
 | `about.html` | 头像、三行简介、简历 |
-| `contact.html` | 邮箱、Linktree、联系表单 |
+| `contact.html` | 邮箱、LinkedIn、联系表单 |
 
 联系表单点“Send”会打开访客自己的邮件程序,内容已经填好,不经过任何第三方表单服务。
 
