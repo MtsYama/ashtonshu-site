@@ -239,11 +239,9 @@ a.pill:hover { background: var(--ink); color: var(--paper); }
 
 /* inner pages: the black rule with the MX mark, as in the portfolio */
 .details {
-  display: grid;
-  grid-template-columns: var(--gutter) minmax(0, 1fr);
   max-width: var(--maxw);
   margin-inline: auto;
-  padding-right: var(--gutter);
+  padding-inline: var(--gutter);
 }
 .spine { border-right: 2px solid var(--ink); }
 .spine img {
@@ -253,7 +251,7 @@ a.pill:hover { background: var(--ink); color: var(--paper); }
   height: auto;
   margin: clamp(48px, 6vw, 104px) auto 0;
 }
-.details-body { min-width: 0; padding-left: clamp(32px, 6vw, 112px); }
+.details-body { min-width: 0; }
 
 .detail {
   display: grid;
@@ -407,3 +405,16 @@ a.pill:hover { background: var(--ink); color: var(--paper); }
   .thumb img { transition: none; }
   .card a:hover .thumb img { transform: none; }
 }
+
+/* home hero: "Ashton is" + a cycling phrase (index.html script) */
+.intro .display.is-line { --d: clamp(44px, 8.2vw, 128px); font-size: var(--d); text-transform: none; line-height: 1.04; }
+.is-static { display: block; font-weight: 800; }
+.is-cycle {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  letter-spacing: -.02em;
+  transition: opacity .3s ease, transform .3s ease;
+}
+.is-cycle.is-out { opacity: 0; transform: translateY(-.16em); }
+@media (prefers-reduced-motion: reduce) { .is-cycle { transition: none; } }
