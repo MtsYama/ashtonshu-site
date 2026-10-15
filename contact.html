@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Contact · Zhengshen Shu</title>
+  <link rel="icon" href="img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=Poppins:wght@700&amp;display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="brand" href="index.html">
+        <img src="img/mark.png" alt="" width="36" height="36">
+        <span>Zhengshen Shu</span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="work/index.html">Work</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <header class="page-head">
+        <h1 class="display">Contact</h1>
+      </header>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h2 class="label-rule">Email</h2>
+          <p><a class="big-link" href="mailto:shuzhengshen@outlook.com">shuzhengshen@outlook.com</a></p>
+          <h2 class="label-rule">Links</h2>
+          <p><a class="big-link" href="https://linktr.ee/zs_shu">linktr.ee/zs_shu</a></p>
+        </div>
+        <form class="contact-form" id="contact-form" action="mailto:shuzhengshen@outlook.com" method="post" enctype="text/plain">
+          <h2 class="label-rule">Write a message</h2>
+          <label for="cf-name">Name</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" required>
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" required>
+          <label for="cf-message">Message</label>
+          <textarea id="cf-message" name="message" rows="7" required></textarea>
+          <button class="pill" type="submit">Send</button>
+          <p class="hint">Sending opens your email app with this message filled in.</p>
+          <p class="status" id="cf-status" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot">
+        <div class="sig">
+          <img src="img/mark.png" alt="" width="56" height="56">
+          <div>
+            <p class="studio">MX Studio</p>
+            <p class="who">Zhengshen Shu, Student RGD Designer</p>
+          </div>
+        </div>
+        <ul class="foot-links">
+          <li><a href="mailto:shuzhengshen@outlook.com">shuzhengshen@outlook.com</a></li>
+          <li><a href="https://linktr.ee/zs_shu">linktr.ee/zs_shu</a></li>
+        </ul>
+        <p class="copy">&copy; 2026 Zhengshen Shu</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // keep the last two words of every paragraph on one line
+    document.querySelectorAll('p').forEach(function (p) {
+      var walk = document.createTreeWalker(p, NodeFilter.SHOW_TEXT), node, last = null;
+      while ((node = walk.nextNode())) if (/\S/.test(node.nodeValue)) last = node;
+      if (last) last.nodeValue = last.nodeValue.replace(/(\S)\s+(\S+\s*)$/, '$1\u00a0$2');
+    });
+  </script>
+  <script>
+    // the form opens the visitor's email app with the message filled in
+    (function () {
+      var form = document.getElementById('contact-form');
+      var status = document.getElementById('cf-status');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('cf-name').value.trim();
+        var email = document.getElementById('cf-email').value.trim();
+        var message = document.getElementById('cf-message').value.trim();
+        var body = (message + '\n\n' + name + '\n' + email).replace(/\r?\n/g, '\r\n');
+        window.location.href = 'mailto:shuzhengshen@outlook.com' +
+          '?subject=' + encodeURIComponent('Website message from ' + name) +
+          '&body=' + encodeURIComponent(body);
+        status.textContent = 'Your email app should open with the message. If it does not, write to shuzhengshen@outlook.com.';
+      });
+    })();
+  </script>
+</body>
+</html>

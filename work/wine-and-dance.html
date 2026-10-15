@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Wine &amp; Dance · Zhengshen Shu</title>
+  <link rel="icon" href="../img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=Poppins:wght@700&amp;display=swap">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="brand" href="../index.html">
+        <img src="../img/mark.png" alt="" width="36" height="36">
+        <span>Zhengshen Shu</span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="../work/index.html" aria-current="true">Work</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <figure class="hero">
+      <img src="../img/wd-hero.jpg" alt="Wine &amp; Dance title over a dimmed photo of the calendar" width="1920" height="1080" fetchpriority="high" decoding="async">
+    </figure>
+
+    <section class="opener wrap" aria-labelledby="title">
+      <div>
+        <p class="num" aria-hidden="true">03</p>
+        <p class="eyebrow"><span class="te-name">Wine &amp; Dance</span></p>
+        <h1 id="title">Calendar Design For Wine Education</h1>
+        <div class="body">
+          <p>This project explores a design question: How can a visual object support wine education without feeling like advertising?</p>
+        </div>
+        <p class="pill">client: Les Clos Elysées</p>
+      </div>
+      <div class="art">
+        <img src="../img/wd-mock.jpg" alt="The Wine &amp; Dance calendar on a desk stand and hanging on a wall" width="1200" height="675" loading="lazy" decoding="async">
+      </div>
+    </section>
+
+    <div class="details">
+      <div class="spine" aria-hidden="true"><img src="../img/mark.png" alt="" width="42" height="42"></div>
+      <div class="details-body">
+        <section class="detail" aria-labelledby="d1">
+          <div class="text">
+            <h2 id="d1">Concept</h2>
+            <p>During my WSET studies, I began to notice that wine merchants do more than sell bottles. They educate customers, host tastings, and introduce wine culture gradually.</p>
+            <p>The result is a conceptual 2026 calendar that pairs wine categories with dance styles, translating flavor profiles into rhythm and movement.</p>
+            <p>The calendar becomes not only a promotional object, but also a cultural tool that invites people to experience wine through visual storytelling.</p>
+          </div>
+          <div class="art">
+            <img src="../img/wd-cover.jpg" alt="Calendar cover, The Rhythm of Wine, beside six month pages pairing wines with dances" width="1200" height="675" loading="lazy" decoding="async">
+          </div>
+        </section>
+        <section class="detail" aria-labelledby="d2">
+          <div class="text">
+            <h2 id="d2">Process</h2>
+            <p>Research on dance and wine set the mood. Each month started as a pencil sketch pairing one wine with one dance, from January to December.</p>
+          </div>
+          <div class="art">
+            <img src="../img/wd-mood.jpg" alt="Mood board of dancers, dance sketches and wine glasses" width="1200" height="776" loading="lazy" decoding="async">
+            <div class="row">
+              <img src="../img/wd-sk1.jpg" alt="Pencil sketches of dancers on grid paper, January to June" width="1200" height="900" loading="lazy" decoding="async" style="--ar:1.3333">
+              <img src="../img/wd-sk2.jpg" alt="Pencil sketches of bottles, glasses and dancers, July to December" width="1200" height="900" loading="lazy" decoding="async" style="--ar:1.3333">
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <nav class="wrap" aria-label="More projects">
+      <div class="pager">
+        <a class="prev" href="hack4change.html"><span class="pager-dir">Previous</span><span class="te-name">02 — hack4change</span></a>
+        <a class="next" href="zsa-moonlander.html"><span class="pager-dir">Next</span><span class="te-name">04 — ZSA Moonlander</span></a>
+      </div>
+    </nav>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot">
+        <div class="sig">
+          <img src="../img/mark.png" alt="" width="56" height="56">
+          <div>
+            <p class="studio">MX Studio</p>
+            <p class="who">Zhengshen Shu, Student RGD Designer</p>
+          </div>
+        </div>
+        <ul class="foot-links">
+          <li><a href="mailto:shuzhengshen@outlook.com">shuzhengshen@outlook.com</a></li>
+          <li><a href="https://linktr.ee/zs_shu">linktr.ee/zs_shu</a></li>
+        </ul>
+        <p class="copy">&copy; 2026 Zhengshen Shu</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // keep the last two words of every paragraph on one line
+    document.querySelectorAll('p').forEach(function (p) {
+      var walk = document.createTreeWalker(p, NodeFilter.SHOW_TEXT), node, last = null;
+      while ((node = walk.nextNode())) if (/\S/.test(node.nodeValue)) last = node;
+      if (last) last.nodeValue = last.nodeValue.replace(/(\S)\s+(\S+\s*)$/, '$1\u00a0$2');
+    });
+  </script>
+</body>
+</html>

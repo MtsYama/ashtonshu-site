@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Zhengshen Shu · Design Portfolio</title>
+  <link rel="icon" href="img/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=Poppins:wght@700&amp;display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="brand" href="index.html">
+        <img src="img/mark.png" alt="" width="36" height="36">
+        <span>Zhengshen Shu</span>
+      </a>
+      <nav class="site-nav" aria-label="Main">
+        <ul>
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="work/index.html">Work</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="intro wrap">
+      <h1 class="display">Zhengshen<br>Shu<span class="vh">,</span> <span class="pill">Design Portfolio 2026</span></h1>
+      <p class="lede">Graphic designer with a background in electrical engineering.</p>
+    </section>
+
+    <section class="wrap" aria-labelledby="featured">
+      <h2 class="label-rule" id="featured">Selected work</h2>
+      <ul class="cards">
+        <li class="card">
+          <a href="work/superlinear-academy.html">
+            <span class="thumb"><img src="img/sl-hero.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async"></span>
+            <span class="te"><span class="te-name">01 — Superlinear Academy</span><span class="te-sub">Visual Identity Redesign</span></span>
+          </a>
+        </li>
+        <li class="card">
+          <a href="work/hack4change.html">
+            <span class="thumb"><img src="img/h4-hero.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async"></span>
+            <span class="te"><span class="te-name">02 — hack4change</span><span class="te-sub">Designathon Team Project</span></span>
+          </a>
+        </li>
+        <li class="card">
+          <a href="work/wine-and-dance.html">
+            <span class="thumb"><img src="img/wd-mock.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async"></span>
+            <span class="te"><span class="te-name">03 — Wine &amp; Dance</span><span class="te-sub">Calendar Illustration Design</span></span>
+          </a>
+        </li>
+        <li class="card">
+          <a href="work/zsa-moonlander.html">
+            <span class="thumb"><img src="img/zs-bill.jpg" alt="" width="927" height="690" loading="lazy" decoding="async"></span>
+            <span class="te"><span class="te-name">04 — ZSA Moonlander</span><span class="te-sub">Brand Identity &amp; Campaign Design</span></span>
+          </a>
+        </li>
+        <li class="card">
+          <a href="work/drink-packaging.html">
+            <span class="thumb"><img src="img/dr-open.jpg" alt="" width="1110" height="1090" loading="lazy" decoding="async" style="object-position:50% 0%"></span>
+            <span class="te"><span class="te-name">05 — Drink Packaging</span><span class="te-sub">Bottle &amp; Carrier Packaging System</span></span>
+          </a>
+        </li>
+        <li class="card">
+          <a href="work/tarot-deck.html">
+            <span class="thumb"><img src="img/ta-open.jpg" alt="" width="1200" height="800" loading="lazy" decoding="async"></span>
+            <span class="te"><span class="te-name">06 — Tarot Deck</span><span class="te-sub">Illustration &amp; Print Design</span></span>
+          </a>
+        </li>
+      </ul>
+      <p class="more"><a class="pill" href="work/index.html">All work</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="foot">
+        <div class="sig">
+          <img src="img/mark.png" alt="" width="56" height="56">
+          <div>
+            <p class="studio">MX Studio</p>
+            <p class="who">Zhengshen Shu, Student RGD Designer</p>
+          </div>
+        </div>
+        <ul class="foot-links">
+          <li><a href="mailto:shuzhengshen@outlook.com">shuzhengshen@outlook.com</a></li>
+          <li><a href="https://linktr.ee/zs_shu">linktr.ee/zs_shu</a></li>
+        </ul>
+        <p class="copy">&copy; 2026 Zhengshen Shu</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // keep the last two words of every paragraph on one line
+    document.querySelectorAll('p').forEach(function (p) {
+      var walk = document.createTreeWalker(p, NodeFilter.SHOW_TEXT), node, last = null;
+      while ((node = walk.nextNode())) if (/\S/.test(node.nodeValue)) last = node;
+      if (last) last.nodeValue = last.nodeValue.replace(/(\S)\s+(\S+\s*)$/, '$1\u00a0$2');
+    });
+  </script>
+</body>
+</html>
