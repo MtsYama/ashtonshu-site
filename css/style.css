@@ -418,3 +418,17 @@ a.pill:hover { background: var(--ink); color: var(--paper); }
 }
 .is-cycle.is-out { opacity: 0; transform: translateY(-.16em); }
 @media (prefers-reduced-motion: reduce) { .is-cycle { transition: none; } }
+
+/* ---------- light / dark ---------- */
+:root[data-theme="dark"] { --ink: #f2f2f2; --ink-2: #d6d6d6; --ink-3: #9b9b9b; --paper: #0d0d0d; --soft: #1a1a1a; color-scheme: dark; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --ink: #f2f2f2; --ink-2: #d6d6d6; --ink-3: #9b9b9b; --paper: #0d0d0d; --soft: #1a1a1a; color-scheme: dark; }
+  :root:not([data-theme="light"]) img[src$="mark.png"] { filter: invert(1); }
+}
+:root[data-theme="dark"] img[src$="mark.png"] { filter: invert(1); }
+.theme-toggle {
+  font: inherit; font-size: inherit; color: inherit; background: none; cursor: pointer;
+  border: 1.5px solid currentColor; border-radius: 999px; padding: .15em .8em; line-height: 1.4;
+}
+.theme-toggle:hover { background: var(--ink); color: var(--paper); }
+.theme-toggle:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }

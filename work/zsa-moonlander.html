@@ -11,6 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=Poppins:wght@700&amp;display=swap">
   <link rel="stylesheet" href="../css/style.css">
+  <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -27,6 +28,7 @@
           <li><a href="../work/index.html" aria-current="true">Work</a></li>
           <li><a href="../about.html">About</a></li>
           <li><a href="../contact.html">Contact</a></li>
+          <li><button class="theme-toggle" type="button" aria-pressed="false">Dark</button></li>
         </ul>
       </nav>
     </div>
@@ -125,6 +127,18 @@
       while ((node = walk.nextNode())) if (/\S/.test(node.nodeValue)) last = node;
       if (last) last.nodeValue = last.nodeValue.replace(/(\S)\s+(\S+\s*)$/, '$1\u00a0$2');
     });
+  </script>
+
+  <script>
+    // light / dark: follows the system until the visitor picks one; the choice is kept in this browser only
+    (function () {
+      var b = document.querySelector('.theme-toggle'), root = document.documentElement;
+      if (!b) return;
+      function current() { var t = root.getAttribute('data-theme'); if (t) return t; return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+      function paint() { var dark = current() === 'dark'; b.textContent = dark ? 'Light' : 'Dark'; b.setAttribute('aria-pressed', String(dark)); b.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode'); }
+      b.addEventListener('click', function () { var next = current() === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', next); try { localStorage.setItem('theme', next); } catch (e) {} paint(); });
+      paint();
+    })();
   </script>
 </body>
 </html>
