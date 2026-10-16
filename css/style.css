@@ -80,24 +80,20 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .22em
 
 /* ---------- header ---------- */
 
-/* always on screen: see-through over the slideshow or a project's hero image,
-   a compact bar of page colour with a hairline once the page scrolls under it (js/site.js) */
+/* always on screen and see-through on every page: white words in difference mode read dark on a light ground
+   and turn light wherever they pass over dark type or a dark image; js/site.js only tightens the padding on scroll */
 .site-header {
   position: fixed; top: 0; right: 0; left: 0; z-index: 20;
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 20px;
   padding: var(--head-top) var(--gutter) 14px;
-  border-bottom: 1px solid transparent;
   font-size: var(--fs-ui);
   line-height: 1.2;
-  color: var(--ink);
-  transition: padding .3s var(--ease), color .4s var(--ease), background-color .3s var(--ease), border-color .3s var(--ease);
+  color: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;   /* clicks reach the page below, except on the links themselves */
+  transition: padding .3s var(--ease);
 }
-.site-header.is-stuck {
-  padding-top: min(var(--head-top), 16px);
-  background: var(--paper);
-  border-bottom-color: color-mix(in srgb, var(--ink) 16%, transparent);
-}
-.site-header:not(.is-stuck) { pointer-events: none; }   /* see-through: clicks reach the image below */
+.site-header.is-stuck { padding-top: min(var(--head-top), 16px); }
 .site-header :is(.wordmark, .site-nav a, .theme-toggle) {
   pointer-events: auto;
   white-space: nowrap;
@@ -135,11 +131,6 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .22em
   .site-header { column-gap: 12px; }
   .site-nav ul { gap: 0 .7em; }
 }
-
-/* over a hero the words take its tone; over a busy image they sit on small white blocks */
-.site-header.is-over[data-tone="dark"] { color: #fff; }
-.site-header.is-over:is([data-tone="light"], [data-tone="mixed"]) { color: #111; }
-.site-header.is-over[data-tone="mixed"] :is(.wordmark, .site-nav a, .theme-toggle) { background: #fff; }
 
 html { scroll-padding-top: calc(var(--head-h) + 16px); }
 

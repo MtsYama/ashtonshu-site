@@ -1,5 +1,5 @@
-// header: stays on screen. Over a hero image it is see-through and takes the image's tone
-// (data-tone, see style.css); once the page scrolls under it, it becomes a compact bar with a hairline.
+// header: stays on screen and see-through; style.css blends it in difference mode so it reads on any ground.
+// Here it only tightens its padding once the page scrolls under it.
 (function () {
   var header = document.querySelector('.site-header');
   if (!header) return;
