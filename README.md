@@ -55,6 +55,7 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 - 换图:把新图放进 `img/`,改 `src`,顺手改 `width`、`height` 和 `alt`。网页用的图长边 2000 像素以内的 JPEG 就够。
 - 项目页顶部的大图:电脑上裁成 2:1,`style` 里的 `--pos` 决定保留图的哪一部分(例如 `50% 0%` 是保留上沿);页头的字压在图上,所以 `<header class="site-header">` 的 `data-tone` 按图来写:`dark`、`light`,图太花时写 `mixed`(字底下垫白块)。不想裁的图给 `figure` 加 `is-fit`,整张放在浅灰底上。
 - 加项目:复制 `work/` 下任意一页改内容;在 `work/index.html` 对应的组(Projects 或 Personal work)里加一张卡片;再改前后两个项目页底部 “More projects” 里的两张卡片(链接、缩略图、名字)。想上首页轮播就照上面加一张 slide,同时把每张的 `aria-label` 里的 “x of 6” 改对。
+- 网站图标(favicon):做好的页面用 `img/favicon-solid.png`(白底黑标);草稿、WIP 和以后任何带 noindex 的页面用 `img/favicon-draft.png`(黑底白标),页面转正时换回 solid。两者都是 64×64,由 `img/mark.png` 生成;页面里显示的 logo 照旧用无底色的 `mark.png`。`img/favicon.png` 留着同样是白底版,只为兜底旧链接。
 - 本地预览:在这个文件夹里运行 `python -m http.server`,浏览器打开 http://localhost:8000/ 。直接双击 `index.html` 也能看。
 - 发布:`git add -A`,`git commit`,`git push`。GitHub Pages 一两分钟后更新。
 
