@@ -18,3 +18,10 @@
   window.addEventListener('resize', measure);
   measure();
 })();
+
+// header links: the four corners that open round them on hover and keyboard focus (style.css, .hb)
+(function () {
+  [].forEach.call(document.querySelectorAll('.site-header :is(.wordmark, .site-nav a, .theme-toggle)'), function (el) {
+    el.insertAdjacentHTML('beforeend', '<i class="hb hb-tl" aria-hidden="true"></i><i class="hb hb-tr" aria-hidden="true"></i><i class="hb hb-bl" aria-hidden="true"></i><i class="hb hb-br" aria-hidden="true"></i>');
+  });
+})();

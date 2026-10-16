@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&amp;family=Poppins:wght@700;800&amp;display=swap">
-  <link rel="stylesheet" href="css/style.css?v=20261016j">
+  <link rel="stylesheet" href="css/style.css?v=20261016k">
   <noscript><style>.is-line .is-out { opacity: 1; transform: none; }</style></noscript>
   <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
   <link rel="stylesheet" href="css/name-motion.css?v=20261016b">
@@ -145,7 +145,7 @@
       if (last) last.nodeValue = last.nodeValue.replace(/(\S)\s+(\S+\s*)$/, '$1\u00a0$2');
     });
   </script>
-  <script src="js/site.js?v=20261016e"></script>
+  <script src="js/site.js?v=20261016f"></script>
   <script src="js/name-motion.js?v=20261016a"></script>
   <script>
     // slideshow: one slide at a time, cross-fading on a timer. Dots, arrow keys and swipes move it;
@@ -346,7 +346,7 @@
       var done = false, events = ['pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll'];
       function textBox(el) {   // the box of the glyphs themselves, the same for both words whatever their line boxes
         var r = document.createRange();
-        r.selectNodeContents(el);
+        r.selectNodeContents(el.firstChild && el.firstChild.nodeType === 3 ? el.firstChild : el);   // the text only, not the hover corners
         return r.getBoundingClientRect();
       }
       function end() {

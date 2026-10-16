@@ -98,9 +98,37 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .22em
   pointer-events: auto;
   white-space: nowrap;
   text-decoration: none;
-  transition: opacity .3s var(--ease), background-color .3s var(--ease);
 }
-.site-header :is(.wordmark, .site-nav a, .theme-toggle):hover { opacity: .3; }
+/* hover and keyboard focus: the word greys out and the four corners of the name motion's frame open out
+   of its centre to sit round it, then close back into the centre; js/site.js adds the <i class="hb"> corners.
+   They draw in #fff, so the header's difference blending carries them over any ground */
+@property --hb { syntax: '<number>'; inherits: true; initial-value: 0; }
+.site-header :is(.wordmark, .site-nav a, .theme-toggle) {
+  --hb: 0;
+  position: relative;
+  transition: color .3s var(--ease), --hb .45s cubic-bezier(.25, .7, .2, 1);
+}
+.site-header :is(.wordmark, .site-nav a, .theme-toggle):focus-visible { --hb: 1; color: #4d4d4d; outline: none; }
+@media (hover: hover) and (pointer: fine) {
+  .site-header :is(.wordmark, .site-nav a, .theme-toggle):hover { --hb: 1; color: #4d4d4d; }
+}
+.hb {
+  --s: .12em;                           /* stroke */
+  --L: calc(var(--hb) * .42em);         /* arm, 0 at the centre */
+  --k: min(var(--s), var(--L));
+  --px: calc(var(--hb) * (50% + .32em));   /* how far out from the centre the corner sits */
+  --py: calc(var(--hb) * (50% + .16em));
+  position: absolute; box-sizing: border-box; width: var(--L); height: var(--L);
+  border: 0 solid #fff; pointer-events: none;
+}
+.hb-tl, .hb-bl { left: calc(50% - var(--px)); border-left-width: var(--k); }
+.hb-tr, .hb-br { right: calc(50% - var(--px)); border-right-width: var(--k); }
+.hb-tl, .hb-tr { top: calc(50% - var(--py)); border-top-width: var(--k); }
+.hb-bl, .hb-br { bottom: calc(50% - var(--py)); border-bottom-width: var(--k); }
+.hb-tl { border-top-left-radius: min(.14em, var(--L)); }
+.hb-tr { border-top-right-radius: min(.14em, var(--L)); }
+.hb-bl { border-bottom-left-radius: min(.14em, var(--L)); }
+.hb-br { border-bottom-right-radius: min(.14em, var(--L)); }
 /* the wordmark is "Ashton" set like the name motion (css/name-motion.css); the link's aria-label keeps the full name */
 .wordmark { font-family: 'Poppins', sans-serif; font-weight: 800; letter-spacing: -.01em; }
 .site-nav ul { display: flex; align-items: center; gap: 0 .9em; }
@@ -487,4 +515,5 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 
 @media (prefers-reduced-motion: reduce) {
   .site-header, .slide.is-active, .is-static, .is-verb, .is-cycle, .show-caption, .thumb img, .card figcaption { transition: none !important; }
+  .site-header :is(.wordmark, .site-nav a, .theme-toggle) { transition: color .3s var(--ease) !important; }   /* the corners appear in place */
 }
