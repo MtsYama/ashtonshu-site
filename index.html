@@ -31,7 +31,7 @@
   <main id="main">
     <section class="show" aria-roledescription="carousel" aria-label="Featured work" data-hero>
       <div class="slides">
-        <div class="slide slide-intro is-active" role="group" aria-roledescription="slide" aria-label="1 of 6" data-tone="ink" data-duration="11500">
+        <div class="slide slide-intro is-active" role="group" aria-roledescription="slide" aria-label="1 of 6" data-tone="ink" data-duration="11500" data-first="3700">
           <h1 class="is-line"><span class="is-static is-out">Ashton is</span> <span class="is-cycle is-out" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, a concept artist, a community manager, and an electrical engineer.</span></h1>
         </div>
         <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 6: Superlinear Academy" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy.html" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
@@ -148,7 +148,7 @@
       var el = show.querySelector('.is-cycle'), line = show.querySelector('.is-static');
       var words = ['a graphic designer.', 'a concept artist.', 'a community manager.', 'an electrical engineer.'];
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var cur = 0, i = 0, playing = !reduce, holds = {}, timer = 0, tick = 0, capTimer = 0, prevTimer = 0, enterTimer = 0;
+      var cur = 0, i = 0, playing = !reduce, holds = {}, timer = 0, tick = 0, capTimer = 0, prevTimer = 0, enterTimer = 0, looped = false;
 
       function fit() {            // reserve the tallest phrase so the slide doesn't jump
         var keep = el.textContent, h = 0;
@@ -159,13 +159,13 @@
       fit(); window.addEventListener('resize', fit);
       if (document.fonts) document.fonts.ready.then(fit);
 
-      function cycle() {          // a new phrase every 2.9 s while the first slide shows
+      function cycle() {          // a new phrase every 2.9 s while the first slide shows; 1.9 s on the short first visit
         clearInterval(tick);
         if (!playing || cur !== 0) return;
         tick = setInterval(function () {
           el.classList.add('is-out');
           setTimeout(function () { i = (i + 1) % words.length; el.textContent = words[i]; el.classList.remove('is-out'); }, 300);
-        }, 2900);
+        }, looped ? 2900 : 1900);
       }
       function enter(delay) {     // the phrase drops in the same way the phrases change
         el.style.transition = 'none';
@@ -198,8 +198,11 @@
       function schedule() {
         clearTimeout(timer);
         if (!playing || held()) return;
-        // work slides are still images, 3 s each; the intro sets its own longer time for the phrases
-        timer = setTimeout(function () { go(cur + 1); }, +slides[cur].getAttribute('data-duration') || 3000);
+        // work slides are still images, 3 s each; the intro is short the first time in so the work shows up quickly,
+        // and on later rounds keeps its own longer time so all four phrases play
+        var d = +slides[cur].getAttribute('data-duration') || 3000;
+        if (cur === 0 && !looped) d = +slides[0].getAttribute('data-first') || d;
+        timer = setTimeout(function () { go(cur + 1); }, d);
       }
       function setPlaying(on) {
         playing = on;
@@ -233,7 +236,7 @@
           prevTimer = setTimeout(function () { from.classList.remove('is-prev'); }, 650);
           slides[n].classList.add('is-active');
           cur = n;
-          if (cur === 0) { i = 0; el.textContent = words[0]; enter(200); }
+          if (cur === 0) { looped = true; i = 0; el.textContent = words[0]; enter(200); }
           paint(); cycle();
         }
         schedule();
@@ -270,7 +273,7 @@
       ready.then(function () {
         setTimeout(function () { line.classList.remove('is-out'); }, reduce ? 0 : 60);
         enter(260);
-        cycle();
+        cycle(); schedule();
       });
     })();
   </script>
