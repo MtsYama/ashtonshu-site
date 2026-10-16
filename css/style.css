@@ -112,25 +112,31 @@ body::before {
 }
 /* hover and keyboard focus: the word greys out and the four corners of the name motion's frame open out
    of its centre to sit round it, then close back into the centre; js/site.js adds the <i class="hb"> corners.
-   They draw in #fff, so the header's difference blending carries them over any ground */
+   They draw in #fff, so the header's difference blending carries them over any ground.
+   The current page's link keeps the corners in place, shorter and fainter (--ha arm, --ho opacity),
+   and they open fully on hover like the others */
 @property --hb { syntax: '<number>'; inherits: true; initial-value: 0; }
+@property --ha { syntax: '<number>'; inherits: true; initial-value: 1; }
+@property --ho { syntax: '<number>'; inherits: true; initial-value: 1; }
 .site-header :is(.wordmark, .site-nav a, .theme-toggle) {
-  --hb: 0;
+  --hb: 0; --ha: 1; --ho: 1;
   position: relative;
-  transition: color .3s var(--ease), --hb .45s cubic-bezier(.25, .7, .2, 1);
+  transition: color .3s var(--ease), --hb .45s cubic-bezier(.25, .7, .2, 1), --ha .45s cubic-bezier(.25, .7, .2, 1), --ho .3s var(--ease);
 }
-.site-header :is(.wordmark, .site-nav a, .theme-toggle):focus-visible { --hb: 1; color: #4d4d4d; outline: none; }
+.site-nav a[aria-current] { --hb: 1; --ha: .55; --ho: .6; }
+.site-header :is(.wordmark, .site-nav a, .theme-toggle):focus-visible { --hb: 1; --ha: 1; --ho: 1; color: #4d4d4d; outline: none; }
 @media (hover: hover) and (pointer: fine) {
-  .site-header :is(.wordmark, .site-nav a, .theme-toggle):hover { --hb: 1; color: #4d4d4d; }
+  .site-header :is(.wordmark, .site-nav a, .theme-toggle):hover { --hb: 1; --ha: 1; --ho: 1; color: #4d4d4d; }
 }
 .hb {
   --s: .12em;                           /* stroke */
-  --L: calc(var(--hb) * .42em);         /* arm, 0 at the centre */
+  --L: calc(var(--hb) * var(--ha) * .42em);   /* arm, 0 at the centre */
   --k: min(var(--s), var(--L));
   --px: calc(var(--hb) * (50% + .32em));   /* how far out from the centre the corner sits */
   --py: calc(var(--hb) * (50% + .16em));
   position: absolute; box-sizing: border-box; width: var(--L); height: var(--L);
   border: 0 solid #fff; pointer-events: none;
+  opacity: var(--ho);
 }
 .hb-tl, .hb-bl { left: calc(50% - var(--px)); border-left-width: var(--k); }
 .hb-tr, .hb-br { right: calc(50% - var(--px)); border-right-width: var(--k); }
@@ -143,7 +149,6 @@ body::before {
 /* the wordmark is "Ashton" set like the name motion (css/name-motion.css); the link's aria-label keeps the full name */
 .wordmark { font-family: 'Poppins', sans-serif; font-weight: 800; letter-spacing: -.01em; }
 .site-nav ul { display: flex; align-items: center; gap: 0 .9em; }
-.site-nav a[aria-current] { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: .3em; }
 
 /* light / dark switch: moon or sun with its word; on phones the icon alone */
 .theme-toggle {

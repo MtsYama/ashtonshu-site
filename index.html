@@ -9,10 +9,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&amp;family=Poppins:wght@700;800&amp;display=swap">
-  <link rel="stylesheet" href="css/style.css?v=20261016l">
+  <link rel="stylesheet" href="css/style.css?v=20261016m">
   <noscript><style>.is-line .is-out { opacity: 1; transform: none; }</style></noscript>
-  <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
-  <link rel="stylesheet" href="css/name-motion.css?v=20261016b">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff">
+  <style>html{background:#fff}html[data-theme="dark"]{background:#0d0d0d}@media (prefers-color-scheme:dark){html:not([data-theme="light"]){background:#0d0d0d}}</style>
+  <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}
+  // the page colour, color-scheme and theme-color are right from the first frame, and follow later theme changes
+  (function(){var r=document.documentElement,q=matchMedia('(prefers-color-scheme: dark)'),m=document.querySelector('meta[name="theme-color"]');function s(){var d=(r.getAttribute('data-theme')||(q.matches?'dark':'light'))==='dark';r.style.colorScheme=d?'dark':'light';if(m)m.content=d?'#0d0d0d':'#ffffff'}s();new MutationObserver(s).observe(r,{attributes:true,attributeFilter:['data-theme']});if(q.addEventListener)q.addEventListener('change',s)})()</script>
+  <link rel="stylesheet" href="css/name-motion.css?v=20261016c">
   <script>try{if(!sessionStorage.getItem('nm-cover')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){sessionStorage.setItem('nm-cover','1');document.documentElement.classList.add('nm-cover-on')}}catch(e){}</script>
 </head>
 <body>

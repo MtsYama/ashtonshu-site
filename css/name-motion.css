@@ -157,7 +157,9 @@
    .nm-cover-on to <html> only when it should play, so without JS, on later visits and with reduced
    motion the cover never shows. It lets taps and clicks through; any click, key or scroll removes it. */
 .nm-cover { display: none; }
-.nm-cover-on .nm-cover { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; background: var(--ink); color: var(--paper); clip-path: inset(0 0 0 0); pointer-events: none; }
+/* the cover is the colour of the hero's first slide (--soft), not the opposite of the page: while the
+   fonts come in it reads as the page loading, never as a dark (or, in dark mode, light) flash */
+.nm-cover-on .nm-cover { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; background: var(--soft); clip-path: inset(0 0 0 0); pointer-events: none; }
 .nm-cover .nm { font-size: clamp(40px, 6.4vw, 100px); color: #fff; mix-blend-mode: difference; }   /* drawn like the header, so "Ashton" can fly into it */
 .nm-cover .nm:not(.is-once) { visibility: hidden; }   /* nothing shows before the fonts are in */
 .nm-cover.is-lift { clip-path: inset(0 0 100% 0); transition: clip-path .7s cubic-bezier(.7, 0, .2, 1); }
