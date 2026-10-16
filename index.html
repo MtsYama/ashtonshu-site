@@ -32,7 +32,7 @@
     <section class="show" aria-roledescription="carousel" aria-label="Featured work" data-hero>
       <div class="slides">
         <div class="slide slide-intro is-active" role="group" aria-roledescription="slide" aria-label="1 of 5" data-tone="ink">
-          <h1 class="is-line"><span class="is-static is-out">Ashton is</span> <span class="is-cycle is-out" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, an illustrator, a photographer, a concept artist, a digital painter, a character designer, a community manager, an AI evangelist, and an electrical engineer.</span></h1>
+          <h1 class="is-line"><span class="is-static is-out">Ashton <span class="is-verb" aria-hidden="true">is</span><span class="vh">is</span></span> <span class="is-cycle is-out" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, an illustrator, a photographer, a concept artist, a digital painter, a character designer, a community manager and an AI evangelist, and was an electrical engineer.</span></h1>
         </div>
         <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 5: Superlinear Academy" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy.html" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
           <img src="img/sl-hero.jpg" alt="Superlinear Academy website with the redesigned logo over the article library" width="1920" height="1080" decoding="async">
@@ -142,7 +142,8 @@
       var slides = [].slice.call(stage.querySelectorAll('.slide'));
       var header = document.querySelector('.site-header');
       var capBox = show.querySelector('.show-caption'), cap = capBox.querySelector('a');
-      var el = show.querySelector('.is-cycle'), line = show.querySelector('.is-static');
+      var el = show.querySelector('.is-cycle'), line = show.querySelector('.is-static'), verb = show.querySelector('.is-verb');
+      var PAST = 'an electrical engineer.';   // the role from before design reads "Ashton was ..."
       // each role, then what it branches into: a new role rises in like the next line of a list, a branch slides in from the side
       var roles = [
         ['a graphic designer.', 'an illustrator.', 'a photographer.'],
@@ -176,18 +177,23 @@
           move(list[i]);
         }, STEP);
       }
-      function move(s) {          // out one way and in from the other: up for a new role, sideways for a branch
-        var out = s.dir === 'h' ? 'is-out-left' : 'is-out-up', from = s.dir === 'h' ? 'is-from-right' : 'is-from-below';
-        el.classList.add(out);
+      function flip(node, out, from, text) {   // out one way, swap the text, in from the other side
+        node.classList.add(out);
         setTimeout(function () {
-          el.style.transition = 'none';
-          el.classList.remove(out);
-          el.classList.add(from);
-          el.textContent = s.text;
-          void el.offsetWidth;
-          el.style.transition = '';
-          el.classList.remove(from);
+          node.style.transition = 'none';
+          node.classList.remove(out);
+          node.classList.add(from);
+          node.textContent = text;
+          void node.offsetWidth;
+          node.style.transition = '';
+          node.classList.remove(from);
         }, 300);
+      }
+      function move(s) {          // up for a new role, sideways for a branch; "is" turns into "was" for the role before design
+        if (s.dir === 'h') flip(el, 'is-out-left', 'is-from-right', s.text);
+        else flip(el, 'is-out-up', 'is-from-below', s.text);
+        var v = s.text === PAST ? 'was' : 'is';
+        if (verb.textContent !== v) flip(verb, 'is-out-up', 'is-from-below', v);
       }
       function enter(delay) {     // the phrase rises into place, the way a new role comes in
         el.style.transition = 'none';
@@ -257,7 +263,7 @@
           prevTimer = setTimeout(function () { from.classList.remove('is-prev'); }, 650);
           slides[n].classList.add('is-active');
           cur = n;
-          if (cur === 0) { looped = true; i = 0; el.textContent = seq()[0].text; enter(200); }
+          if (cur === 0) { looped = true; i = 0; el.textContent = seq()[0].text; verb.textContent = 'is'; enter(200); }
           paint(); cycle();
         }
         schedule();

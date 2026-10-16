@@ -253,8 +253,9 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 }
 .is-static.is-out, .is-cycle.is-out { opacity: 0; transform: translateY(-.16em); }   /* both start hidden; "Ashton is" drops in on arrival */
 /* a new role leaves upward and the next rises from below, like a list; a branch of the same role slides in from the right */
-.is-cycle.is-out-up { opacity: 0; transform: translateY(-.42em); filter: blur(6px); }
-.is-cycle.is-from-below { opacity: 0; transform: translateY(.42em); filter: blur(6px); }
+.is-verb { display: inline-block; transition: opacity .3s var(--ease), transform .3s var(--ease), filter .3s var(--ease); }
+.is-cycle.is-out-up, .is-verb.is-out-up { opacity: 0; transform: translateY(-.42em); filter: blur(6px); }
+.is-cycle.is-from-below, .is-verb.is-from-below { opacity: 0; transform: translateY(.42em); filter: blur(6px); }
 .is-cycle.is-out-left { opacity: 0; transform: translateX(-.7em); filter: blur(6px); }
 .is-cycle.is-from-right { opacity: 0; transform: translateX(.7em); filter: blur(6px); }
 
@@ -469,5 +470,5 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-header, .slide.is-active, .is-static, .is-cycle, .show-caption, .thumb img, .card figcaption { transition: none !important; }
+  .site-header, .slide.is-active, .is-static, .is-verb, .is-cycle, .show-caption, .thumb img, .card figcaption { transition: none !important; }
 }
