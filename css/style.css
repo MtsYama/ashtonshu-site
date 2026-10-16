@@ -383,6 +383,8 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .a-bio { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: clamp(56px, 7.6vw, 110px); }
 .portrait { width: clamp(120px, 12.5vw, 180px); aspect-ratio: 1; object-fit: cover; }
 .a-bio-text p + p { margin-top: 1em; }
+/* a quotation on its own line, set like a Markdown block quote: a rule on the left, no quotation marks */
+.a-bio-text blockquote { margin: 1em 0; padding-left: 1em; border-left: 2px solid currentColor; break-inside: avoid; }
 
 .resume { margin-top: clamp(80px, 9.2vw, 132px); }
 .resume > h2 { margin-bottom: clamp(36px, 4.4vw, 64px); font-size: var(--fs-big); line-height: 1.3; text-align: center; }
