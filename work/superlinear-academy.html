@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&amp;family=Poppins:wght@700;800&amp;display=swap">
   <link rel="stylesheet" href="../css/style.css?v=20261016x">
+  <style>.p-motion video { display: block; width: 100%; height: auto; } .p-motion .row > video { flex: 1 1 0%; width: 0; min-width: 0; } @media (max-width: 639px) { .p-motion .row > video { flex: none; width: 100%; } }</style>
   <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
@@ -148,6 +149,20 @@
       </div>
     </section>
 
+    <section class="p-sec" aria-labelledby="d-motion">
+      <div class="p-art p-motion">
+        <div class="row">
+          <video muted loop playsinline preload="none" poster="../img/sl-motion-scan.jpg" width="720" height="720" aria-label="Scan: a band of light runs through the lines of the symbol, white on black"><source src="../img/sl-motion-scan.mp4" type="video/mp4"></video>
+          <video muted loop playsinline preload="none" poster="../img/sl-motion-breathe.jpg" width="720" height="720" aria-label="Breathe: the lines of the symbol fade down and back, white on black"><source src="../img/sl-motion-breathe.mp4" type="video/mp4"></video>
+          <video muted loop playsinline preload="none" poster="../img/sl-motion-cone-rotate.jpg" width="720" height="720" aria-label="Cone Rotate: the tapered lines of the symbol turn like a cone, white on black"><source src="../img/sl-motion-cone-rotate.mp4" type="video/mp4"></video>
+        </div>
+      </div>
+      <div class="p-cap">
+        <h2 id="d-motion">Logo Motion</h2>
+        <p>Three loops of the symbol: Scan, Breathe and Cone Rotate.</p>
+      </div>
+    </section>
+
     <section class="p-sec" aria-labelledby="d3">
       <div class="p-art">
         <div class="row">
@@ -228,6 +243,21 @@
     });
   </script>
   <script src="../js/site.js?v=20261016x"></script>
+
+  <script>
+    // logo motion: each loop plays only while it is on screen, and never under reduced motion (the poster frame stays)
+    (function () {
+      var vs = document.querySelectorAll('.p-motion video');
+      if (!vs.length || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { var p = e.target.play(); if (p && p.catch) p.catch(function () {}); }
+          else e.target.pause();
+        });
+      }, { threshold: 0.25 });
+      Array.prototype.forEach.call(vs, function (v) { io.observe(v); });
+    })();
+  </script>
 
   <script>
     // light / dark: follows the system until the visitor picks one; the choice is kept in this browser only
