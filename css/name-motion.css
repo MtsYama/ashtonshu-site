@@ -1,0 +1,167 @@
+/* Name mark: "Ashton" on its own. A corner frame opens out from the centre of the word to sit round it,
+   grows to the full name while Zhengshen and Shu unroll beneath it like a scroll (one shared edge, one
+   speed, one easing), holds, rolls back up, shrinks to "Ashton" again and closes into the word's centre.
+   Motion after the Another Side of Japan logo.
+   js/name-motion.js measures the words and starts it: .is-live loops, .is-once plays once.
+   Without JS, or with reduced motion, the full name stands still in its frame; .is-rest shows "Ashton" alone.
+   Size it with font-size on .nm; it draws in currentColor. .nm-center keeps "Ashton" centred in the
+   full name's box, for centred layouts.
+   Poppins 800 metrics are baked into --asc and the .35em terms; retune them if the typeface changes. */
+@property --roll { syntax: '<number>'; inherits: true; initial-value: 0; }   /* the scroll: 0 rolled up, 1 all the way out */
+@property --f { syntax: '<number>'; inherits: true; initial-value: 0; }      /* the frame round "Ashton": 0 a point at its centre, 1 in place */
+
+.nm {
+  --T: 6.6s;                  /* one loop */
+  --lh: .92em;                /* line pitch */
+  --s: .14em;                 /* corner stroke */
+  --arm: .42em;               /* corner arm */
+  --r: .2em;                  /* outer corner radius */
+  --pad: .34em;               /* space between the frame and the letters */
+  --asc: .75em;               /* tallest letter above the baseline (h, t; capitals are .70) */
+  --w1: 3.75em; --w2: 5.84em; --w3: 1.99em;   /* word widths; name-motion.js puts in the measured ones */
+  --wmax: max(var(--w1), var(--w2), var(--w3));
+  --dx: calc(var(--wmax) - var(--w1));        /* how much wider the full name is than "Ashton" */
+  --dy: calc(2 * var(--lh));                  /* and how much taller */
+  /* the first baseline sits lh/2 + .35em below the top of its line (Poppins: ascent 1.05, descent .35) */
+  --frame-t: calc(var(--lh) / 2 + .35em - var(--asc) - var(--pad) - var(--s));   /* outer edge of the top corners */
+  --frame-b: calc(var(--lh) / 2 + .35em + var(--pad) + var(--s));                 /* outer edge of the bottom corners round "Ashton" */
+  --roll: 1; --f: 1;
+  display: inline-block;
+  vertical-align: top;        /* its last line, not the first, would set an inline baseline */
+  margin: 0;
+  padding: calc(-1 * var(--frame-t)) calc(var(--pad) + var(--s)) calc(.35em + var(--pad) + var(--s) - var(--lh) / 2);
+  font-family: 'Poppins', sans-serif; font-weight: 800; line-height: var(--lh);
+  letter-spacing: -.01em; white-space: nowrap; text-align: left;
+}
+.nm-caps { --asc: .70em; --w1: 4.27em; --w2: 6.10em; --w3: 2.08em; text-transform: uppercase; }
+.nm-box { position: relative; display: block; width: var(--wmax); }
+.nm-l { display: block; }
+/* Zhengshen and Shu show up to the scroll's edge; the clip reaches well above and below the line,
+   so the tail of the g is never cut */
+.nm-x { clip-path: inset(-.5em calc(100% - var(--roll) * var(--wmax)) -.5em -.5em); }
+
+/* each corner travels from the centre of "Ashton" (--f 0, no arm) to its place round the word (--f 1),
+   then the transform carries it out to the full name and back */
+.nm-c {
+  --L: calc(var(--f) * var(--arm));                    /* arm length */
+  --k: min(var(--s), var(--L));                        /* stroke, never longer than the arm */
+  --cx: calc(var(--w1) / 2);
+  --cy: calc((var(--frame-t) + var(--frame-b)) / 2);
+  --x: calc(var(--cx) + var(--f) * (var(--x0) - var(--cx)));   /* the corner's outer point */
+  --y: calc(var(--cy) + var(--f) * (var(--y0) - var(--cy)));
+  position: absolute; box-sizing: border-box; width: var(--L); height: var(--L); border: 0 solid;
+  transform: translate(calc(var(--mx, 0) * var(--dx)), calc(var(--my, 0) * var(--dy)));   /* still: round the full name */
+}
+.nm-tl, .nm-bl { --x0: calc(-1 * (var(--pad) + var(--s))); left: var(--x); }
+.nm-tr, .nm-br { --x0: calc(var(--w1) + var(--pad) + var(--s)); left: calc(var(--x) - var(--L)); --mx: 1; }
+.nm-tl, .nm-tr { --y0: var(--frame-t); top: var(--y); border-top-width: var(--k); }
+.nm-bl, .nm-br { --y0: var(--frame-b); top: calc(var(--y) - var(--L)); border-bottom-width: var(--k); --my: 1; }
+.nm-tl, .nm-bl { border-left-width: var(--k); }
+.nm-tr, .nm-br { border-right-width: var(--k); }
+.nm-tl { border-top-left-radius: min(var(--r), var(--L)); }
+.nm-tr { border-top-right-radius: min(var(--r), var(--L)); }
+.nm-bl { border-bottom-left-radius: min(var(--r), var(--L)); }
+.nm-br { border-bottom-right-radius: min(var(--r), var(--L)); }
+
+.nm.is-rest { --roll: 0; --f: 0; }
+.nm.is-rest .nm-c { transform: none; }
+.nm-center.is-rest .nm-box { transform: translate(calc(var(--dx) / 2), calc(var(--dy) / 2)); }
+
+/* the loop (6.6 s): 0-.6 s "Ashton" alone; .6-1.05 s the frame opens out of the word's centre; beat;
+   1.35-1.85 s it grows to the full name while the scroll unrolls (to 2.05 s); hold;
+   4.65-5.15 s the scroll rolls back up and 5.11-5.51 s the frame snaps back round "Ashton"; beat;
+   5.8-6.25 s it closes into the centre; "Ashton" alone */
+.nm.is-live { animation: nm-roll var(--T) infinite both, nm-f var(--T) infinite both; }
+.nm.is-live .nm-c { animation: nm-frame var(--T) infinite both; }
+.nm-center.is-live .nm-box { animation: nm-shift var(--T) infinite both; }
+
+@keyframes nm-roll {
+  0%       { --roll: 0; }
+  20.4545% { --roll: 0; animation-timing-function: cubic-bezier(.3, 0, .2, 1); }
+  31.0606% { --roll: 1; }
+  70.4545% { --roll: 1; animation-timing-function: cubic-bezier(.5, 0, .3, 1); }
+  78.0303% { --roll: 0; }
+  100%     { --roll: 0; }
+}
+@keyframes nm-f {
+  0%       { --f: 0; }
+  9.0909%  { --f: 0; animation-timing-function: cubic-bezier(.25, .7, .2, 1); }
+  15.9091% { --f: 1; }
+  87.8788% { --f: 1; animation-timing-function: cubic-bezier(.25, .7, .2, 1); }
+  94.6970% { --f: 0; }
+  100%     { --f: 0; }
+}
+@keyframes nm-frame {
+  0%       { transform: none; }
+  20.4545% { transform: none; animation-timing-function: cubic-bezier(.25, .7, .2, 1); }
+  28.0303% { transform: translate(calc(var(--mx, 0) * var(--dx)), calc(var(--my, 0) * var(--dy))); }
+  77.4242% { transform: translate(calc(var(--mx, 0) * var(--dx)), calc(var(--my, 0) * var(--dy))); animation-timing-function: cubic-bezier(.16, 1, .3, 1); }
+  83.4848% { transform: none; }
+  100%     { transform: none; }
+}
+@keyframes nm-shift {         /* .nm-center: "Ashton" sits mid-box while the frame is round it alone */
+  0%       { transform: translate(calc(var(--dx) / 2), calc(var(--dy) / 2)); }
+  20.4545% { transform: translate(calc(var(--dx) / 2), calc(var(--dy) / 2)); animation-timing-function: cubic-bezier(.25, .7, .2, 1); }
+  28.0303% { transform: none; }
+  77.4242% { transform: none; animation-timing-function: cubic-bezier(.16, 1, .3, 1); }
+  83.4848% { transform: translate(calc(var(--dx) / 2), calc(var(--dy) / 2)); }
+  100%     { transform: translate(calc(var(--dx) / 2), calc(var(--dy) / 2)); }
+}
+
+/* once (4.8 s): "Ashton" wipes in, the frame opens out of it, grows with the scroll, holds,
+   comes back round "Ashton" and closes into it; "Ashton" stays */
+.nm.is-once { animation: nm-once-roll 4.8s both, nm-once-f 4.8s both; }
+.nm.is-once .nm-c { animation: nm-once-frame 4.8s both; }
+.nm-center.is-once .nm-box { animation: nm-once-shift 4.8s both; }
+.nm.is-once .nm-l:first-child > span { display: inline-block; animation: nm-in-word 4.8s both; }
+
+@keyframes nm-in-word {
+  0%      { clip-path: inset(-.5em 100% -.5em -.5em); animation-timing-function: cubic-bezier(.3, 0, .2, 1); }
+  10.417% { clip-path: inset(-.5em -.5em -.5em -.5em); }
+  100%    { clip-path: inset(-.5em -.5em -.5em -.5em); }
+}
+@keyframes nm-once-roll {
+  0%      { --roll: 0; }
+  26.042% { --roll: 0; animation-timing-function: cubic-bezier(.3, 0, .2, 1); }
+  40.625% { --roll: 1; }
+  62.5%   { --roll: 1; animation-timing-function: cubic-bezier(.5, 0, .3, 1); }
+  72.917% { --roll: 0; }
+  100%    { --roll: 0; }
+}
+@keyframes nm-once-f {
+  0%      { --f: 0; }
+  10.417% { --f: 0; animation-timing-function: cubic-bezier(.25, .7, .2, 1); }
+  19.792% { --f: 1; }
+  86.458% { --f: 1; animation-timing-function: cubic-bezier(.25, .7, .2, 1); }
+  95.833% { --f: 0; }
+  100%    { --f: 0; }
+}
+@keyframes nm-once-frame {
+  0%      { transform: none; }
+  26.042% { transform: none; animation-timing-function: cubic-bezier(.25, .7, .2, 1); }
+  36.458% { transform: translate(calc(var(--mx, 0) * var(--dx)), calc(var(--my, 0) * var(--dy))); }
+  72.083% { transform: translate(calc(var(--mx, 0) * var(--dx)), calc(var(--my, 0) * var(--dy))); animation-timing-function: cubic-bezier(.16, 1, .3, 1); }
+  80.417% { transform: none; }
+  100%    { transform: none; }
+}
+@keyframes nm-once-shift {
+  0%      { transform: translate(calc(var(--dx) / 2), calc(var(--dy) / 2)); }
+  26.042% { transform: translate(calc(var(--dx) / 2), calc(var(--dy) / 2)); animation-timing-function: cubic-bezier(.25, .7, .2, 1); }
+  36.458% { transform: none; }
+  72.083% { transform: none; animation-timing-function: cubic-bezier(.16, 1, .3, 1); }
+  80.417% { transform: translate(calc(var(--dx) / 2), calc(var(--dy) / 2)); }
+  100%    { transform: translate(calc(var(--dx) / 2), calc(var(--dy) / 2)); }
+}
+
+/* Home: the cover plays the name once per browser session (index.html). A script in <head> adds
+   .nm-cover-on to <html> only when it should play, so without JS, on later visits and with reduced
+   motion the cover never shows. It lets taps and clicks through; any click, key or scroll removes it. */
+.nm-cover { display: none; }
+.nm-cover-on .nm-cover { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; background: var(--ink); color: var(--paper); clip-path: inset(0 0 0 0); pointer-events: none; }
+.nm-cover .nm { font-size: clamp(40px, 6.4vw, 100px); }
+.nm-cover .nm:not(.is-once) { visibility: hidden; }   /* nothing shows before the fonts are in */
+.nm-cover.is-lift { clip-path: inset(0 0 100% 0); transition: clip-path .7s cubic-bezier(.7, 0, .2, 1); }
+
+/* About: the looping name stands in for the "Ashton Z. Shu" heading; the h1 keeps that text for screen readers */
+.a-name { line-height: 0; }
+.a-name .nm { font-size: clamp(36px, 5.2vw, 76px); }

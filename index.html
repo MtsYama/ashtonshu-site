@@ -12,9 +12,21 @@
   <link rel="stylesheet" href="css/style.css?v=20261016i">
   <noscript><style>.is-line .is-out { opacity: 1; transform: none; }</style></noscript>
   <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+  <link rel="stylesheet" href="css/name-motion.css?v=20261016a">
+  <script>try{if(!sessionStorage.getItem('nm-cover')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){sessionStorage.setItem('nm-cover','1');document.documentElement.classList.add('nm-cover-on')}}catch(e){}</script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
+  <div class="nm-cover" aria-hidden="true">
+    <div class="nm nm-center" data-nm="manual">
+      <span class="nm-box">
+        <i class="nm-c nm-tl"></i><i class="nm-c nm-tr"></i><i class="nm-c nm-bl"></i><i class="nm-c nm-br"></i>
+        <span class="nm-l"><span>Ashton</span></span>
+        <span class="nm-l nm-x"><span>Zhengshen</span></span>
+        <span class="nm-l nm-x"><span>Shu</span></span>
+      </span>
+    </div>
+  </div>
 
   <header class="site-header is-over" data-tone="ink">
     <a class="wordmark" href="index.html">Ashton Z. Shu</a>
@@ -134,6 +146,7 @@
     });
   </script>
   <script src="js/site.js?v=20261016e"></script>
+  <script src="js/name-motion.js?v=20261016a"></script>
   <script>
     // slideshow: one slide at a time, cross-fading on a timer. Dots, arrow keys and swipes move it;
     // it waits while the caption or dots are hovered or focused, and stays put with reduced motion.
@@ -298,14 +311,51 @@
       });
 
       paint();
-      setPlaying(playing);
-      // on arrival "Ashton is" and the first phrase drop in, so the page reads as moving from the first second
-      var ready = document.fonts ? Promise.race([document.fonts.ready, new Promise(function (r) { setTimeout(r, 600); })]) : Promise.resolve();
-      ready.then(function () {
-        setTimeout(function () { line.classList.remove('is-out'); }, reduce ? 0 : 60);
-        enter(260);
-        cycle(); schedule();
-      });
+      // the show starts once the name cover is gone, or at once when there is no cover
+      var started = false;
+      window.startShow = function () {
+        if (started) return;
+        started = true;
+        setPlaying(playing);
+        // on arrival "Ashton is" and the first phrase drop in, so the page reads as moving from the first second
+        var ready = document.fonts ? Promise.race([document.fonts.ready, new Promise(function (r) { setTimeout(r, 600); })]) : Promise.resolve();
+        ready.then(function () {
+          setTimeout(function () { line.classList.remove('is-out'); }, reduce ? 0 : 60);
+          enter(260);
+          cycle(); schedule();
+        });
+      };
+      if (!document.documentElement.classList.contains('nm-cover-on')) window.startShow();
+    })();
+  </script>
+
+  <script>
+    // name cover (css/name-motion.css): plays the name once, then lifts as "Ashton is ..." starts underneath.
+    // Any click, tap, key or scroll takes it away at once; the click or key still reaches the page.
+    (function () {
+      var root = document.documentElement, cover = document.querySelector('.nm-cover');
+      function start() { if (window.startShow) window.startShow(); }
+      if (!cover || !root.classList.contains('nm-cover-on') || !window.nameMotion) {
+        root.classList.remove('nm-cover-on');
+        if (cover) cover.remove();
+        start();
+        return;
+      }
+      var done = false, events = ['pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll'];
+      function close(lift) {
+        if (done) return;
+        done = true;
+        events.forEach(function (t) { window.removeEventListener(t, skip, true); });
+        function gone() { cover.remove(); root.classList.remove('nm-cover-on'); }
+        if (lift) { cover.classList.add('is-lift'); setTimeout(start, 250); setTimeout(gone, 800); }
+        else { gone(); start(); }
+      }
+      function skip() { close(false); }
+      events.forEach(function (t) { window.addEventListener(t, skip, { capture: true, passive: true }); });
+      var nm = cover.querySelector('.nm');
+      nm.addEventListener('nm:done', function () { close(true); }, { once: true });
+      nameMotion.play(nm, 'once');
+      setTimeout(skip, 8000);   // in case the name never gets going
     })();
   </script>
 
