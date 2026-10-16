@@ -4,7 +4,7 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 
 线上地址:https://ashton.is
 
-版式参照 Daikoku Design Institute 的网站(https://daikoku.ndc.co.jp/):首页一屏大图轮播,页头只有左边的名字和右边几个字的导航,作品归档是一格格的图,鼠标移上去才显示名字,项目页是大图加居中的一栏文字。只用 Inter 一种字体,全站常规字重,白底或浅灰底,深色只出现在作品图本身。
+版式参照 Daikoku Design Institute 的网站(https://daikoku.ndc.co.jp/):首页一屏大图轮播,页头只有左边的名字和右边几个字的导航,作品归档是一格格的图,鼠标移上去才显示名字,项目页是大图加居中的一栏文字。正文和导航只用 Inter 常规字重;首页第一张那句话沿用原来首页的字:“Ashton is” 用 Poppins 800,后面轮换的说法用 Inter 300,靠左对齐页边。白底或浅灰底,深色只出现在作品图本身。
 
 ## 页面
 

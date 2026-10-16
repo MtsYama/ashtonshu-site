@@ -1,7 +1,7 @@
 /* Ashton Z. Shu, portfolio site
    Layout after the Daikoku Design Institute site: a full-bleed slideshow on the home page,
    a quiet header, image grids that show names on hover, one centered text column.
-   Inter only, regular weight. */
+   Inter at regular weight throughout; Poppins 800 only for "Ashton is" on the first slide. */
 
 :root {
   --ink: #111;
@@ -222,18 +222,33 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
    enlarged by --pz as far as its own margins allow */
 @media (max-aspect-ratio: 155/100) { .slide.is-fit img { object-fit: contain; transform: scale(var(--pz, 1)); } }
 
-/* the first slide: "Ashton is ..." (index.html script); it stays readable to screen readers when hidden */
+/* the first slide: "Ashton is ..." (index.html script), set as on the earlier home page:
+   Poppins 800 over a light Inter phrase, on the page gutter, vertically centred.
+   It stays readable to screen readers when hidden. */
 .slide-intro {
   display: grid;
-  place-items: center;
+  align-items: center;
+  justify-items: start;
   padding: 0 var(--gutter);
   visibility: visible;
   background: var(--soft);
-  text-align: center;
 }
-.is-line { font-size: clamp(28px, 2.1vw + 20px, 50px); line-height: 1.16; letter-spacing: -.015em; }
-.is-static, .is-cycle { display: block; }
-.is-cycle { transition: opacity .3s ease, transform .3s ease; }
+.is-line {
+  font-family: 'Poppins', 'Inter', sans-serif;
+  font-size: clamp(44px, 8.2vw, 128px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -.01em;
+  color: var(--ink);
+}
+.is-static { display: block; font-weight: 800; }
+.is-cycle {
+  display: block;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  letter-spacing: -.02em;
+  transition: opacity .3s ease, transform .3s ease;
+}
 .is-cycle.is-out { opacity: 0; transform: translateY(-.16em); }
 
 .show-caption {
