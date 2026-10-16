@@ -460,6 +460,25 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .hint, .status { margin-top: 16px; color: var(--muted); font-size: 15px; }
 .status:empty { display: none; }
 
+/* on a computer screen: addresses and links on the left, the form on the right, all in one screen */
+@media (min-width: 992px) {
+  .c-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+    gap: clamp(56px, 6vw, 110px);
+    align-items: start;
+    width: min(100% - 2 * var(--gutter), 1180px);
+    margin: clamp(36px, 4vw, 60px) auto 0;
+  }
+  .c-links { margin-top: 0; text-align: left; }
+  .contact-form { width: auto; margin: 0; }
+  .contact-form h2 { text-align: left; }
+  .contact-form h2 + label { margin-top: 12px; }
+  .contact-form label { margin: 18px 0 6px; }
+  .contact-form textarea { min-height: 0; height: clamp(110px, calc(100vh - 640px), 220px); }   /* shorter on short laptop screens so Send stays in view */
+  .send { margin-top: 24px; }
+}
+
 /* ---------- smaller screens ---------- */
 
 @media (max-width: 639px) {
