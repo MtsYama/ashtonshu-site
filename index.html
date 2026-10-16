@@ -10,9 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&amp;family=Poppins:wght@700;800&amp;display=swap">
   <link rel="stylesheet" href="css/style.css?v=20261016e">
-  <noscript><style>.is-line .is-out { opacity: 1; transform: none; }</style></noscript>
-  <style>.thumb video { display: block; width: 100%; height: 100%; object-fit: cover; }</style>
-  <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+  <noscript><style>.is-line .is-out { opacity: 1; transform: none; }</style></noscript>  <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -89,7 +87,7 @@
         <li class="card">
           <a href="work/hack4change.html">
             <figure>
-              <span class="thumb"><video muted loop playsinline preload="none" poster="img/h4-card.jpg" width="1280" height="800" aria-hidden="true"><source src="img/h4-card.mp4" type="video/mp4"></video></span>
+              <span class="thumb"><img src="img/h4-hero.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async"></span>
               <figcaption><span class="card-name">hack4change</span><span class="card-sub">Designathon Team Project</span></figcaption>
             </figure>
           </a>
@@ -307,20 +305,6 @@
         enter(260);
         cycle(); schedule();
       });
-    })();
-  </script>
-
-  <script>
-    // hack4change card: the team's event teaser plays only while the card is on screen, and never under reduced motion
-    (function () {
-      var v = document.querySelector('.thumb video');
-      if (!v || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-          else v.pause();
-        });
-      }, { threshold: 0.25 }).observe(v);
     })();
   </script>
 
