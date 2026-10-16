@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&amp;family=Poppins:wght@700;800&amp;display=swap">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=20261016b">
   <noscript><style>.is-line .is-out { opacity: 1; transform: none; }</style></noscript>
   <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
@@ -130,7 +130,7 @@
       if (last) last.nodeValue = last.nodeValue.replace(/(\S)\s+(\S+\s*)$/, '$1\u00a0$2');
     });
   </script>
-  <script src="js/site.js"></script>
+  <script src="js/site.js?v=20261016b"></script>
   <script>
     // slideshow: one slide at a time, cross-fading on a timer. Dots, arrow keys and swipes move it;
     // it waits while the caption or dots are hovered or focused, and stays put with reduced motion.
@@ -155,7 +155,7 @@
       roles.forEach(function (r) { r.forEach(function (t, k) { steps.push({ text: t, dir: k ? 'h' : 'v' }); }); });
       var words = steps.map(function (s) { return s.text; });
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var cur = 0, i = 0, playing = !reduce, holds = {}, timer = 0, tick = 0, capTimer = 0, prevTimer = 0, enterTimer = 0, looped = false;
+      var cur = 0, i = 0, playing = !reduce, holds = {}, timer = 0, tick = 0, capTimer = 0, prevTimer = 0, enterTimer = 0, round = 0;
 
       function fit() {            // reserve the tallest phrase so the slide doesn't jump
         var keep = el.textContent, h = 0;
@@ -166,7 +166,15 @@
       fit(); window.addEventListener('resize', fit);
       if (document.fonts) document.fonts.ready.then(fit);
 
-      function seq() { return looped ? steps.filter(function (s) { return s.dir === 'v'; }) : steps; }   // later rounds: the four roles only
+      function seq() {            // first visit: everything; later rounds: each role plus one of its branches, a different one each round
+        if (!round) return steps;
+        var list = [];
+        roles.forEach(function (r) {
+          list.push({ text: r[0], dir: 'v' });
+          if (r.length > 1) list.push({ text: r[1 + (round - 1) % (r.length - 1)], dir: 'h' });
+        });
+        return list;
+      }
       function cycle() {          // the next phrase every 1.9 s while the first slide shows; the last one stays until the slide changes
         clearInterval(tick);
         if (!playing || cur !== 0) return;
@@ -254,7 +262,7 @@
           prevTimer = setTimeout(function () { from.classList.remove('is-prev'); }, 650);
           slides[n].classList.add('is-active');
           cur = n;
-          if (cur === 0) { looped = true; i = 0; el.textContent = seq()[0].text; verb.textContent = 'is'; enter(200); }
+          if (cur === 0) { round++; i = 0; el.textContent = seq()[0].text; verb.textContent = 'is'; enter(200); }
           paint(); cycle();
         }
         schedule();
