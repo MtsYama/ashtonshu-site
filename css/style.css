@@ -94,6 +94,17 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .22em
   transition: padding .3s var(--ease);
 }
 .site-header.is-stuck { padding-top: min(var(--head-top), 16px); }
+/* once the page scrolls under the header (.is-stuck), a band in the page colour slides in behind it, so the
+   wordmark and links never sit on top of body text; js/site.js keeps --head-stuck-h at the tightened header's height */
+body::before {
+  content: ""; position: fixed; top: 0; right: 0; left: 0; z-index: 19;
+  height: var(--head-stuck-h, 60px);
+  background: var(--paper);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .3s var(--ease);
+}
+.head-stuck body::before { opacity: 1; }
 .site-header :is(.wordmark, .site-nav a, .theme-toggle) {
   pointer-events: auto;
   white-space: nowrap;
