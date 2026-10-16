@@ -153,6 +153,47 @@
   100%    { transform: translate(calc(var(--dx) / 2), calc(var(--dy) / 2)); }
 }
 
+/* intro (2.3 s): the home cover's quicker once. Same phases, easings and order as .is-once, with the holds
+   cut hardest and the moves about 25 to 30 % shorter: "Ashton" alone .1 s; the frame opens .1-.415 s;
+   it grows (.475-.825 s) as the scroll unrolls (to .965 s); hold .3 s; the scroll rolls up 1.265-1.615 s
+   and the frame snaps back 1.59-1.87 s; the frame closes 1.95-2.265 s */
+.nm.is-intro { animation: nm-intro-roll 2.3s both, nm-intro-f 2.3s both; }
+.nm.is-intro .nm-c { animation: nm-intro-frame 2.3s both; }
+.nm-center.is-intro .nm-box { animation: nm-intro-shift 2.3s both; }
+
+@keyframes nm-intro-roll {
+  0%      { --roll: 0; }
+  20.652% { --roll: 0; animation-timing-function: cubic-bezier(.3, 0, .2, 1); }
+  41.957% { --roll: 1; }
+  55%     { --roll: 1; animation-timing-function: cubic-bezier(.5, 0, .3, 1); }
+  70.217% { --roll: 0; }
+  100%    { --roll: 0; }
+}
+@keyframes nm-intro-f {
+  0%      { --f: 0; }
+  4.348%  { --f: 0; animation-timing-function: cubic-bezier(.25, .7, .2, 1); }
+  18.043% { --f: 1; }
+  84.783% { --f: 1; animation-timing-function: cubic-bezier(.25, .7, .2, 1); }
+  98.478% { --f: 0; }
+  100%    { --f: 0; }
+}
+@keyframes nm-intro-frame {
+  0%      { transform: none; }
+  20.652% { transform: none; animation-timing-function: cubic-bezier(.25, .7, .2, 1); }
+  35.870% { transform: translate(calc(var(--mx, 0) * var(--dx)), calc(var(--my, 0) * var(--dy))); }
+  69.130% { transform: translate(calc(var(--mx, 0) * var(--dx)), calc(var(--my, 0) * var(--dy))); animation-timing-function: cubic-bezier(.16, 1, .3, 1); }
+  81.304% { transform: none; }
+  100%    { transform: none; }
+}
+@keyframes nm-intro-shift {
+  0%      { transform: translate(calc(var(--dx) / 2), calc(var(--dy) / 2)); }
+  20.652% { transform: translate(calc(var(--dx) / 2), calc(var(--dy) / 2)); animation-timing-function: cubic-bezier(.25, .7, .2, 1); }
+  35.870% { transform: none; }
+  69.130% { transform: none; animation-timing-function: cubic-bezier(.16, 1, .3, 1); }
+  81.304% { transform: translate(calc(var(--dx) / 2), calc(var(--dy) / 2)); }
+  100%    { transform: translate(calc(var(--dx) / 2), calc(var(--dy) / 2)); }
+}
+
 /* Home: the cover plays the name once per browser session (index.html). A script in <head> adds
    .nm-cover-on to <html> only when it should play, so without JS, on later visits and with reduced
    motion the cover never shows. It lets taps and clicks through; any click, key or scroll removes it. */
@@ -161,8 +202,8 @@
    fonts come in it reads as the page loading, never as a dark (or, in dark mode, light) flash */
 .nm-cover-on .nm-cover { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; background: var(--soft); clip-path: inset(0 0 0 0); pointer-events: none; }
 .nm-cover .nm { font-size: clamp(40px, 6.4vw, 100px); color: #fff; mix-blend-mode: difference; }   /* drawn like the header, so "Ashton" can fly into it */
-.nm-cover .nm:not(.is-once) { visibility: hidden; }   /* nothing shows before the fonts are in */
-.nm-cover.is-lift { clip-path: inset(0 0 100% 0); transition: clip-path .7s cubic-bezier(.7, 0, .2, 1); }
+.nm-cover .nm:not(.is-once):not(.is-intro) { visibility: hidden; }   /* nothing shows before the fonts are in */
+.nm-cover.is-lift { clip-path: inset(0 0 100% 0); transition: clip-path .5s cubic-bezier(.7, 0, .2, 1); }
 /* when the name has played, "Ashton" leaves the cover as .nm-fly and glides into the header wordmark,
    which stays hidden until the fly lands on it */
 .nm-cover-on .site-header .wordmark { visibility: hidden; }
@@ -170,7 +211,7 @@
   position: fixed; z-index: 41; margin: 0;
   font-family: 'Poppins', sans-serif; font-weight: 800; letter-spacing: -.01em; line-height: 1; white-space: nowrap;
   color: #fff; mix-blend-mode: difference; pointer-events: none;
-  transition: transform .9s cubic-bezier(.3, 0, .2, 1);
+  transition: transform .62s cubic-bezier(.3, 0, .2, 1);
 }
 
 /* About: the looping name stands in for the "Ashton Z. Shu" heading; the h1 keeps that text for screen readers */

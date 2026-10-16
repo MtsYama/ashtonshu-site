@@ -13,18 +13,18 @@
   }
 
   function play(nm, mode) {
-    nm.classList.remove('is-live', 'is-once', 'is-rest');
+    nm.classList.remove('is-live', 'is-once', 'is-intro', 'is-rest');
     if (reduce.matches) { nm.dispatchEvent(new Event('nm:done')); return; }
     void nm.offsetWidth;   // restart from the first frame
-    if (mode === 'once') {
-      nm.classList.add('is-once');
-      setTimeout(function () { nm.dispatchEvent(new Event('nm:done')); }, 4800);
+    if (mode === 'once' || mode === 'intro') {   // intro: the home cover's quicker once (2.3 s)
+      nm.classList.add('is-' + mode);
+      setTimeout(function () { nm.dispatchEvent(new Event('nm:done')); }, mode === 'intro' ? 2300 : 4800);
     } else {
       nm.classList.add('is-live');
     }
   }
 
-  function rest(nm) { nm.classList.remove('is-live', 'is-once'); nm.classList.add('is-rest'); }
+  function rest(nm) { nm.classList.remove('is-live', 'is-once', 'is-intro'); nm.classList.add('is-rest'); }
 
   var marks = [].slice.call(document.querySelectorAll('.nm'));
   var fonts = document.fonts ? document.fonts.load('800 1em Poppins', 'AshtonZhengsu') : Promise.resolve();

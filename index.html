@@ -17,7 +17,7 @@
   <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}
   // the page colour, color-scheme and theme-color are right from the first frame, and follow later theme changes
   (function(){var r=document.documentElement,q=matchMedia('(prefers-color-scheme: dark)'),m=document.querySelector('meta[name="theme-color"]');function s(){var d=(r.getAttribute('data-theme')||(q.matches?'dark':'light'))==='dark';r.style.colorScheme=d?'dark':'light';if(m)m.content=d?'#0d0d0d':'#ffffff'}s();new MutationObserver(s).observe(r,{attributes:true,attributeFilter:['data-theme']});if(q.addEventListener)q.addEventListener('change',s)})()</script>
-  <link rel="stylesheet" href="css/name-motion.css?v=20261016c">
+  <link rel="stylesheet" href="css/name-motion.css?v=20261016d">
   <script>try{if(!sessionStorage.getItem('nm-cover')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){sessionStorage.setItem('nm-cover','1');document.documentElement.classList.add('nm-cover-on')}}catch(e){}</script>
 </head>
 <body>
@@ -151,7 +151,7 @@
     });
   </script>
   <script src="js/site.js?v=20261016g"></script>
-  <script src="js/name-motion.js?v=20261016a"></script>
+  <script src="js/name-motion.js?v=20261016b"></script>
   <script>
     // slideshow: one slide at a time, cross-fading on a timer. Dots, arrow keys and swipes move it;
     // it waits while the caption or dots are hovered or focused, and stays put with reduced motion.
@@ -389,11 +389,11 @@
             fly.style.transform = 'translate(' + (to.left - from.left) + 'px, ' + (to.top - from.top) + 'px) scale(' + s + ')';
           });
         });
-        setTimeout(start, 250);
+        setTimeout(start, 200);
         var landed = false;
         function land() { if (landed) return; landed = true; end(); }
         fly.addEventListener('transitionend', land);
-        setTimeout(land, 1100);
+        setTimeout(land, 800);
         // a click or key while it flies goes straight to the end
         events.forEach(function (t) { window.addEventListener(t, land, { capture: true, passive: true, once: true }); });
       }
@@ -401,7 +401,7 @@
       events.forEach(function (t) { window.addEventListener(t, skip, { capture: true, passive: true }); });
       var nm = cover.querySelector('.nm');
       nm.addEventListener('nm:done', function () { close(true); }, { once: true });
-      nameMotion.play(nm, 'once');
+      nameMotion.play(nm, 'intro');
       setTimeout(skip, 8000);   // in case the name never gets going
     })();
   </script>
