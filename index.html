@@ -9,10 +9,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&amp;family=Poppins:wght@700;800&amp;display=swap">
-  <link rel="stylesheet" href="css/style.css?v=20261016i">
+  <link rel="stylesheet" href="css/style.css?v=20261016j">
   <noscript><style>.is-line .is-out { opacity: 1; transform: none; }</style></noscript>
   <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
-  <link rel="stylesheet" href="css/name-motion.css?v=20261016a">
+  <link rel="stylesheet" href="css/name-motion.css?v=20261016b">
   <script>try{if(!sessionStorage.getItem('nm-cover')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){sessionStorage.setItem('nm-cover','1');document.documentElement.classList.add('nm-cover-on')}}catch(e){}</script>
 </head>
 <body>
@@ -29,7 +29,7 @@
   </div>
 
   <header class="site-header is-over" data-tone="ink">
-    <a class="wordmark" href="index.html">Ashton Z. Shu</a>
+    <a class="wordmark" href="index.html" aria-label="Ashton Z. Shu">Ashton</a>
     <nav class="site-nav" aria-label="Main">
       <ul>
         <li><a href="work/index.html">Work</a></li>
@@ -330,10 +330,12 @@
   </script>
 
   <script>
-    // name cover (css/name-motion.css): plays the name once, then lifts as "Ashton is ..." starts underneath.
-    // Any click, tap, key or scroll takes it away at once; the click or key still reaches the page.
+    // name cover (css/name-motion.css): plays the name once, then lifts as "Ashton is ..." starts underneath,
+    // while "Ashton" glides into the header wordmark and hands over to it.
+    // Any click, tap, key or scroll jumps to the end at once; the click or key still reaches the page.
     (function () {
       var root = document.documentElement, cover = document.querySelector('.nm-cover');
+      var mark = document.querySelector('.site-header .wordmark'), fly = null;
       function start() { if (window.startShow) window.startShow(); }
       if (!cover || !root.classList.contains('nm-cover-on') || !window.nameMotion) {
         root.classList.remove('nm-cover-on');
@@ -342,13 +344,53 @@
         return;
       }
       var done = false, events = ['pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll'];
-      function close(lift) {
+      function textBox(el) {   // the box of the glyphs themselves, the same for both words whatever their line boxes
+        var r = document.createRange();
+        r.selectNodeContents(el);
+        return r.getBoundingClientRect();
+      }
+      function end() {
+        cover.remove();
+        if (fly) fly.remove();
+        root.classList.remove('nm-cover-on');
+      }
+      function close(glide) {
         if (done) return;
         done = true;
         events.forEach(function (t) { window.removeEventListener(t, skip, true); });
-        function gone() { cover.remove(); root.classList.remove('nm-cover-on'); }
-        if (lift) { cover.classList.add('is-lift'); setTimeout(start, 250); setTimeout(gone, 800); }
-        else { gone(); start(); }
+        if (glide && mark) try { return glideHome(); } catch (e) {}
+        end(); start();
+      }
+      function glideHome() {
+        // FLIP: a copy of "Ashton" takes the cover word's place, then moves and scales onto the wordmark
+        var word = cover.querySelector('.nm-l > span'), from = textBox(word), to = textBox(mark);
+        fly = document.createElement('span');
+        fly.className = 'nm-fly';
+        fly.setAttribute('aria-hidden', 'true');
+        fly.textContent = word.textContent;
+        fly.style.fontSize = getComputedStyle(word).fontSize;
+        fly.style.left = '0px'; fly.style.top = '0px';
+        document.body.appendChild(fly);
+        var own = textBox(fly);
+        if (!from.height || !to.height) throw new Error('nothing to measure');
+        fly.style.left = from.left - own.left + 'px';
+        fly.style.top = from.top - own.top + 'px';
+        fly.style.transformOrigin = own.left + 'px ' + own.top + 'px';
+        word.style.visibility = 'hidden';
+        cover.classList.add('is-lift');
+        var s = to.height / from.height;
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            fly.style.transform = 'translate(' + (to.left - from.left) + 'px, ' + (to.top - from.top) + 'px) scale(' + s + ')';
+          });
+        });
+        setTimeout(start, 250);
+        var landed = false;
+        function land() { if (landed) return; landed = true; end(); }
+        fly.addEventListener('transitionend', land);
+        setTimeout(land, 1100);
+        // a click or key while it flies goes straight to the end
+        events.forEach(function (t) { window.addEventListener(t, land, { capture: true, passive: true, once: true }); });
       }
       function skip() { close(false); }
       events.forEach(function (t) { window.addEventListener(t, skip, { capture: true, passive: true }); });

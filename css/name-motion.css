@@ -158,9 +158,18 @@
    motion the cover never shows. It lets taps and clicks through; any click, key or scroll removes it. */
 .nm-cover { display: none; }
 .nm-cover-on .nm-cover { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; background: var(--ink); color: var(--paper); clip-path: inset(0 0 0 0); pointer-events: none; }
-.nm-cover .nm { font-size: clamp(40px, 6.4vw, 100px); }
+.nm-cover .nm { font-size: clamp(40px, 6.4vw, 100px); color: #fff; mix-blend-mode: difference; }   /* drawn like the header, so "Ashton" can fly into it */
 .nm-cover .nm:not(.is-once) { visibility: hidden; }   /* nothing shows before the fonts are in */
 .nm-cover.is-lift { clip-path: inset(0 0 100% 0); transition: clip-path .7s cubic-bezier(.7, 0, .2, 1); }
+/* when the name has played, "Ashton" leaves the cover as .nm-fly and glides into the header wordmark,
+   which stays hidden until the fly lands on it */
+.nm-cover-on .site-header .wordmark { visibility: hidden; }
+.nm-fly {
+  position: fixed; z-index: 41; margin: 0;
+  font-family: 'Poppins', sans-serif; font-weight: 800; letter-spacing: -.01em; line-height: 1; white-space: nowrap;
+  color: #fff; mix-blend-mode: difference; pointer-events: none;
+  transition: transform .9s cubic-bezier(.3, 0, .2, 1);
+}
 
 /* About: the looping name stands in for the "Ashton Z. Shu" heading; the h1 keeps that text for screen readers */
 .a-name { line-height: 0; }

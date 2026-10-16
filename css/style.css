@@ -101,7 +101,8 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .22em
   transition: opacity .3s var(--ease), background-color .3s var(--ease);
 }
 .site-header :is(.wordmark, .site-nav a, .theme-toggle):hover { opacity: .3; }
-.wordmark { letter-spacing: .01em; }
+/* the wordmark is "Ashton" set like the name motion (css/name-motion.css); the link's aria-label keeps the full name */
+.wordmark { font-family: 'Poppins', sans-serif; font-weight: 800; letter-spacing: -.01em; }
 .site-nav ul { display: flex; align-items: center; gap: 0 .9em; }
 .site-nav a[aria-current] { text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: .3em; }
 
