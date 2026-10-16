@@ -249,6 +249,7 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
    a branch of the same role closes and opens sideways */
 .is-static.is-out, .is-verb.is-out, .is-cycle.is-out { opacity: 0; transform: translateY(-.16em); }
 .is-cycle.is-wipe { clip-path: inset(-.3em 100% -.3em -.1em); }
+.is-line.is-past :is(.is-verb, .is-cycle) { color: var(--muted); }   /* "was an electrical engineer." reads as the past */
 
 .show-caption {
   position: absolute; z-index: 3; bottom: 0; left: var(--gutter);

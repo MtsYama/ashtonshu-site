@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&amp;family=Poppins:wght@700;800&amp;display=swap">
-  <link rel="stylesheet" href="css/style.css?v=20261016d">
+  <link rel="stylesheet" href="css/style.css?v=20261016e">
   <noscript><style>.is-line .is-out { opacity: 1; transform: none; }</style></noscript>
   <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
@@ -130,7 +130,7 @@
       if (last) last.nodeValue = last.nodeValue.replace(/(\S)\s+(\S+\s*)$/, '$1\u00a0$2');
     });
   </script>
-  <script src="js/site.js?v=20261016d"></script>
+  <script src="js/site.js?v=20261016e"></script>
   <script>
     // slideshow: one slide at a time, cross-fading on a timer. Dots, arrow keys and swipes move it;
     // it waits while the caption or dots are hovered or focused, and stays put with reduced motion.
@@ -143,7 +143,8 @@
       var header = document.querySelector('.site-header');
       var capBox = show.querySelector('.show-caption'), cap = capBox.querySelector('a');
       var el = show.querySelector('.is-cycle'), line = show.querySelector('.is-static'), verb = show.querySelector('.is-verb');
-      var PAST = 'an electrical engineer.';   // the role from before design reads "Ashton was ..."
+      var PAST = 'an electrical engineer.';   // the role from before design reads "Ashton was ...", in grey
+      var h1 = show.querySelector('.is-line');
       // each role, then what it branches into: a new role drops in from above, a branch opens sideways
       var roles = [
         ['a graphic designer.', 'an illustrator.', 'a photographer.', 'a UI/UX designer.'],
@@ -193,6 +194,7 @@
         swap(el, s.dir === 'h' ? 'is-wipe' : 'is-out', s.text);
         var v = s.text === PAST ? 'was' : 'is';
         if (verb.textContent !== v) swap(verb, 'is-out', v);
+        setTimeout(function () { h1.classList.toggle('is-past', s.text === PAST); }, 300);   // while the words are hidden
       }
       function enter(delay) {     // the phrase drops in the same way the roles change
         el.style.transition = 'none';
@@ -262,7 +264,7 @@
           prevTimer = setTimeout(function () { from.classList.remove('is-prev'); }, 650);
           slides[n].classList.add('is-active');
           cur = n;
-          if (cur === 0) { round++; i = 0; el.textContent = seq()[0].text; verb.textContent = 'is'; enter(200); }
+          if (cur === 0) { round++; i = 0; el.textContent = seq()[0].text; verb.textContent = 'is'; h1.classList.remove('is-past'); enter(200); }
           paint(); cycle();
         }
         schedule();
