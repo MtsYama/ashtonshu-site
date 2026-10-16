@@ -249,9 +249,14 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
   font-family: 'Inter', sans-serif;
   font-weight: 300;
   letter-spacing: -.02em;
-  transition: opacity .3s ease, transform .3s ease;
+  transition: opacity .3s var(--ease), transform .3s var(--ease), filter .3s var(--ease);
 }
-.is-static.is-out, .is-cycle.is-out { opacity: 0; transform: translateY(-.16em); }   /* both start hidden and drop in on arrival */
+.is-static.is-out, .is-cycle.is-out { opacity: 0; transform: translateY(-.16em); }   /* both start hidden; "Ashton is" drops in on arrival */
+/* a new role leaves upward and the next rises from below, like a list; a branch of the same role slides in from the right */
+.is-cycle.is-out-up { opacity: 0; transform: translateY(-.42em); filter: blur(6px); }
+.is-cycle.is-from-below { opacity: 0; transform: translateY(.42em); filter: blur(6px); }
+.is-cycle.is-out-left { opacity: 0; transform: translateX(-.7em); filter: blur(6px); }
+.is-cycle.is-from-right { opacity: 0; transform: translateX(.7em); filter: blur(6px); }
 
 .show-caption {
   position: absolute; z-index: 3; bottom: 0; left: var(--gutter);

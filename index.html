@@ -31,22 +31,19 @@
   <main id="main">
     <section class="show" aria-roledescription="carousel" aria-label="Featured work" data-hero>
       <div class="slides">
-        <div class="slide slide-intro is-active" role="group" aria-roledescription="slide" aria-label="1 of 6" data-tone="ink" data-duration="11500" data-first="3700">
-          <h1 class="is-line"><span class="is-static is-out">Ashton is</span> <span class="is-cycle is-out" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, a concept artist, a community manager, and an electrical engineer.</span></h1>
+        <div class="slide slide-intro is-active" role="group" aria-roledescription="slide" aria-label="1 of 5" data-tone="ink">
+          <h1 class="is-line"><span class="is-static is-out">Ashton is</span> <span class="is-cycle is-out" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, an illustrator, a photographer, a concept artist, a digital painter, a character designer, a community manager, an AI evangelist, and an electrical engineer.</span></h1>
         </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 6: Superlinear Academy" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy.html" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 5: Superlinear Academy" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy.html" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
           <img src="img/sl-hero.jpg" alt="Superlinear Academy website with the redesigned logo over the article library" width="1920" height="1080" decoding="async">
         </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="3 of 6: ZSA Moonlander" data-tone="light" data-name="ZSA Moonlander" data-href="work/zsa-moonlander.html" style="--bg:#c6c6c2;--pz:1.3">
-          <img src="img/zs-mag.jpg" alt="Open magazine with a ZSA Moonlander keyboard spread" width="922" height="683" decoding="async">
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="3 of 5: Tarot Deck" data-tone="light" data-name="Tarot Deck" data-href="work/tarot-deck.html" style="--bg:#d8d3ce;--pz:1.05">
+          <img src="img/ta-more.jpg" alt="Five tarot card designs, including the Lovers, the Hermit, the Moon and the Star" width="1955" height="1100" decoding="async">
         </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="4 of 6: Wine &amp; Dance" data-tone="dark" data-name="Wine &amp; Dance" data-href="work/wine-and-dance.html" style="--bg:#2c2c2a;--pz:1.3">
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="4 of 5: Wine &amp; Dance" data-tone="dark" data-name="Wine &amp; Dance" data-href="work/wine-and-dance.html" style="--bg:#2c2c2a;--pz:1.3">
           <img src="img/wd-hero.jpg" alt="Wine &amp; Dance title over a dimmed photo of the calendar" width="1920" height="1080" decoding="async">
         </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="5 of 6: Postcards" data-tone="light" data-name="Postcards" data-href="work/postcards.html" style="--bg:#dadada;--pz:1.06">
-          <img src="img/pm-2.jpg" alt="Two postcards leaning on a wall, showing the inside of the car and of the flower pot" width="1200" height="800" decoding="async">
-        </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="6 of 6: hack4change" data-tone="dark" data-name="hack4change" data-href="work/hack4change.html" style="--bg:#2b1f27;--pz:1.15">
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="5 of 5: hack4change" data-tone="dark" data-name="hack4change" data-href="work/hack4change.html" style="--bg:#2b1f27;--pz:1.15">
           <img src="img/h4-hero.jpg" alt="hack4change logo over a black and white photo of the host city" width="1920" height="1080" decoding="async">
         </div>
       </div>
@@ -146,7 +143,16 @@
       var header = document.querySelector('.site-header');
       var capBox = show.querySelector('.show-caption'), cap = capBox.querySelector('a');
       var el = show.querySelector('.is-cycle'), line = show.querySelector('.is-static');
-      var words = ['a graphic designer.', 'a concept artist.', 'a community manager.', 'an electrical engineer.'];
+      // each role, then what it branches into: a new role rises in like the next line of a list, a branch slides in from the side
+      var roles = [
+        ['a graphic designer.', 'an illustrator.', 'a photographer.'],
+        ['a concept artist.', 'a digital painter.', 'a character designer.'],
+        ['a community manager.', 'an AI evangelist.'],
+        ['an electrical engineer.']
+      ];
+      var STEP = 1900, steps = [];
+      roles.forEach(function (r) { r.forEach(function (t, k) { steps.push({ text: t, dir: k ? 'h' : 'v' }); }); });
+      var words = steps.map(function (s) { return s.text; });
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var cur = 0, i = 0, playing = !reduce, holds = {}, timer = 0, tick = 0, capTimer = 0, prevTimer = 0, enterTimer = 0, looped = false;
 
@@ -159,21 +165,38 @@
       fit(); window.addEventListener('resize', fit);
       if (document.fonts) document.fonts.ready.then(fit);
 
-      function cycle() {          // a new phrase every 2.9 s while the first slide shows; 1.9 s on the short first visit
+      function seq() { return looped ? steps.filter(function (s) { return s.dir === 'v'; }) : steps; }   // later rounds: the four roles only
+      function cycle() {          // the next phrase every 1.9 s while the first slide shows; the last one stays until the slide changes
         clearInterval(tick);
         if (!playing || cur !== 0) return;
         tick = setInterval(function () {
-          el.classList.add('is-out');
-          setTimeout(function () { i = (i + 1) % words.length; el.textContent = words[i]; el.classList.remove('is-out'); }, 300);
-        }, looped ? 2900 : 1900);
+          var list = seq();
+          if (i + 1 >= list.length) { clearInterval(tick); return; }
+          i++;
+          move(list[i]);
+        }, STEP);
       }
-      function enter(delay) {     // the phrase drops in the same way the phrases change
+      function move(s) {          // out one way and in from the other: up for a new role, sideways for a branch
+        var out = s.dir === 'h' ? 'is-out-left' : 'is-out-up', from = s.dir === 'h' ? 'is-from-right' : 'is-from-below';
+        el.classList.add(out);
+        setTimeout(function () {
+          el.style.transition = 'none';
+          el.classList.remove(out);
+          el.classList.add(from);
+          el.textContent = s.text;
+          void el.offsetWidth;
+          el.style.transition = '';
+          el.classList.remove(from);
+        }, 300);
+      }
+      function enter(delay) {     // the phrase rises into place, the way a new role comes in
         el.style.transition = 'none';
-        el.classList.add('is-out');
+        el.classList.remove('is-out', 'is-out-up', 'is-out-left', 'is-from-right');
+        el.classList.add('is-from-below');
         void el.offsetWidth;
         el.style.transition = '';
         clearTimeout(enterTimer);
-        enterTimer = setTimeout(function () { el.classList.remove('is-out'); }, reduce ? 0 : delay);
+        enterTimer = setTimeout(function () { el.classList.remove('is-from-below'); }, reduce ? 0 : delay);
       }
 
       var nav = document.createElement('div');
@@ -198,10 +221,8 @@
       function schedule() {
         clearTimeout(timer);
         if (!playing || held()) return;
-        // work slides are still images, 3 s each; the intro is short the first time in so the work shows up quickly,
-        // and on later rounds keeps its own longer time so all four phrases play
-        var d = +slides[cur].getAttribute('data-duration') || 3000;
-        if (cur === 0 && !looped) d = +slides[0].getAttribute('data-first') || d;
+        // work slides are still images, 3 s each; the intro lasts as long as its phrases take
+        var d = cur === 0 ? seq().length * STEP + 500 : (+slides[cur].getAttribute('data-duration') || 3000);
         timer = setTimeout(function () { go(cur + 1); }, d);
       }
       function setPlaying(on) {
@@ -236,7 +257,7 @@
           prevTimer = setTimeout(function () { from.classList.remove('is-prev'); }, 650);
           slides[n].classList.add('is-active');
           cur = n;
-          if (cur === 0) { looped = true; i = 0; el.textContent = words[0]; enter(200); }
+          if (cur === 0) { looped = true; i = 0; el.textContent = seq()[0].text; enter(200); }
           paint(); cycle();
         }
         schedule();
