@@ -34,13 +34,15 @@
 
     <div class="c-links">
       <h2>Email</h2>
-      <p><a class="big-link" href="mailto:shuzhengshen@outlook.com">shuzhengshen@outlook.com</a></p>
+      <p><a class="big-link" href="mailto:hello@ashton.is">hello@ashton.is</a></p>
+      <h2>Projects and commissions</h2>
+      <p><a class="big-link" href="mailto:work@ashton.is">work@ashton.is</a></p>
       <h2>Links</h2>
       <p><a class="big-link" href="https://www.linkedin.com/in/ashton-z-shu/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg><span>LinkedIn</span></a></p>
       <p><a class="big-link" href="https://www.instagram.com/mts_yama/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg><span>Instagram</span></a></p>
     </div>
 
-    <form class="contact-form" id="contact-form" action="mailto:shuzhengshen@outlook.com" method="post" enctype="text/plain">
+    <form class="contact-form" id="contact-form" action="mailto:hello@ashton.is" method="post" enctype="text/plain">
       <h2>Write a message</h2>
       <label for="cf-name">Name</label>
       <input id="cf-name" name="name" type="text" autocomplete="name" required>
@@ -70,7 +72,7 @@
         <p class="foot-based">Based in Greater Sudbury, Ontario</p>
       </div>
       <div class="foot-contact">
-        <p><a class="icon-link" href="mailto:shuzhengshen@outlook.com"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg><span>shuzhengshen@outlook.com</span></a></p>
+        <p><a class="icon-link" href="mailto:hello@ashton.is"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg><span>hello@ashton.is</span></a></p>
       </div>
       <div class="foot-links">
         <ul>
@@ -108,10 +110,10 @@
         var email = document.getElementById('cf-email').value.trim();
         var message = document.getElementById('cf-message').value.trim();
         var body = (message + '\n\n' + name + '\n' + email).replace(/\r?\n/g, '\r\n');
-        window.location.href = 'mailto:shuzhengshen@outlook.com' +
+        window.location.href = 'mailto:hello@ashton.is' +
           '?subject=' + encodeURIComponent('Website message from ' + name) +
           '&body=' + encodeURIComponent(body);
-        status.textContent = 'Your email app should open with the message. If it does not, write to shuzhengshen@outlook.com.';
+        status.textContent = 'Your email app should open with the message. If it does not, write to hello@ashton.is.';
       });
     })();
   </script>
