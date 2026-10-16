@@ -10,6 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&amp;family=Poppins:wght@700;800&amp;display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <noscript><style>.is-line .is-out { opacity: 1; transform: none; }</style></noscript>
   <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 </head>
 <body>
@@ -31,7 +32,7 @@
     <section class="show" aria-roledescription="carousel" aria-label="Featured work" data-hero>
       <div class="slides">
         <div class="slide slide-intro is-active" role="group" aria-roledescription="slide" aria-label="1 of 6" data-tone="ink" data-duration="11500">
-          <h1 class="is-line"><span class="is-static">Ashton is</span> <span class="is-cycle" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, a concept artist, a community manager, and an electrical engineer.</span></h1>
+          <h1 class="is-line"><span class="is-static is-out">Ashton is</span> <span class="is-cycle is-out" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, a concept artist, a community manager, and an electrical engineer.</span></h1>
         </div>
         <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 6: Superlinear Academy" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy.html" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
           <img src="img/sl-hero.jpg" alt="Superlinear Academy website with the redesigned logo over the article library" width="1920" height="1080" decoding="async">
@@ -144,10 +145,10 @@
       var slides = [].slice.call(stage.querySelectorAll('.slide'));
       var header = document.querySelector('.site-header');
       var capBox = show.querySelector('.show-caption'), cap = capBox.querySelector('a');
-      var el = show.querySelector('.is-cycle');
+      var el = show.querySelector('.is-cycle'), line = show.querySelector('.is-static');
       var words = ['a graphic designer.', 'a concept artist.', 'a community manager.', 'an electrical engineer.'];
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var cur = 0, i = 0, playing = !reduce, holds = {}, timer = 0, tick = 0, capTimer = 0, prevTimer = 0;
+      var cur = 0, i = 0, playing = !reduce, holds = {}, timer = 0, tick = 0, capTimer = 0, prevTimer = 0, enterTimer = 0;
 
       function fit() {            // reserve the tallest phrase so the slide doesn't jump
         var keep = el.textContent, h = 0;
@@ -165,6 +166,14 @@
           el.classList.add('is-out');
           setTimeout(function () { i = (i + 1) % words.length; el.textContent = words[i]; el.classList.remove('is-out'); }, 300);
         }, 2900);
+      }
+      function enter(delay) {     // the phrase drops in the same way the phrases change
+        el.style.transition = 'none';
+        el.classList.add('is-out');
+        void el.offsetWidth;
+        el.style.transition = '';
+        clearTimeout(enterTimer);
+        enterTimer = setTimeout(function () { el.classList.remove('is-out'); }, reduce ? 0 : delay);
       }
 
       var nav = document.createElement('div');
@@ -224,7 +233,7 @@
           prevTimer = setTimeout(function () { from.classList.remove('is-prev'); }, 650);
           slides[n].classList.add('is-active');
           cur = n;
-          if (cur === 0) { i = 0; el.textContent = words[0]; el.classList.remove('is-out'); }
+          if (cur === 0) { i = 0; el.textContent = words[0]; enter(200); }
           paint(); cycle();
         }
         schedule();
@@ -256,6 +265,13 @@
 
       paint();
       setPlaying(playing);
+      // on arrival "Ashton is" and the first phrase drop in, so the page reads as moving from the first second
+      var ready = document.fonts ? Promise.race([document.fonts.ready, new Promise(function (r) { setTimeout(r, 600); })]) : Promise.resolve();
+      ready.then(function () {
+        setTimeout(function () { line.classList.remove('is-out'); }, reduce ? 0 : 60);
+        enter(260);
+        cycle();
+      });
     })();
   </script>
 
