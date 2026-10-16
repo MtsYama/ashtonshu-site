@@ -12,16 +12,18 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 |---|---|
 | `index.html` | 首页:全屏轮播(第一张是 “Ashton is ...” 那句轮换的话,后面 5 张是项目)、一句话介绍、4 个项目 |
 | `work/index.html` | 作品归档,分 Projects 和 Personal work 两组 |
-| `work/superlinear-academy.html` | Superlinear Academy |
+| `work/superlinear-academy.html` | Superlinear Academy(末尾有 Process) |
 | `work/hack4change.html` | hack4change |
-| `work/wine-and-dance.html` | Wine & Dance |
-| `work/zsa-moonlander.html` | ZSA Moonlander |
-| `work/drink-packaging.html` | Drink Packaging |
-| `work/tarot-deck.html` | Tarot Deck |
+| `work/wine-and-dance.html` | Wine & Dance(Process 里加了早期照片试排) |
+| `work/drink-packaging.html` | Drink Packaging(末尾有 Process) |
+| `work/tarot-deck.html` | Tarot Deck(末尾有 Process) |
+| `work/zsa-moonlander.html` | ZSA Moonlander(末尾有 Process) |
 | `work/campaign-works.html` | Campaign Works |
 | `work/greeting-cards.html` | Greeting Cards(Personal work) |
 | `work/postcards.html` | Postcards(Personal work) |
-| `work/photography.html` | Photography(Personal work) |
+| `work/photography.html` | Photography(Personal work,有 Landscape 和 Street 两节) |
+| `work/farms-360.html` | Farms 360,草稿:带 noindex,作品页和其他页面都不链接它,只能直接输网址打开 |
+| `work/digital-art.html` | Digital Art,草稿,同上 |
 | `about.html` | 名字、头像、LinkedIn 上的简介、简历 |
 | `contact.html` | 邮箱、LinkedIn、Instagram、联系表单 |
 
