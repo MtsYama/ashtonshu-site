@@ -329,7 +329,7 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 /* ---------- work archive ---------- */
 
 .archive + .archive { margin-top: clamp(80px, 9.2vw, 132px); }
-.group { margin-bottom: clamp(20px, 2.5vw, 36px); font-size: var(--fs-ui); }
+.group { margin-bottom: clamp(20px, 2.5vw, 36px); font-size: var(--fs-mid); font-weight: 600; letter-spacing: -.01em; }
 @media (min-width: 600px) { .archive .cards { gap: clamp(40px, 3.5vw, 50px) clamp(24px, 4.2vw, 60px); } }
 @media (min-width: 992px) { .archive .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
