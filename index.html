@@ -189,7 +189,8 @@
       function schedule() {
         clearTimeout(timer);
         if (!playing || held()) return;
-        timer = setTimeout(function () { go(cur + 1); }, +slides[cur].getAttribute('data-duration') || 5000);
+        // work slides are still images, 3 s each; the intro sets its own longer time for the phrases
+        timer = setTimeout(function () { go(cur + 1); }, +slides[cur].getAttribute('data-duration') || 3000);
       }
       function setPlaying(on) {
         playing = on;
