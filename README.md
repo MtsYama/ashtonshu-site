@@ -8,7 +8,7 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 
 ## 页面
 
-网址不带 `.html`:`about.html` 的网址是 ashton.is/about,`work/farms-360.html` 是 ashton.is/work/farms-360,`work/index.html` 是 ashton.is/work/(打 ashton.is/work 会自己跳过去)。GitHub Pages 会把短网址对到同名的 `.html` 文件,所以文件名照旧,旧的 `.html` 网址也照样能打开。站内链接都写短的,而且都是相对路径:根目录的页面里写 `about`、`work/`、`work/farms-360`,回首页写 `./`;`work/` 里的页面写 `farms-360`、`../about`,回作品归档写 `./` 或 `../work/`,回首页写 `../`。
+网址不带 `.html`:`about.html` 的网址是 ashton.is/about,`work/farms-360.html` 是 ashton.is/work/farms-360,`work/index.html` 是 ashton.is/work/(打 ashton.is/work 会自己跳过去)。GitHub Pages 会把短网址对到同名的 `.html` 文件,所以文件名照旧,旧的 `.html` 网址也照样能打开。站内链接都写短的,而且都是相对路径:根目录的页面里写 `about`、`work/`、`work/farms-360`,回首页写 `./`;`work/` 里的页面写 `farms-360`、`../about`,回作品归档写 `./` 或 `../work/`,回首页写 `../`。每个公开页面的 `<head>` 里有一行 `<link rel="canonical">`,写这一页自己的完整短网址(首页是 `https://ashton.is/`,作品归档是 `https://ashton.is/work/`),让搜索引擎收短网址而不是 `.html` 那份;草稿 digital-art 不加。
 
 | 网址 | 文件 | 内容 |
 |---|---|---|
@@ -59,9 +59,9 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 - 改文字:直接改对应的 `.html`。页头和页脚每个页面各有一份,要改就每页都改,用编辑器的全局替换最快。
 - 换图:把新图放进 `img/`,改 `src`,顺手改 `width`、`height` 和 `alt`。网页用的图长边 2000 像素以内的 JPEG 就够。
 - 项目页顶部的大图:电脑上裁成 2:1,`style` 里的 `--pos` 决定保留图的哪一部分(例如 `50% 0%` 是保留上沿);页头的字压在图上,所以 `<header class="site-header">` 的 `data-tone` 按图来写:`dark`、`light`,图太花时写 `mixed`(字底下垫白块)。不想裁的图给 `figure` 加 `is-fit`,整张放在浅灰底上。
-- 加项目:复制 `work/` 下任意一页改内容;在 `work/index.html` 对应的组(Projects 或 Personal work)里加一张卡片;再改前后两个项目页底部 “More projects” 里的两张卡片(链接、缩略图、名字)。想上首页轮播就照上面加一张 slide,同时把每张的 `aria-label` 里的 “x of 6” 改对。
+- 加项目:复制 `work/` 下任意一页改内容,`<head>` 里那行 canonical 改成新页面自己的短网址(例如 `https://ashton.is/work/new-project`);在 `work/index.html` 对应的组(Projects 或 Personal work)里加一张卡片;再改前后两个项目页底部 “More projects” 里的两张卡片(链接、缩略图、名字)。想上首页轮播就照上面加一张 slide,同时把每张的 `aria-label` 里的 “x of 6” 改对。
 - 网站图标(favicon):新页面默认用 `img/favicon-draft.png`(黑底白标),草稿、WIP 和以后其他还没定稿的页面都用它;页面做好上线时才换成 `img/favicon-solid.png`(白底黑标)。从做好的页面复制页头时记得改回 draft。两者都是 64×64,由 `img/mark.png` 生成;页面里显示的 logo 照旧用无底色的 `mark.png`。`img/favicon.png` 留着同样是白底版,只为兜底旧链接。
-- 本地预览:站内链接是不带 `.html` 的短网址,要像 GitHub Pages 那样把 `/about` 对到 `about.html` 的服务器才能一路点通。在这个文件夹里运行 `python -m http.server`、浏览器打开 http://localhost:8000/ ,首页和作品归档能看,但点进 About、Contact 和各个项目页会 404,要看就在地址栏补上 `.html`(例如 http://localhost:8000/about.html )。直接双击 `index.html` 也只能看首页这一页。
+- 本地预览:运行 `python -I E:\Yama-Creator\website\_sources\ops\serve_pages.py <worktree 路径>`(例如 `E:\Yama-Creator\website\site\ashtonshu-v4`),浏览器打开 http://127.0.0.1:8767/ ,Ctrl+C 停;端口被占用就在路径后面再写一个端口号。它像 GitHub Pages 一样把 `/about` 对到 `about.html`,站内短链接都能点通,`python -m http.server` 和直接双击 `index.html` 做不到。脚本故意放在仓库外面,因为仓库里的文件都会发布到网站上。
 - 发布:`git add -A`,`git commit`,`git push`。GitHub Pages 一两分钟后更新。
 
 ## 以后接自己的域名
@@ -76,4 +76,4 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 3. DNS 生效后(几分钟到一天),回到 Settings → Pages 勾选 Enforce HTTPS。
 4. 最好先在 GitHub 个人 Settings → Pages 里验证这个域名,防止别人把它绑到自己的仓库上。
 
-站内链接全是相对路径,换域名不用改代码。
+站内链接全是相对路径;只有各页 `<head>` 里的 canonical 写的是完整网址,换域名时把所有 `https://ashton.is/` 全局替换成新域名。
