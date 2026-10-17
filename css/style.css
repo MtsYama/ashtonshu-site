@@ -291,7 +291,14 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
   display: inline-block;
   color: color-mix(in srgb, var(--ink), rgb(from var(--soft) calc(255 - r) calc(255 - g) calc(255 - b)) calc(var(--dock, 0) * 100%));
 }
-.name-docked .is-name { opacity: 0; }
+.name-docked .is-name, .name-moving .is-name { opacity: 0; }
+/* when the slideshow leaves "Ashton is" or comes back to it, index.html carries the name between the two as a copy drawn
+   like the header, above the slides; the big "Ashton" and the wordmark both stay out of sight meanwhile (.name-moving) */
+.dock-fly {
+  position: fixed; top: 0; left: 0; z-index: 21; margin: 0;
+  font-family: 'Poppins', sans-serif; font-weight: 800; letter-spacing: -.01em; line-height: 1; white-space: nowrap;
+  color: #fff; mix-blend-mode: difference; pointer-events: none;
+}
 .is-cycle {
   display: block;
   width: fit-content;
