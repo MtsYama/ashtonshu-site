@@ -148,6 +148,10 @@ body::before {
 .hb-br { border-bottom-right-radius: min(.14em, var(--L)); }
 /* the wordmark is "Ashton" set like the name motion (css/name-motion.css); the link's aria-label keeps the full name */
 .wordmark { font-family: 'Poppins', sans-serif; font-weight: 800; letter-spacing: -.01em; }
+/* Home (index.html puts .home-dock on <html>): at the top the big "Ashton" of the first slide is the name, so the
+   wordmark stays out of sight until index.html docks the big one into its place (.name-docked). Out of sight only:
+   the link keeps its place in the tab order and its name for screen readers, and keyboard focus shows it */
+.home-dock:not(.name-docked) .site-header .wordmark:not(:focus-visible) { opacity: 0; pointer-events: none; }
 .site-nav ul { display: flex; align-items: center; gap: 0 .9em; }
 
 /* light / dark switch: moon or sun with its word; on phones the icon alone */
@@ -280,6 +284,14 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
   color: var(--ink);
 }
 .is-static { display: block; font-weight: 800; transition: opacity .3s ease, transform .3s ease; }
+/* "Ashton" itself: the name cover lands on it, and on scroll index.html scales it into the header wordmark
+   (a plain inline box takes no transform). On the way (--dock 0 to 1) it also takes the wordmark's colour there,
+   the header's white in difference mode over the hero's --soft; once docked the wordmark stands in for it */
+.is-name {
+  display: inline-block;
+  color: color-mix(in srgb, var(--ink), rgb(from var(--soft) calc(255 - r) calc(255 - g) calc(255 - b)) calc(var(--dock, 0) * 100%));
+}
+.name-docked .is-name { opacity: 0; }
 .is-cycle {
   display: block;
   width: fit-content;
