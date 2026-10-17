@@ -26,7 +26,7 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 | `/work/greeting-cards` | `work/greeting-cards.html` | Greeting Cards(Personal work) |
 | `/work/postcards` | `work/postcards.html` | Postcards(Personal work) |
 | `/work/field-notes` | `work/field-notes.html` | Field Notes(Personal work,个人风景和街拍,有 Landscape 和 Street 两节) |
-| `/work/digital-art` | `work/digital-art.html` | Digital Art,草稿:带 noindex,作品页和其他页面都不链接它,只能直接输网址打开;它自己的站内链接还是带 `.html` 的旧写法(照样能用),上线时再改短 |
+| `/work/digital-art` | `work/digital-art.html` | Digital Art,草稿:带 noindex,作品页和其他页面都不链接它,只能直接输网址打开 |
 | `/work/greeting-cards-draft` | `work/greeting-cards-draft.html` | 旧网址,打开就跳到 `/work/greeting-cards` |
 | `/about` | `about.html` | 名字、头像、LinkedIn 上的简介、简历 |
 | `/contact` | `contact.html` | 邮箱、LinkedIn、Instagram、联系表单 |
