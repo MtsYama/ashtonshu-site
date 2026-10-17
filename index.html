@@ -9,7 +9,7 @@
   <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
   <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fonts.css?v=20261017a">
-  <link rel="stylesheet" href="css/style.css?v=20261016m">
+  <link rel="stylesheet" href="css/style.css?v=20261017b">
   <noscript><style>.is-line .is-out { opacity: 1; transform: none; }</style></noscript>
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#ffffff">
@@ -17,8 +17,9 @@
   <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}
   // the page colour, color-scheme and theme-color are right from the first frame, and follow later theme changes
   (function(){var r=document.documentElement,q=matchMedia('(prefers-color-scheme: dark)'),m=document.querySelector('meta[name="theme-color"]');function s(){var d=(r.getAttribute('data-theme')||(q.matches?'dark':'light'))==='dark';r.style.colorScheme=d?'dark':'light';if(m)m.content=d?'#0d0d0d':'#ffffff'}s();new MutationObserver(s).observe(r,{attributes:true,attributeFilter:['data-theme']});if(q.addEventListener)q.addEventListener('change',s)})()</script>
-  <link rel="stylesheet" href="css/name-motion.css?v=20261016d">
+  <link rel="stylesheet" href="css/name-motion.css?v=20261017a">
   <script>try{if(!sessionStorage.getItem('nm-cover')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){sessionStorage.setItem('nm-cover','1');document.documentElement.classList.add('nm-cover-on')}}catch(e){}</script>
+  <script>/* the big "Ashton" of the first slide stands in for the header wordmark until it docks there (script at the end) */document.documentElement.classList.add('home-dock')</script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -49,7 +50,7 @@
     <section class="show" aria-roledescription="carousel" aria-label="Featured work" data-hero>
       <div class="slides">
         <div class="slide slide-intro is-active" role="group" aria-roledescription="slide" aria-label="1 of 6" data-tone="ink">
-          <h1 class="is-line"><span class="is-static is-out">Ashton <span class="is-verb" aria-hidden="true">is</span><span class="vh">is</span></span> <span class="is-cycle is-out" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, an illustrator, a photographer, a UI/UX designer, a concept artist, a digital painter, a character designer, a community gardener, an AI architect, a human storyteller in the loop and an AI evangelist, and was an electrical engineer.</span></h1>
+          <h1 class="is-line"><span class="is-static is-out"><span class="is-name">Ashton</span> <span class="is-verb" aria-hidden="true">is</span><span class="vh">is</span></span> <span class="is-cycle is-out" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, an illustrator, a photographer, a UI/UX designer, a concept artist, a digital painter, a character designer, a community gardener, an AI architect, a human storyteller in the loop and an AI evangelist, and was an electrical engineer.</span></h1>
         </div>
         <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 6: Superlinear Academy" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
           <img src="img/sl-hero.jpg" alt="Superlinear Academy website with the redesigned logo over the article library" width="1920" height="1080" decoding="async">
@@ -164,6 +165,7 @@
       var header = document.querySelector('.site-header');
       var capBox = show.querySelector('.show-caption'), cap = capBox.querySelector('a');
       var el = show.querySelector('.is-cycle'), line = show.querySelector('.is-static'), verb = show.querySelector('.is-verb');
+      var name = show.querySelector('.is-name');   // the big "Ashton": the cover lands on it and the header docks it (scripts below)
       var PAST = 'an electrical engineer.';   // the role from before design reads "Ashton was ...", in grey
       var h1 = show.querySelector('.is-line');
       // each role, then what it branches into: a new role drops in from above, a branch opens sideways
@@ -177,7 +179,7 @@
       roles.forEach(function (r) { r.forEach(function (t, k) { steps.push({ text: t, dir: k ? 'h' : 'v' }); }); });
       var words = steps.map(function (s) { return s.text; });
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      var cur = 0, i = 0, playing = !reduce, holds = {}, timer = 0, tick = 0, capTimer = 0, prevTimer = 0, enterTimer = 0, round = 0;
+      var cur = 0, i = 0, playing = !reduce, holds = {}, timer = 0, tick = 0, capTimer = 0, prevTimer = 0, enterTimer = 0, round = 0, turns = 0;
 
       function fit() {            // reserve the tallest phrase so the slide doesn't jump
         var keep = el.textContent, h = 0;
@@ -225,6 +227,18 @@
         el.style.transition = '';
         clearTimeout(enterTimer);
         enterTimer = setTimeout(function () { el.classList.remove('is-out'); }, reduce ? 0 : delay);
+      }
+      function hold() {           // "Ashton" is on its way back from the header: "is" and the phrase wait out of sight
+        verb.style.transition = 'none';
+        verb.classList.add('is-out');
+        void verb.offsetWidth;
+        verb.style.transition = '';
+        clearTimeout(enterTimer); clearInterval(tick);
+      }
+      function land() {           // "is" (with "Ashton" on arrival) and the phrase drop in; the phrases take their full time from here
+        setTimeout(function () { line.classList.remove('is-out'); verb.classList.remove('is-out'); }, reduce ? 0 : 60);
+        enter(260);
+        cycle(); schedule();
       }
 
       var nav = document.createElement('div');
@@ -277,7 +291,7 @@
       function go(n) {
         n = (n + slides.length) % slides.length;
         if (n !== cur) {
-          var from = slides[cur];
+          var from = slides[cur], was = cur, turn = ++turns;
           slides.forEach(function (s) { s.classList.remove('is-prev'); });
           from.classList.remove('is-active');
           from.classList.add('is-prev');
@@ -285,8 +299,11 @@
           prevTimer = setTimeout(function () { from.classList.remove('is-prev'); }, 650);
           slides[n].classList.add('is-active');
           cur = n;
-          if (cur === 0) { round++; i = 0; el.textContent = seq()[0].text; verb.textContent = 'is'; h1.classList.remove('is-past'); enter(200); }
+          if (cur === 0) { round++; i = 0; el.textContent = seq()[0].text; verb.textContent = 'is'; verb.classList.remove('is-out'); h1.classList.remove('is-past'); enter(200); }
           paint(); cycle();
+          // the header (script below) docks "Ashton" into the wordmark as the show leaves this slide; when the show comes
+          // back it may carry it back, and then it cancels this and calls landed() once "Ashton" is in place
+          if (!show.dispatchEvent(new CustomEvent('show:change', { cancelable: true, detail: { from: was, to: cur, landed: function () { if (turn === turns) land(); } } }))) hold();
         }
         schedule();
       }
@@ -315,33 +332,45 @@
         if (href) window.location.href = href;
       });
 
+      // where the big "Ashton" rests: the box of its letters, leaving out the drop-in's lift and its own docking transform
+      window.nameRest = function () {
+        var keep = name.style.transform, lift = getComputedStyle(line).transform, r = document.createRange();
+        name.style.transform = '';
+        r.selectNodeContents(name);
+        var b = r.getBoundingClientRect(), dy = lift && lift !== 'none' && window.DOMMatrixReadOnly ? new DOMMatrixReadOnly(lift).f : 0;
+        name.style.transform = keep;
+        return { left: b.left, top: b.top - dy, width: b.width, height: b.height };
+      };
+
       paint();
       // the show starts once the name cover is gone, or at once when there is no cover
       var started = false;
-      window.startShow = function () {
+      window.startShow = function (handed) {
         if (started) return;
         started = true;
+        if (handed) {             // the cover's "Ashton" has just landed on the big one: that shows at once, "is" waits to drop in
+          line.style.transition = verb.style.transition = 'none';
+          line.classList.remove('is-out');
+          verb.classList.add('is-out');
+          void line.offsetWidth;
+          line.style.transition = verb.style.transition = '';
+        }
         setPlaying(playing);
-        // on arrival "Ashton is" and the first phrase drop in, so the page reads as moving from the first second
+        // on arrival "Ashton is" (after the cover, "is") and the first phrase drop in, so the page reads as moving from the first second
         var ready = document.fonts ? Promise.race([document.fonts.ready, new Promise(function (r) { setTimeout(r, 600); })]) : Promise.resolve();
-        ready.then(function () {
-          setTimeout(function () { line.classList.remove('is-out'); }, reduce ? 0 : 60);
-          enter(260);
-          cycle(); schedule();
-        });
+        ready.then(land);
       };
       if (!document.documentElement.classList.contains('nm-cover-on')) window.startShow();
     })();
   </script>
 
   <script>
-    // name cover (css/name-motion.css): plays the name once, then lifts as "Ashton is ..." starts underneath,
-    // while "Ashton" glides into the header wordmark and hands over to it.
+    // name cover (css/name-motion.css): plays the name once, then lifts while its "Ashton" travels onto the big
+    // "Ashton" of the first slide and hands over to it there; "is" and the phrase drop in after it.
     // Any click, tap, key or scroll jumps to the end at once; the click or key still reaches the page.
     (function () {
-      var root = document.documentElement, cover = document.querySelector('.nm-cover');
-      var mark = document.querySelector('.site-header .wordmark'), fly = null;
-      function start() { if (window.startShow) window.startShow(); }
+      var root = document.documentElement, cover = document.querySelector('.nm-cover'), fly = null;
+      function start(handed) { if (window.startShow) window.startShow(handed); }
       if (!cover || !root.classList.contains('nm-cover-on') || !window.nameMotion) {
         root.classList.remove('nm-cover-on');
         if (cover) cover.remove();
@@ -351,24 +380,24 @@
       var done = false, events = ['pointerdown', 'keydown', 'wheel', 'touchstart', 'scroll'];
       function textBox(el) {   // the box of the glyphs themselves, the same for both words whatever their line boxes
         var r = document.createRange();
-        r.selectNodeContents(el.firstChild && el.firstChild.nodeType === 3 ? el.firstChild : el);   // the text only, not the hover corners
+        r.selectNodeContents(el.firstChild && el.firstChild.nodeType === 3 ? el.firstChild : el);
         return r.getBoundingClientRect();
       }
       function end() {
         cover.remove();
-        if (fly) fly.remove();
         root.classList.remove('nm-cover-on');
       }
       function close(glide) {
         if (done) return;
         done = true;
         events.forEach(function (t) { window.removeEventListener(t, skip, true); });
-        if (glide && mark) try { return glideHome(); } catch (e) {}
+        if (glide && window.nameRest && !window.scrollY) try { return handOff(); } catch (e) { if (fly) fly.remove(); }
         end(); start();
       }
-      function glideHome() {
-        // FLIP: a copy of "Ashton" takes the cover word's place, then moves and scales onto the wordmark
-        var word = cover.querySelector('.nm-l > span'), from = textBox(word), to = textBox(mark);
+      function handOff() {
+        // FLIP: a copy of "Ashton" takes the cover word's place, then moves and scales onto the big "Ashton", set in the
+        // same Poppins 800; as it lands the big one shows under it and the copy fades out, so it reads as one word
+        var word = cover.querySelector('.nm-l > span'), from = textBox(word), to = window.nameRest();
         fly = document.createElement('span');
         fly.className = 'nm-fly';
         fly.setAttribute('aria-hidden', 'true');
@@ -377,24 +406,29 @@
         fly.style.left = '0px'; fly.style.top = '0px';
         document.body.appendChild(fly);
         var own = textBox(fly);
-        if (!from.height || !to.height) throw new Error('nothing to measure');
+        if (!from.width || !to.width) throw new Error('nothing to measure');
         fly.style.left = from.left - own.left + 'px';
         fly.style.top = from.top - own.top + 'px';
         fly.style.transformOrigin = own.left + 'px ' + own.top + 'px';
         word.style.visibility = 'hidden';
         cover.classList.add('is-lift');
-        var s = to.height / from.height;
+        var s = to.width / from.width, landed = false;   // by width: the boxes' heights are rounded to whole pixels, the widths aren't
         requestAnimationFrame(function () {
           requestAnimationFrame(function () {
             fly.style.transform = 'translate(' + (to.left - from.left) + 'px, ' + (to.top - from.top) + 'px) scale(' + s + ')';
           });
         });
-        setTimeout(start, 200);
-        var landed = false;
-        function land() { if (landed) return; landed = true; end(); }
-        fly.addEventListener('transitionend', land);
+        function land(fade) {
+          if (landed) return;
+          landed = true;
+          events.forEach(function (t) { window.removeEventListener(t, land, true); });
+          end(); start(true);
+          if (fade !== true) { fly.remove(); return; }   // a click, key or scroll while it travels goes straight to the end
+          fly.classList.add('is-out');
+          setTimeout(function () { fly.remove(); }, 250);
+        }
+        fly.addEventListener('transitionend', function (e) { if (e.propertyName === 'transform') land(true); });
         setTimeout(land, 800);
-        // a click or key while it flies goes straight to the end
         events.forEach(function (t) { window.addEventListener(t, land, { capture: true, passive: true, once: true }); });
       }
       function skip() { close(false); }
@@ -403,6 +437,123 @@
       nm.addEventListener('nm:done', function () { close(true); }, { once: true });
       nameMotion.play(nm, 'intro');
       setTimeout(skip, 8000);   // in case the name never gets going
+    })();
+  </script>
+
+  <script>
+    // header on Home (css/style.css, .home-dock): the big "Ashton" of the "Ashton is" slide and the header wordmark are
+    // one name, and only one of them is ever on screen. On that slide, scrolling out of the hero carries the big "Ashton"
+    // up with the page, shrinking into the wordmark's place, and the wordmark takes over there (.name-docked); scrolling
+    // back reverses it. When the show moves on to a work slide, the big "Ashton" takes the same path into the wordmark in
+    // time with the slide change, and the wordmark stays while work slides show, however the page scrolls. When the show
+    // comes back with the big name's place in view, the wordmark travels back into it, then "is" and the phrase drop in;
+    // with the hero scrolled away it stays docked until the page scrolls back up. With reduced motion nothing travels or
+    // scales: on a slide change the two crossfade, and on "Ashton is" the wordmark shows once the big name has scrolled off.
+    (function () {
+      var root = document.documentElement, header = document.querySelector('.site-header'), show = document.querySelector('.show');
+      var mark = header && header.querySelector('.wordmark'), name = document.querySelector('.is-name'), intro = document.querySelector('.slide-intro');
+      if (!root.classList.contains('home-dock')) return;
+      if (!mark || !name || !intro || !show || !window.nameRest) { root.classList.remove('home-dock'); return; }
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)'), rest = null, docked = false, trip = null;
+      var TRIP = 600;             // as long as the slides' crossfade (style.css, .slide.is-active)
+      function glyphs(el) { var r = document.createRange(); r.selectNodeContents(el.firstChild); return r.getBoundingClientRect(); }
+      function measure() {        // where the big name rests, in page coordinates, and the corner of its letters it scales from
+        name.style.transform = '';
+        var a = window.nameRest(), g = glyphs(name), n = name.getBoundingClientRect();
+        rest = { x: a.left, y: a.top + window.scrollY, w: a.width, h: a.height };
+        name.style.transformOrigin = (g.left - n.left) + 'px ' + (g.top - n.top) + 'px';
+      }
+      // how far the scroll has carried the big name towards the wordmark: 0 at rest, 1 (or more) once there. Riding up
+      // with the page, its letters reach the wordmark's after a scroll of d, taking on the way its size (by width, as the
+      // heights are rounded) and its left edge
+      function progress() {
+        if (!rest) measure();
+        if (header.classList.contains('is-stuck')) return 1;      // the hero has gone by
+        var y = window.scrollY, d = rest.y - glyphs(mark).top;
+        if (reduce.matches) return y >= rest.y + rest.h ? 1 : 0;   // nothing moves: there once the big name has scrolled off
+        return d > 0 ? Math.max(0, y / d) : 0;
+      }
+      function at(p) {            // the box of the letters, in the window, at progress p
+        if (!rest) measure();
+        var b = glyphs(mark);
+        return { x: rest.x + (b.left - rest.x) * p, y: rest.y - (rest.y - b.top) * p, w: rest.w * Math.pow(b.width / rest.w, p) };
+      }
+      function pose(p) {          // the big name where the scroll has carried it, and its colour on the way (style.css)
+        var b = at(p);
+        name.style.transform = p > 0 ? 'translate(' + (b.x - rest.x) + 'px, 0) scale(' + b.w / rest.w + ')' : '';
+        if (p > 0) name.style.setProperty('--dock', p); else name.style.removeProperty('--dock');
+      }
+      function dock(on, fade) {   // the wordmark is the name (on) or the big "Ashton" is; with reduced motion they crossfade
+        if (on === docked) return;
+        docked = on;
+        root.classList.toggle('name-docked', on);
+        if (!fade || !mark.animate) return;
+        mark.animate({ opacity: on ? [0, 1] : [1, 0] }, { duration: 300, easing: 'ease' });
+        if (!on) name.animate({ opacity: [0, 1] }, { duration: 300, easing: 'ease' });
+      }
+      function update() {
+        if (trip) return;         // a slide change is carrying the name; it settles where it lands
+        var p = progress(), on = p >= 1 || !intro.classList.contains('is-active');
+        pose(on ? 0 : p);
+        dock(on);
+      }
+      function ease(x) {          // cubic-bezier(.3, 0, .2, 1), the curve the name cover's "Ashton" travels on
+        function c(a, b, t) { return 3 * a * t * (1 - t) * (1 - t) + 3 * b * t * t * (1 - t) + t * t * t; }
+        var lo = 0, hi = 1, t = x;
+        for (var k = 0; k < 24; k++) { t = (lo + hi) / 2; if (c(.3, .2, t) < x) lo = t; else hi = t; }
+        return c(0, 1, t);
+      }
+      // a slide change carries the name from progress `from` to `to` along the same path, as a copy drawn like the header
+      // above the slides (.dock-fly) while both stay out of sight (.name-moving). On the way back `to` is a function, as
+      // the page may scroll meanwhile; a change in mid-trip turns round from wherever the copy is
+      function travel(from, to, landed) {
+        if (trip) { from = trip.p; trip.end(); }
+        var fly = document.createElement('span'), t0 = performance.now(), raf = 0;
+        fly.className = 'dock-fly';
+        fly.setAttribute('aria-hidden', 'true');
+        fly.textContent = name.textContent;
+        fly.style.fontSize = getComputedStyle(name).fontSize;
+        document.body.appendChild(fly);
+        var own = glyphs(fly);
+        fly.style.transformOrigin = own.left + 'px ' + own.top + 'px';
+        trip = { p: from, end: function () { cancelAnimationFrame(raf); fly.remove(); trip = null; root.classList.remove('name-moving'); } };
+        root.classList.add('name-moving');
+        dock(false);
+        (function frame() {
+          var t = Math.min(1, (performance.now() - t0) / TRIP), goal = Math.min(1, typeof to === 'function' ? to() : to);
+          trip.p = from + (goal - from) * ease(t);
+          var b = at(trip.p);
+          fly.style.transform = 'translate(' + (b.x - own.left) + 'px, ' + (b.y - own.top) + 'px) scale(' + b.w / own.width + ')';
+          if (t < 1) { raf = requestAnimationFrame(frame); return; }
+          trip.end();
+          update();
+          if (landed) landed();
+        })();
+      }
+      function inverse(c) { return 'rgb(' + c.match(/[\d.]+/g).slice(0, 3).map(function (v) { return 255 - v; }).join(', ') + ')'; }
+      show.addEventListener('show:change', function (e) {
+        var d = e.detail, p = progress();
+        if (d.to !== 0) {         // on to a work slide, where the wordmark is the name
+          if (d.from !== 0) return;
+          if (reduce.matches) { pose(0); dock(true, true); }
+          else if (trip || !docked) travel(Math.min(p, 1), 1);
+          return;
+        }
+        if (p >= 1) return;       // back on "Ashton is" with the hero scrolled away: docked until the page scrolls back up
+        if (reduce.matches) { pose(0); dock(false, true); return; }
+        e.preventDefault();       // "is" and the phrase wait for the name (index.html, show script)
+        travel(1, progress, function () {
+          // the copy draws like the header, whose white turns into the opposite of the hero's ground; the big name eases
+          // from that into its own colour
+          if (!docked && name.animate) name.animate({ color: [inverse(getComputedStyle(intro).backgroundColor), getComputedStyle(name).color] }, { duration: 300, easing: 'ease' });
+          d.landed();
+        });
+      });
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', function () { rest = null; update(); });
+      if (document.fonts) document.fonts.ready.then(function () { rest = null; update(); });
+      if (reduce.addEventListener) reduce.addEventListener('change', update);
+      update();
     })();
   </script>
 

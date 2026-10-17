@@ -201,18 +201,18 @@
 /* the cover is the colour of the hero's first slide (--soft), not the opposite of the page: while the
    fonts come in it reads as the page loading, never as a dark (or, in dark mode, light) flash */
 .nm-cover-on .nm-cover { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; background: var(--soft); clip-path: inset(0 0 0 0); pointer-events: none; }
-.nm-cover .nm { font-size: clamp(40px, 6.4vw, 100px); color: #fff; mix-blend-mode: difference; }   /* drawn like the header, so "Ashton" can fly into it */
+.nm-cover .nm { font-size: clamp(40px, 6.4vw, 100px); }   /* in the page ink, like the big "Ashton" it hands over to */
 .nm-cover .nm:not(.is-once):not(.is-intro) { visibility: hidden; }   /* nothing shows before the fonts are in */
 .nm-cover.is-lift { clip-path: inset(0 0 100% 0); transition: clip-path .5s cubic-bezier(.7, 0, .2, 1); }
-/* when the name has played, "Ashton" leaves the cover as .nm-fly and glides into the header wordmark,
-   which stays hidden until the fly lands on it */
-.nm-cover-on .site-header .wordmark { visibility: hidden; }
+/* when the name has played, "Ashton" leaves the cover as .nm-fly and travels onto the big "Ashton" of the first
+   slide, the same Poppins 800 a size up; that one shows under it as it lands and the copy fades out (.is-out) */
 .nm-fly {
   position: fixed; z-index: 41; margin: 0;
   font-family: 'Poppins', sans-serif; font-weight: 800; letter-spacing: -.01em; line-height: 1; white-space: nowrap;
-  color: #fff; mix-blend-mode: difference; pointer-events: none;
-  transition: transform .62s cubic-bezier(.3, 0, .2, 1);
+  pointer-events: none;
+  transition: transform .5s cubic-bezier(.3, 0, .2, 1), opacity .2s linear;
 }
+.nm-fly.is-out { opacity: 0; }
 
 /* About: the looping name stands in for the "Ashton Z. Shu" heading; the h1 keeps that text for screen readers */
 .a-name { line-height: 0; }
