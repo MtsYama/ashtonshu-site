@@ -51,6 +51,9 @@
   --y: calc(var(--cy) + var(--f) * (var(--y0) - var(--cy)));
   position: absolute; box-sizing: border-box; width: var(--L); height: var(--L); border: 0 solid;
   transform: translate(calc(var(--mx, 0) * var(--dx)), calc(var(--my, 0) * var(--dy)));   /* still: round the full name */
+  /* above the clipped lines: while the corners move the browser gives them layers of their own, and lines drawn over
+     them would each get one too, resized every frame under "Ashton". Same ink both ways, so nothing looks different */
+  z-index: 1;
 }
 .nm-tl, .nm-bl { --x0: calc(-1 * (var(--pad) + var(--s))); left: var(--x); }
 .nm-tr, .nm-br { --x0: calc(var(--w1) + var(--pad) + var(--s)); left: calc(var(--x) - var(--L)); --mx: 1; }
