@@ -319,6 +319,31 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .is-static.is-out, .is-verb.is-out, .is-cycle.is-out { opacity: 0; transform: translateY(-.16em); }
 .is-cycle.is-wipe { clip-path: inset(-.3em 100% -.3em -.1em); }
 .is-line.is-past :is(.is-verb, .is-cycle) { color: var(--muted); }   /* "was an electrical engineer." reads as the past */
+/* the face on "Ashton is" (index.html places and opens it): a square photo in a corner frame drawn like the name
+   motion's, as tall as the two lines of type, from the top of the capital A to the phrase's first baseline, the
+   frame's outer edge on the right margin and the phrase wrapping short of it; on phones it stands above the words.
+   Shut, the photo is cut down to its centre and each corner sits there with no arm; it opens once the phrase has
+   dropped in and shuts as the show leaves the slide. --fx, --fy, --fb: the frame's box; --fh: the photo's inset
+   in it; --fp: the photo; --fs, --fa, --fr: stroke, arm and radius of the corners */
+.is-face {
+  position: absolute; z-index: 1; left: var(--fx, 0); top: var(--fy, 0); width: var(--fb, 0); height: var(--fb, 0);
+  margin: 0; color: var(--ink); pointer-events: none; visibility: hidden;
+}
+.is-face.is-placed { visibility: visible; }
+.slide .is-face img {
+  position: absolute; left: var(--fh); top: var(--fh); width: var(--fp); height: var(--fp); max-width: none;
+  object-fit: cover; transform: none; clip-path: inset(0); transition: clip-path .6s var(--ease);
+}
+.is-face i { position: absolute; width: var(--fa); height: var(--fa); border: 0 solid currentColor; transition: transform .6s var(--ease); }
+.is-face .f-tl { left: 0; top: 0; border-width: var(--fs) 0 0 var(--fs); border-top-left-radius: var(--fr); transform-origin: 0 0; }
+.is-face .f-tr { right: 0; top: 0; border-width: var(--fs) var(--fs) 0 0; border-top-right-radius: var(--fr); transform-origin: 100% 0; }
+.is-face .f-bl { left: 0; bottom: 0; border-width: 0 0 var(--fs) var(--fs); border-bottom-left-radius: var(--fr); transform-origin: 0 100%; }
+.is-face .f-br { right: 0; bottom: 0; border-width: 0 var(--fs) var(--fs) 0; border-bottom-right-radius: var(--fr); transform-origin: 100% 100%; }
+.slide .is-face.is-shut img { clip-path: inset(50%); }
+.is-face.is-shut .f-tl { transform: translate(calc(var(--fb) / 2), calc(var(--fb) / 2)) scale(0); }
+.is-face.is-shut .f-tr { transform: translate(calc(var(--fb) / -2), calc(var(--fb) / 2)) scale(0); }
+.is-face.is-shut .f-bl { transform: translate(calc(var(--fb) / 2), calc(var(--fb) / -2)) scale(0); }
+.is-face.is-shut .f-br { transform: translate(calc(var(--fb) / -2), calc(var(--fb) / -2)) scale(0); }
 
 .show-caption {
   position: absolute; z-index: 3; bottom: 0; left: var(--gutter);
@@ -452,8 +477,24 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .a-head h1 { font-size: var(--fs-big); line-height: 1.3; letter-spacing: -.012em; }
 .a-head p { margin-top: clamp(12px, 2vw, 28px); }
 
+/* the name and the face side by side: two frames of one height, drawn alike with the name motion's stroke, arm, radius
+   and clearance in ems of the name (css/name-motion.css: --s .14em, --arm .42em, --r .2em, --pad .34em; three lines
+   of .92em with .42em above and .37em below make the name's box 3.55em). The face stands still while the name opens
+   and rolls. On phones the face stands above the name, the two centred with the rest of the heading */
+.a-id { display: flex; justify-content: center; align-items: flex-start; gap: .55em; font-size: clamp(36px, 5.2vw, 76px); }   /* the name's size (name-motion.css .a-name .nm) */
+.a-face { position: relative; flex: none; width: 3.55em; height: 3.55em; margin: 0; }
+.a-face img { position: absolute; left: .48em; top: .48em; width: 2.59em; height: 2.59em; max-width: none; object-fit: cover; }
+.a-face i { position: absolute; width: .42em; height: .42em; border: 0 solid currentColor; }
+.a-face .f-tl { left: 0; top: 0; border-width: .14em 0 0 .14em; border-top-left-radius: .2em; }
+.a-face .f-tr { right: 0; top: 0; border-width: .14em .14em 0 0; border-top-right-radius: .2em; }
+.a-face .f-bl { left: 0; bottom: 0; border-width: 0 0 .14em .14em; border-bottom-left-radius: .2em; }
+.a-face .f-br { right: 0; bottom: 0; border-width: 0 .14em .14em 0; border-bottom-right-radius: .2em; }
+@media (max-width: 639px) {
+  .a-id { flex-direction: column; align-items: center; gap: .3em; }
+  .a-face { order: -1; }
+}
+
 .a-bio { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; margin-top: clamp(56px, 7.6vw, 110px); }
-.portrait { width: clamp(120px, 12.5vw, 180px); aspect-ratio: 1; object-fit: cover; }
 .a-bio-text p + p { margin-top: 1em; }
 /* a quotation on its own line, set like a Markdown block quote: a rule on the left, no quotation marks */
 .a-bio-text blockquote { margin: 1em 0; padding-left: 1em; border-left: 2px solid currentColor; break-inside: avoid; }
@@ -486,9 +527,6 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .jobs .meta { margin-top: .35em; color: var(--muted); font-size: clamp(14px, .1vw + 13.6px, 15px); }
 .jobs p:not(.meta), .skills dd { max-width: 31em; margin: .6em 0 0; color: var(--ink-2); line-height: 1.6; }
 
-@media (min-width: 768px) {
-  .a-bio { grid-template-columns: clamp(120px, 12.5vw, 180px) minmax(0, 1fr); gap: 40px; }
-}
 @media (min-width: 992px) {
   .a-bio-text { columns: 2; column-gap: clamp(40px, 4.2vw, 60px); }
   .rcols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -554,6 +592,6 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .site-header, .slide.is-active, .is-static, .is-verb, .is-cycle, .show-caption, .thumb img, .card figcaption { transition: none !important; }
+  .site-header, .slide.is-active, .is-static, .is-verb, .is-cycle, .show-caption, .thumb img, .card figcaption, .is-face :is(img, i) { transition: none !important; }
   .site-header :is(.wordmark, .site-nav a, .theme-toggle) { transition: color .3s var(--ease) !important; }   /* the corners appear in place */
 }

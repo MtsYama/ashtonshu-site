@@ -10,7 +10,7 @@
   <link rel="preload" href="fonts/poppins-800-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fonts.css?v=20261017a">
-  <link rel="stylesheet" href="css/style.css?v=20261018band">
+  <link rel="stylesheet" href="css/style.css?v=20261018face">
   <noscript><style>.is-line .is-out { opacity: 1; transform: none; }</style></noscript>
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#ffffff">
@@ -52,6 +52,7 @@
       <div class="slides">
         <div class="slide slide-intro is-active" role="group" aria-roledescription="slide" aria-label="1 of 6" data-tone="ink">
           <h1 class="is-line"><span class="is-static is-out"><span class="is-name">Ashton</span> <span class="is-verb" aria-hidden="true">is</span><span class="vh">is</span></span> <span class="is-cycle is-out" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, an illustrator, a photographer, a UI/UX designer, a concept artist, a digital painter, a character designer, a community gardener, an AI architect, a human storyteller in the loop and an AI evangelist, and was an electrical engineer.</span></h1>
+          <figure class="is-face is-shut" aria-hidden="true"><img alt="" width="800" height="800" decoding="async" data-face="img/portrait.jpg"><i class="f-tl"></i><i class="f-tr"></i><i class="f-bl"></i><i class="f-br"></i></figure>
         </div>
         <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 6: Superlinear Academy" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
           <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/sl-hero.jpg" alt="Superlinear Academy website with the redesigned logo over the article library" width="1920" height="1080" decoding="async">
@@ -188,8 +189,59 @@
         words.forEach(function (w) { el.textContent = w; h = Math.max(h, el.offsetHeight); });
         el.textContent = keep; el.style.minHeight = h + 'px';
       }
-      fit(); window.addEventListener('resize', fit);
-      if (document.fonts) document.fonts.ready.then(fit);
+      // the face beside "Ashton is" (style.css .is-face): as tall as the two lines of type, from the top of the capital A
+      // to the phrase's first baseline, its frame's outer edge on the right margin and the phrase kept short of it; on
+      // phones above the words, the two centred together. Placed again whenever the window or the type changes
+      var intro = slides[0], face = intro.querySelector('.is-face'), faceImg = face && face.querySelector('img'), faceTimer = 0;
+      function baseline(node, first) {   // a baseline of node, from the top of the slide, leaving out the drop-in's lift
+        var m = document.createElement('span'), t = getComputedStyle(node).transform;
+        m.style.cssText = 'display:inline-block;width:0;height:0;vertical-align:baseline';
+        if (first) node.insertBefore(m, node.firstChild); else node.appendChild(m);
+        var y = m.getBoundingClientRect().top - intro.getBoundingClientRect().top;
+        m.remove();
+        return y - (t && t !== 'none' && window.DOMMatrixReadOnly ? new DOMMatrixReadOnly(t).f : 0);
+      }
+      function place() {
+        if (!face) { fit(); return; }
+        var cs = getComputedStyle(intro), padL = parseFloat(cs.paddingLeft), padR = parseFloat(cs.paddingRight), W = intro.clientWidth;
+        var size = parseFloat(getComputedStyle(h1).fontSize), c = document.createElement('canvas').getContext('2d');
+        c.font = '800 ' + size + 'px Poppins';
+        var cap = c.measureText('A').actualBoundingBoxAscent || .7 * size;   // the top of the capital, above the baseline
+        var hang = .126, gap = .5 * size, side, top, left, k;                 // hang: the frame round the photo, clear plus stroke
+        if (window.innerWidth < 640) {   // phones, as style.css (max-width: 639px)
+          side = Math.round(.4 * (W - padL - padR));
+          h1.style.maxWidth = '';
+          h1.style.marginTop = (side * (1 + 2 * hang) + gap) + 'px';
+          fit();
+          top = baseline(line, false) - cap - gap - side * (1 + hang); left = padL + side * hang;
+        } else {
+          h1.style.marginTop = '';
+          for (k = 0; k < 2; k++) {
+            top = baseline(line, false) - cap; side = baseline(el, true) - top; left = W - padR - side * (1 + hang);
+            h1.style.maxWidth = Math.max(0, left - side * hang - gap - padL) + 'px';
+            fit();
+          }
+          top = baseline(line, false) - cap; side = baseline(el, true) - top; left = W - padR - side * (1 + hang);
+        }
+        var h = side * hang, s = face.style;
+        s.setProperty('--fx', (left - h) + 'px'); s.setProperty('--fy', (top - h) + 'px'); s.setProperty('--fb', (side + 2 * h) + 'px');
+        s.setProperty('--fh', h + 'px'); s.setProperty('--fp', side + 'px');
+        s.setProperty('--fs', .036 * side + 'px'); s.setProperty('--fa', .11 * side + 'px'); s.setProperty('--fr', .05 * side + 'px');
+        face.classList.add('is-placed');
+      }
+      // the photo loads with the work images, once the page itself has; the frame opens only on a decoded photo
+      var faceReady = !faceImg ? Promise.reject() : new Promise(function (done, fail) {
+        function load() { faceImg.src = faceImg.getAttribute('data-face'); (faceImg.decode ? faceImg.decode() : Promise.resolve()).then(done, fail); }
+        if (document.readyState === 'complete') load(); else window.addEventListener('load', load, { once: true });
+      });
+      faceReady.catch(function () {});
+      function openFace() {   // just after the phrase has dropped in
+        clearTimeout(faceTimer);
+        if (face) faceTimer = setTimeout(function () { faceReady.then(function () { if (cur === 0) face.classList.remove('is-shut'); }, function () {}); }, reduce ? 0 : 420);
+      }
+      function shutFace() { clearTimeout(faceTimer); if (face) face.classList.add('is-shut'); }
+      place(); window.addEventListener('resize', place);
+      if (document.fonts) document.fonts.ready.then(place);
 
       function seq() {            // first visit: everything; later rounds: each role plus one of its branches, a different one each round
         if (!round) return steps;
@@ -239,7 +291,7 @@
       function land() {           // "is" (with "Ashton" on arrival) and the phrase drop in; the phrases take their full time from here
         setTimeout(function () { line.classList.remove('is-out'); verb.classList.remove('is-out'); }, reduce ? 0 : 60);
         enter(260);
-        cycle(); schedule();
+        cycle(); schedule(); openFace();
       }
 
       var nav = document.createElement('div');
@@ -321,11 +373,13 @@
           prevTimer = setTimeout(function () { from.classList.remove('is-prev'); }, 650);
           slides[n].classList.add('is-active');
           cur = n;
+          if (was === 0) shutFace();   // the face closes while the slide fades out
           if (cur === 0) { round++; i = 0; el.textContent = seq()[0].text; verb.textContent = 'is'; verb.classList.remove('is-out'); h1.classList.remove('is-past'); enter(200); }
           paint(); cycle();
           // the header (script below) docks "Ashton" into the wordmark as the show leaves this slide; when the show comes
           // back it may carry it back, and then it cancels this and calls landed() once "Ashton" is in place
           if (!show.dispatchEvent(new CustomEvent('show:change', { cancelable: true, detail: { from: was, to: cur, landed: function () { if (turn === turns) land(); } } }))) hold();
+          else if (cur === 0) openFace();   // back on "Ashton is" with nothing carried back: the face opens with the phrase
         }
         schedule();
       }
