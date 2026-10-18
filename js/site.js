@@ -23,6 +23,11 @@
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', measure);
   measure();
+  if (document.fonts) document.fonts.ready.then(measure);   // the nav can wrap in the fallback font, then fit in Inter
+  // the header's height also follows an app's text size, which sends no resize. Watch the wordmark: the header itself
+  // changes height all through its padding transition on scroll
+  var wm = header.querySelector('.wordmark');
+  if (window.ResizeObserver && wm) new ResizeObserver(function () { requestAnimationFrame(measure); }).observe(wm);
 })();
 
 // header links: the four corners that open round them on hover and keyboard focus (style.css, .hb)

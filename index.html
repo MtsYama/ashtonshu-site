@@ -159,7 +159,7 @@
       if (last) last.nodeValue = last.nodeValue.replace(/(\S)\s+(\S+\s*)$/, '$1\u00a0$2');
     });
   </script>
-  <script src="js/site.js?v=20261016g"></script>
+  <script src="js/site.js?v=20261018app"></script>
   <script src="js/name-motion.js?v=20261016b"></script>
   <script>
     // slideshow: one slide at a time, cross-fading on a timer. Dots, arrow keys and swipes move it;
@@ -248,6 +248,9 @@
       function shutFace() { clearTimeout(faceTimer); if (face) face.classList.add('is-shut'); }
       place(); window.addEventListener('resize', place);
       if (document.fonts) document.fonts.ready.then(place);
+      // the type's size also changes when no resize comes (an app's text setting, a late font): place and refit then, on
+      // the next frame, as changing sizes inside a ResizeObserver callback warns of a loop
+      if (window.ResizeObserver) new ResizeObserver(function () { requestAnimationFrame(place); }).observe(name);
 
       function seq() {            // first visit: everything; later rounds: each role plus one of its branches, a different one each round
         if (!round) return steps;
@@ -478,8 +481,13 @@
       }
       function handOff() {
         // FLIP: a copy of "Ashton" takes the cover word's place, then moves and scales onto the big "Ashton", set in the
-        // same Poppins 800; as it lands the big one shows under it and the copy fades out, so it reads as one word
+        // same Poppins 800; as it lands the big one shows under it and the copy fades out, so it reads as one word.
+        // Its scale comes from the measured boxes, never from the font size it is given: an app's browser may enlarge all
+        // text (Android WebView follows the phone's font size), and a size read from getComputedStyle is enlarged again.
+        // It aims again whenever the big name moves on the way (a late font, a text size change, the window of an app's
+        // browser growing as its bars hide), and leaves without the fade if it did not end up on the big name after all
         var word = cover.querySelector('.nm-l > span'), from = textBox(word), to = window.nameRest();
+        var h1 = document.querySelector('.is-line'), landed = false, aimed = '', late = 0, ro = null, first = true;
         fly = document.createElement('span');
         fly.className = 'nm-fly';
         fly.setAttribute('aria-hidden', 'true');
@@ -488,29 +496,50 @@
         fly.style.left = '0px'; fly.style.top = '0px';
         document.body.appendChild(fly);
         var own = textBox(fly);
-        if (!from.width || !to.width) throw new Error('nothing to measure');
+        if (!from.width || !to.width || !own.width) throw new Error('nothing to measure');
         fly.style.left = from.left - own.left + 'px';
         fly.style.top = from.top - own.top + 'px';
         fly.style.transformOrigin = own.left + 'px ' + own.top + 'px';
+        var s0 = from.width / own.width;   // 1 in a browser; less where an app enlarged the copy's text a second time
+        if (Math.abs(s0 - 1) > .001) {     // then it starts squeezed back exactly over the cover's word
+          fly.style.transition = 'none';
+          fly.style.transform = 'scale(' + s0 + ')';
+          void fly.offsetWidth;
+          fly.style.transition = '';
+        }
         word.style.visibility = 'hidden';
         cover.classList.add('is-lift');
-        var s = to.width / from.width, landed = false;   // by width: the boxes' heights are rounded to whole pixels, the widths aren't
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () {
-            fly.style.transform = 'translate(' + (to.left - from.left) + 'px, ' + (to.top - from.top) + 'px) scale(' + s + ')';
-          });
-        });
+        function aim() {          // by width: the boxes' heights are rounded to whole pixels, the widths aren't
+          if (landed) return;
+          to = window.nameRest();
+          var t = 'translate(' + (to.left - from.left) + 'px, ' + (to.top - from.top) + 'px) scale(' + to.width / own.width + ')';
+          if (t === aimed) return;
+          aimed = t;
+          fly.style.transform = t;
+          clearTimeout(late); late = setTimeout(land, 800);   // a new aim is a new .5 s move
+        }
+        function moved() { if (first) { first = false; return; } aim(); }   // a ResizeObserver reports once by itself at the start
+        late = setTimeout(land, 800);
+        requestAnimationFrame(function () { requestAnimationFrame(aim); });
+        window.addEventListener('resize', aim);
+        if (window.visualViewport) visualViewport.addEventListener('resize', aim);
+        if (window.ResizeObserver && h1) { ro = new ResizeObserver(moved); ro.observe(h1); }
         function land(fade) {
           if (landed) return;
           landed = true;
+          clearTimeout(late);
+          window.removeEventListener('resize', aim);
+          if (window.visualViewport) visualViewport.removeEventListener('resize', aim);
+          if (ro) ro.disconnect();
           events.forEach(function (t) { window.removeEventListener(t, land, true); });
+          var a = textBox(fly), b = window.nameRest();   // not on the big name after all (a change came too late): no ghost
+          if (Math.abs(a.left - b.left) > 1 || Math.abs(a.top - b.top) > 1 || Math.abs(a.width - b.width) > 1) fade = false;
           end(); start(true);
           if (fade !== true) { fly.remove(); return; }   // a click, key or scroll while it travels goes straight to the end
           fly.classList.add('is-out');
           setTimeout(function () { fly.remove(); }, 250);
         }
         fly.addEventListener('transitionend', function (e) { if (e.propertyName === 'transform') land(true); });
-        setTimeout(land, 800);
         events.forEach(function (t) { window.addEventListener(t, land, { capture: true, passive: true, once: true }); });
       }
       function skip() { close(false); }
@@ -652,6 +681,14 @@
       window.addEventListener('scroll', update, { passive: true });
       window.addEventListener('resize', function () { rest = null; update(); });
       if (document.fonts) document.fonts.ready.then(function () { rest = null; update(); });
+      // the big name's place also moves without a resize: a late font, an app's text size, the phrase box, the window of
+      // an app's browser growing as its bars hide. Measure again on the next frame
+      function remeasure() { requestAnimationFrame(function () { rest = null; update(); }); }
+      if (window.ResizeObserver) {
+        var ro = new ResizeObserver(remeasure);
+        [name, intro.querySelector('.is-line'), show].forEach(function (el) { if (el) ro.observe(el); });
+      }
+      if (window.visualViewport) visualViewport.addEventListener('resize', remeasure);
       if (reduce.addEventListener) reduce.addEventListener('change', update);
       update();
     })();
