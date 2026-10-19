@@ -105,6 +105,11 @@ body::before {
   transition: opacity .3s var(--ease);
 }
 .head-stuck body::before { opacity: 1; }
+/* Home, once the name has docked while the header still lies over the "Ashton is" slide: the band comes in behind the
+   header in that slide's colour, as the page-colour band does further down, so "is" and the phrase scrolling up under
+   it never run into the wordmark and the links. Over a work image the header stays see-through, and before the name
+   docks nothing changes. Without :has() the rule is dropped and the page behaves as before */
+.home-dock.name-docked:not(.head-stuck):has(.slide-intro.is-active) body::before { height: var(--head-h); background: var(--soft); opacity: 1; }
 .site-header :is(.wordmark, .site-nav a, .theme-toggle) {
   pointer-events: auto;
   white-space: nowrap;
