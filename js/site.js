@@ -37,7 +37,7 @@
   });
 })();
 
-// header lists: a header control with data-drop (Work, and any list a header adds later) opens the list its
+// header lists: a header control with data-drop (Work or Language in every language) opens the list its
 // aria-controls names, outside the header with --drop-gap below its row (style.css, "header lists"). An empty
 // sibling drop-veil shares the panel's bounds and clip, blurring the page separately from the blended text. The control's
 // own four corners frame the two: the top two stay on the control, the bottom two travel down to the list's bottom
