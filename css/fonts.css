@@ -38,3 +38,14 @@
   src: url(../fonts/poppins-800-latin.woff2) format('woff2');
   unicode-range: U+0000, U+000D, U+0020-007E, U+00A0-0107, U+010A-011B, U+011E-0123, U+0128-0131, U+0136-0137, U+0139-0148, U+014C-015B, U+015E-0165, U+0168-017E, U+018F, U+0192, U+01FC-01FD, U+0218-021B, U+0259, U+02BC, U+02C6-02C7, U+02C9, U+02DA, U+02DC-02DD, U+1E80-1E85, U+1EF2-1EF3, U+1EF8-1EF9, U+200C-200D, U+2013-2014, U+2018-201A, U+201C-201E, U+2020-2022, U+2026, U+2030, U+2039-203A, U+2044, U+20A8, U+20AC, U+20B9-20BA, U+20BD, U+2113, U+2122, U+2212, U+2215;
 }
+
+/* Language names use the same small script fonts on English and translated pages. */
+@font-face { font-family: 'World Name SC'; font-display: swap; src: url("../fonts/name-sc.woff2") format("woff2"); }
+@font-face { font-family: 'World Name TC'; font-display: swap; src: url("../fonts/name-tc.woff2") format("woff2"); }
+@font-face { font-family: 'World Name JP'; font-display: swap; src: url("../fonts/name-jp.woff2") format("woff2"); }
+@font-face { font-family: 'World Name KR'; font-display: swap; src: url("../fonts/name-kr.woff2") format("woff2"); }
+:is(.lang-menu, .foot-lang) [lang|="zh-Hans"] { font-family: 'World Name SC', var(--font, 'Inter'), sans-serif; }
+:is(.lang-menu, .foot-lang) [lang|="zh-Hant"] { font-family: 'World Name TC', var(--font, 'Inter'), sans-serif; }
+:is(.lang-menu, .foot-lang) [lang|="ja"] { font-family: 'World Name JP', var(--font, 'Inter'), sans-serif; }
+:is(.lang-menu, .foot-lang) [lang|="ko"] { font-family: 'World Name KR', var(--font, 'Inter'), sans-serif; }
+

@@ -595,3 +595,52 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
   .site-header, .slide.is-active, .is-static, .is-verb, .is-cycle, .show-caption, .thumb img, .card figcaption, .is-face :is(img, i) { transition: none !important; }
   .site-header :is(.wordmark, .site-nav a, .theme-toggle) { transition: color .3s var(--ease) !important; }   /* the corners appear in place */
 }
+
+/* Language, for now: a globe and the current language's name that opens the language page of world.ashton.is,
+   as on the translated pages; the footer lists every language and opens the same page in each. The header list
+   that opens in place comes later (v1.3). Phones show the globe alone. */
+.site-header .lang-toggle {
+  --hb: 0; --ha: 1; --ho: 1;
+  position: relative;
+  display: inline-flex; align-items: center; gap: .35em;
+  margin-left: .35em; padding: 0; border: 0;
+  background: none; cursor: pointer;
+  pointer-events: auto;
+  white-space: nowrap;
+  transition: color .3s var(--ease), --hb .45s cubic-bezier(.25, .7, .2, 1), --ha .45s cubic-bezier(.25, .7, .2, 1), --ho .3s var(--ease);
+}
+.site-header .lang-toggle svg { width: .85em; height: .85em; flex: none; }
+.site-header .lang-toggle:focus-visible { --hb: 1; --ha: 1; --ho: 1; color: #4d4d4d; outline: none; }
+@media (hover: hover) and (pointer: fine) {
+  .site-header .lang-toggle:hover { --hb: 1; --ha: 1; --ho: 1; color: #4d4d4d; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header .lang-toggle { transition: color .3s var(--ease) !important; }   /* the corners appear in place */
+}
+@media (max-width: 639px) {
+  .site-header .lang-toggle {
+    justify-content: center;
+    width: 30px; height: 30px; margin-left: .15em;
+    border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+    border-radius: 50%;
+  }
+  .site-header .lang-toggle svg { width: 15px; height: 15px; }
+  .site-header .lang-toggle .lt-label {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+}
+
+/* phones: the globe adds an item to the header line, so the gaps close up a little (the tap targets keep their
+   size): .7em keeps the current page's corners clear of the next word and still fits one line from 360px; below
+   that the words move closer, and under 340px the header wraps to a second line rather than overflow */
+@media (max-width: 419px) {
+  .site-header { column-gap: 12px; }
+  .site-nav ul { gap: 0 .7em; }
+}
+@media (max-width: 359px) {
+  .site-nav ul { gap: 0 .55em; }
+}
+
+/* the list of languages in the footer; the language you are reading is greyed */
+.foot-lang [aria-current] { color: var(--muted); }
