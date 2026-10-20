@@ -105,11 +105,6 @@ body::before {
   transition: opacity .3s var(--ease);
 }
 .head-stuck body::before { opacity: 1; }
-/* Home, once the name has docked while the header still lies over the "Ashton is" slide: the band comes in behind the
-   header in that slide's colour, as the page-colour band does further down, so "is" and the phrase scrolling up under
-   it never run into the wordmark and the links. Over a work image the header stays see-through, and before the name
-   docks nothing changes. Without :has() the rule is dropped and the page behaves as before */
-.home-dock.name-docked:not(.head-stuck):has(.slide-intro.is-active) body::before { height: var(--head-h); background: var(--soft); opacity: 1; }
 .site-header :is(.wordmark, .site-nav a, .theme-toggle) {
   pointer-events: auto;
   white-space: nowrap;
@@ -157,6 +152,15 @@ body::before {
    wordmark stays out of sight until index.html docks the big one into its place (.name-docked). Out of sight only:
    the link keeps its place in the tab order and its name for screen readers, and keyboard focus shows it */
 .home-dock:not(.name-docked) .site-header .wordmark:not(:focus-visible) { opacity: 0; pointer-events: none; }
+/* Home, once the name has docked while the header still lies over the "Ashton is" slide: the band comes in behind the
+   header in that slide's colour, as the page-colour band does further down, so "is" and the phrase scrolling up under
+   it never run into the wordmark and the links. Over a work image the header stays see-through, before the name docks
+   nothing changes, and an open header list (see "header lists") takes the band's colour too */
+.home-dock.name-docked:not(.head-stuck):has(.slide-intro.is-active) body::before { height: var(--head-h); background: var(--soft); opacity: 1; }
+.home-dock.name-docked:not(.head-stuck):has(.slide-intro.is-active) .site-header.is-over ~ .drop-panel:not([hidden]) {
+  background: var(--soft); mix-blend-mode: normal; -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.home-dock.name-docked:not(.head-stuck):has(.slide-intro.is-active) .site-header.is-over ~ .drop-panel:not([hidden]) ul { mix-blend-mode: difference; }
 .site-nav ul { display: flex; align-items: center; gap: 0 .9em; }
 
 /* light / dark switch: moon or sun with its word; on phones the icon alone */
@@ -184,6 +188,73 @@ body::before {
 @media (max-width: 379px) {
   .site-header { column-gap: 12px; }
   .site-nav ul { gap: 0 .7em; }
+}
+
+/* header lists: a header control with data-drop opens a list under it (Work, and any list a header adds later;
+   js/site.js). The list is the header's own surface grown down by a row: while the header lies over a hero
+   (.is-over) it is see-through and its words are drawn like the header's, white in difference mode; everywhere else
+   it takes the page colour, as the band behind the header does once the page scrolls under it, and its words blend
+   against that, so they look exactly like the header's. Its items act like the header's links: the corners open
+   round them on hover and keyboard focus and rest, shorter and fainter, round the one you are in. A hairline parts
+   the control from the list. Opening, the control's top two corners stay where they are and the bottom two travel
+   to the list's bottom corners while the list unrolls between them, in the corners' own hover timing; closing runs
+   it back, and with reduced motion it all jumps. Words only, no chevron: icons are for controls such as the theme
+   switch. js/site.js measures the list and sets how far the bottom corners travel (--drop-l, --drop-r, --drop-b);
+   --drop-align on a list lines it up with the control's left edge (start), its right edge (end) or the gutters (full) */
+@property --drop-l { syntax: '<length>'; inherits: true; initial-value: 0px; }
+@property --drop-r { syntax: '<length>'; inherits: true; initial-value: 0px; }
+@property --drop-b { syntax: '<length>'; inherits: true; initial-value: 0px; }
+.site-header .site-nav .drop-trigger {
+  transition: color .3s var(--ease), --hb .45s cubic-bezier(.25, .7, .2, 1), --ha .45s cubic-bezier(.25, .7, .2, 1), --ho .3s var(--ease),
+              --drop-l .45s cubic-bezier(.25, .7, .2, 1), --drop-r .45s cubic-bezier(.25, .7, .2, 1), --drop-b .45s cubic-bezier(.25, .7, .2, 1);
+}
+.site-header .site-nav .drop-trigger[aria-expanded="true"] { --hb: 1; --ha: 1; --ho: 1; color: inherit; outline: none; }   /* the word keeps its colour */
+.site-header .drop-trigger .hb-bl { left: calc(50% - var(--px) - var(--drop-l)); bottom: calc(50% - var(--py) - var(--drop-b)); }
+.site-header .drop-trigger .hb-br { right: calc(50% - var(--px) - var(--drop-r)); bottom: calc(50% - var(--py) - var(--drop-b)); }
+.drop-panel {
+  --drop-align: start;
+  position: fixed; top: 0; left: 0; z-index: 19;
+  background: var(--paper); color: #fff;
+  font-size: var(--fs-ui); line-height: 1.2;
+  transition: clip-path .45s cubic-bezier(.25, .7, .2, 1);
+}
+.drop-panel[hidden] { display: none; }
+.drop-panel ul { padding: .55em .32em .6em; border-top: 1px solid; mix-blend-mode: difference; }   /* the hairline is the row's top edge */
+.site-header.is-over ~ .drop-panel { background: none; mix-blend-mode: difference; }   /* over a hero, see-through like the header */
+.site-header.is-over ~ .drop-panel ul { mix-blend-mode: normal; }
+/* over a picture (the home slideshow, a project's hero) the row also softens what lies under it, so its words read
+   over any detail: a blur, no tint and no fill, and its words blend against the softened picture as the header's do
+   against the sharp one. Only on a list that is showing and never under the name cover (a backdrop filter there
+   would bring back the dark boxes of a slow first visit); a browser without backdrop-filter keeps the row above */
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  html:not(.nm-cover-on) .site-header.is-over ~ .drop-panel:not([hidden]) {
+    mix-blend-mode: normal; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  }
+  html:not(.nm-cover-on) .site-header.is-over ~ .drop-panel:not([hidden]) ul { mix-blend-mode: difference; }
+}
+.drop-panel :is(a, li > span) {
+  --hb: 0; --ha: 1; --ho: 1;
+  position: relative; display: block;
+  white-space: nowrap; text-decoration: none;
+  transition: color .3s var(--ease), --hb .45s cubic-bezier(.25, .7, .2, 1), --ha .45s cubic-bezier(.25, .7, .2, 1), --ho .3s var(--ease);
+}
+.drop-panel a::after { content: ""; position: absolute; inset: -.4em -.2em; }   /* a target larger than the word */
+.drop-panel [aria-current] { --hb: 1; --ha: .55; --ho: .6; }
+.drop-panel a:focus-visible { --hb: 1; --ha: 1; --ho: 1; color: #4d4d4d; outline: none; }
+@media (hover: hover) and (pointer: fine) {
+  .drop-panel a:hover { --hb: 1; --ha: 1; --ho: 1; color: #4d4d4d; }
+}
+/* Work: Projects, Collections and Personal on one line from the left of Work, its first word under Work's, as far
+   apart as the nav's own words */
+.work-menu ul { display: flex; gap: 0 .9em; }
+@media (max-width: 639px) {
+  /* phones: the line runs from gutter to gutter, the three spread across it with even room between them */
+  .work-menu { --drop-align: full; }
+  .work-menu ul { justify-content: space-between; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-header .site-nav .drop-trigger, .drop-panel :is(a, li > span) { transition: color .3s var(--ease) !important; }
+  .drop-panel { transition: none !important; }
 }
 
 html { scroll-padding-top: calc(var(--head-h) + 16px); }
@@ -422,6 +493,14 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 
 /* ---------- work archive ---------- */
 
+/* Projects · Collections · Personal at the top of the three Work pages */
+.w-switch { margin-top: -10px; margin-bottom: clamp(20px, 2.5vw, 36px); }
+.w-switch ul { display: flex; flex-wrap: wrap; }
+.w-switch li + li::before { content: "\00b7"; content: "\00b7" / ""; padding: 0 .5em; color: var(--muted); }
+.w-switch a { display: inline-block; padding: 10px 0; color: var(--muted); text-decoration: none; transition: color .3s var(--ease); }
+.w-switch a:hover { color: var(--ink); }
+.w-switch a[aria-current] { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1.5px; text-underline-offset: .3em; }
+
 .archive + .archive { margin-top: clamp(80px, 9.2vw, 132px); }
 .group { margin-bottom: clamp(20px, 2.5vw, 36px); font-size: var(--fs-mid); font-weight: 600; letter-spacing: -.01em; }
 @media (min-width: 600px) { .archive .cards { gap: clamp(40px, 3.5vw, 50px) clamp(24px, 4.2vw, 60px); } }
@@ -468,6 +547,7 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 
 .p-more { width: min(100% - 2 * var(--gutter), var(--wide)); margin: clamp(96px, 10.4vw, 150px) auto 0; }
 .p-more .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px clamp(16px, 4.2vw, 60px); }
+.p-more .is-next:only-child { grid-column: 2; }   /* a group of two shows just the other page, on its side */
 .p-dir { display: block; color: var(--muted); font-size: .875em; }
 .p-all { margin-top: clamp(48px, 5vw, 72px); text-align: center; }
 

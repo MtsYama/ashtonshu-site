@@ -13,7 +13,9 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 | 网址 | 文件 | 内容 |
 |---|---|---|
 | `/` | `index.html` | 首页:全屏轮播(第一张是 “Ashton is ...” 那句轮换的话,后面 5 张是项目)、一句话介绍、4 个项目 |
-| `/work/` | `work/index.html` | 作品归档,分 Projects、Collections、Personal work 三组 |
+| `/work/` | `work/index.html` | 作品归档,分 Projects、Collections、Personal work 三组,一组一页;这一页是 Projects,没有脚本时页头的 Work 直接链到这里 |
+| `/work/collections` | `work/collections.html` | Collections 一组:Campaign Works、Photography |
+| `/work/personal` | `work/personal.html` | Personal work 一组:Greeting Cards、Postcards、Field Notes |
 | `/work/farms-360` | `work/farms-360.html` | Farms 360(Projects 第一个) |
 | `/work/superlinear-academy` | `work/superlinear-academy.html` | Superlinear Academy(末尾有 Process) |
 | `/work/hack4change` | `work/hack4change.html` | hack4change(有 Event Teaser 和 Credits) |
@@ -34,6 +36,8 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 
 `css/style.css` 是全站样式,`js/site.js` 管页头:页头一直在屏幕顶上,压在首页轮播或项目大图上时是透明的,字跟着图换黑白;往下滚过大图后变成一条窄一些的白条,底下一根细线。`img/` 放全部图片。项目文字、标题和标签都照搬作品集,一字没改。页头最右边的月亮/太阳切换明暗(手机上只显示图标),默认跟着访客的系统设置走。页脚和联系页里的 LinkedIn、Instagram 显示成图标加名字。
 
+点一下页头的 Work(或键盘 Enter、空格),在 Work 下面打开一行 Projects、Collections、Personal;作品三页顶上也有同样三项的开关。这一行就是页头往下长出来的一截:页头压在首页轮播或项目大图上时它也是透明的,字和页头一样跟着底下的图换黑白,底下的图只在这一行里轻轻模糊一点(不加颜色;只在菜单打开时有,首页名字封面还在时没有);别的时候它和页头后面那条带子同色(页面底色),不会多出一块别的颜色。里面每一项和页头的链接一样:悬停或键盘聚焦时四个角张开,当前所在的一组四个角缩短、半透明地停在周围。打开时 Work 悬停时的四个角里,上面两个留在 Work 上,下面两个移到那一行的左下角和右下角,把 Work 和这一行框成一块,中间一条细线;关上时角回到 Work。Work 后面不加箭头:图标只给按钮用(亮暗切换、语言的地球),去处一律是字。按 Esc、点别处或焦点移走就关上(手指点别处只关菜单,不会顺带点到下面的东西)。手机上那一行从左边距排到右边距,三项两端对齐。这是全站通用的下拉写法:`js/site.js` 里的 “header lists” 和 `css/style.css` 里的 `.drop-trigger`、`.drop-panel`,页头的按钮写 `data-drop` 和 `aria-controls`,列表放在页头后面,以后页头再加别的下拉也照这样写。
+
 ## 首页轮播
 
 - 每张项目图停 3 秒,淡入淡出。第一张那句话每 1.9 秒换一个说法:换到新的身份时从上方落下,同一身份下的分支从侧面展开;最后的 “an electrical engineer.” 是转行前的身份,“is” 换成 “was”,“was” 和这个说法一起变灰。打开首页后的第一轮把全部说法轮一遍;之后每次轮回第一张,每个身份只带一个分支,每轮换一个。第一张停多久按这一轮的说法个数自动算(个数 × 1.9 秒 + 0.5 秒),最后一个说法一直留到换下一张。点圆点、按左右方向键、手机上左右滑都能换,点图打开对应的项目页;鼠标停在左下角的项目名或圆点上、或用键盘聚焦时不换下一张,右下角的小按钮暂停。有名字封面时,封面的 “Ashton” 落到这句话的大字 “Ashton” 上以后才开始播。系统开了“减少动态效果”时不自动播放,那句话也不轮换。
@@ -52,7 +56,7 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 - 改文字:直接改对应的 `.html`。页头和页脚每个页面各有一份,要改就每页都改,用编辑器的全局替换最快。
 - 换图:把新图放进 `img/`,改 `src`(首页轮播的图改 `data-src`),顺手改 `width`、`height` 和 `alt`。网页用的图长边 2000 像素以内的 JPEG 就够。
 - 项目页顶部的大图:电脑上裁成 2:1,`style` 里的 `--pos` 决定保留图的哪一部分(例如 `50% 0%` 是保留上沿);页头的字压在图上,所以 `<header class="site-header">` 的 `data-tone` 按图来写:`dark`、`light`,图太花时写 `mixed`(字底下垫白块)。不想裁的图给 `figure` 加 `is-fit`,整张放在浅灰底上。
-- 加项目:复制 `work/` 下任意一页改内容,`<head>` 里那行 canonical 改成新页面自己的短网址(例如 `https://ashton.is/work/new-project`);在 `work/index.html` 对应的组(Projects 或 Personal work)里加一张卡片;再改前后两个项目页底部 “More projects” 里的两张卡片(链接、缩略图、名字)。想上首页轮播就照上面加一张 slide,同时把每张的 `aria-label` 里的 “x of 6” 改对。
+- 加项目:复制 `work/` 下任意一页改内容,`<head>` 里那行 canonical 改成新页面自己的短网址(例如 `https://ashton.is/work/new-project`);在它所属那组的页面(Projects 是 `work/index.html`,另外两组是 `work/collections.html` 和 `work/personal.html`)里加一张卡片;项目页底部 “More projects” 的前后两张卡片只在本组里循环,改新页面和它前后两页的卡片(链接、缩略图、名字);面包屑中间一级写本组(Work、Collections 或 Personal),页头后面 Work 菜单里本组那一项加 `aria-current="true"`。想上首页轮播就照上面加一张 slide,同时把每张的 `aria-label` 里的 “x of 6” 改对。
 - 网站图标(favicon):新页面默认用 `img/favicon-draft.png`(黑底白标),草稿、WIP 和以后其他还没定稿的页面都用它;页面做好上线时才换成 `img/favicon-solid.png`(白底黑标)。从做好的页面复制页头时记得改回 draft。两者都是 64×64,由 `img/mark.png` 生成;页面里显示的 logo 照旧用无底色的 `mark.png`。`img/favicon.png` 留着同样是白底版,只为兜底旧链接。
 - 本地预览:要用一个像 GitHub Pages 那样把 `/about` 对到 `about.html` 的本地服务器,站内短链接才点得通;`python -m http.server` 和直接双击 `index.html` 做不到。这个脚本放在仓库外面,因为仓库里的文件都会发布到网站上。
 - 发布:`git add -A`,`git commit`,`git push`。GitHub Pages 一两分钟后更新。

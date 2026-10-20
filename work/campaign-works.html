@@ -15,7 +15,7 @@
   <link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
   <link rel="preload" href="../fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../css/fonts.css?v=20261017a">
-  <link rel="stylesheet" href="../css/style.css?v=20261016m">
+  <link rel="stylesheet" href="../css/style.css?v=20261017nav">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#ffffff">
   <style>html{background:#fff}html[data-theme="dark"]{background:#0d0d0d}@media (prefers-color-scheme:dark){html:not([data-theme="light"]){background:#0d0d0d}}</style>
@@ -30,13 +30,21 @@
     <a class="wordmark" href="../" aria-label="Ashton Z. Shu">Ashton</a>
     <nav class="site-nav" aria-label="Main">
       <ul>
-        <li><a href="../work/" aria-current="true">Work</a></li>
+        <li><a class="drop-trigger" href="../work/" aria-current="true" aria-controls="work-menu" data-drop>Work</a></li>
         <li><a href="../about">About</a></li>
         <li><a href="../contact">Contact</a></li>
         <li><button class="theme-toggle" type="button" data-mode="light" aria-label="Switch to dark mode"><svg class="ti ti-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="ti ti-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><span class="tt-label">Dark</span></button></li>
       </ul>
     </nav>
   </header>
+
+  <nav class="drop-panel work-menu" id="work-menu" aria-label="Work" hidden>
+    <ul>
+      <li><a href="../work/">Projects</a></li>
+      <li><a href="../work/collections" aria-current="true">Collections</a></li>
+      <li><a href="../work/personal">Personal</a></li>
+    </ul>
+  </nav>
 
   <main id="main">
     <figure class="p-hero" data-hero>
@@ -159,15 +167,7 @@
 
     <nav class="p-more" aria-label="More projects">
       <ul class="cards">
-        <li class="card">
-          <a href="zsa-moonlander">
-            <figure>
-              <span class="thumb"><img src="../img/zs-bill.jpg" alt="" width="2160" height="1608" loading="lazy" decoding="async"></span>
-              <figcaption><span class="p-dir">Previous</span><span class="card-name">ZSA Moonlander</span></figcaption>
-            </figure>
-          </a>
-        </li>
-        <li class="card">
+        <li class="card is-next">
           <a href="photography">
             <figure>
               <span class="thumb"><img src="../img/ph-bw.jpg" alt="" width="1760" height="1319" loading="lazy" decoding="async"></span>
@@ -183,7 +183,7 @@
   <nav class="crumbs" aria-label="Breadcrumb">
     <ol>
       <li><a href="../">Home</a></li>
-      <li><a href="./">Work</a></li>
+      <li><a href="collections">Collections</a></li>
       <li><span aria-current="page">Campaign Works</span></li>
     </ol>
   </nav>
