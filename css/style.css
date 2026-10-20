@@ -110,7 +110,7 @@ body::before {
   white-space: nowrap;
   text-decoration: none;
 }
-/* hover and keyboard focus: the word greys out and the four corners of the name motion's frame open out
+/* hover and keyboard focus: the icon and word grey out and the four corners of the name motion's frame open out
    of its centre to sit round it, then close back into the centre; js/site.js adds the <i class="hb"> corners.
    They draw in #fff, so the header's difference blending carries them over any ground.
    The current page's link keeps the corners in place, shorter and fainter (--ha arm, --ho opacity),
@@ -161,9 +161,14 @@ body::before {
   background: var(--soft); mix-blend-mode: normal; -webkit-backdrop-filter: none; backdrop-filter: none;
 }
 .home-dock.name-docked:not(.head-stuck):has(.slide-intro.is-active) .site-header.is-over ~ .drop-panel:not([hidden]) ul { mix-blend-mode: difference; }
-.site-nav ul { display: flex; align-items: center; gap: 0 .9em; }
+.site-nav { min-width: 0; max-width: 100%; }
+.site-nav ul { display: flex; flex-wrap: wrap; align-items: center; gap: 6px .9em; }
+.site-nav li { flex: none; }
+/* Feather icons and labels share one link and one set of hover or current-page corners. */
+.site-nav a { display: inline-flex; align-items: center; gap: .35em; }
+.site-nav a .ni { width: .85em; height: .85em; flex: none; }
 
-/* light / dark switch: moon or sun with its word; on phones the icon alone */
+/* light / dark switch: moon or sun with its word; on phones all nav items are round icon buttons */
 .theme-toggle {
   display: inline-flex; align-items: center; gap: .35em;
   margin-left: .35em; padding: 0; border: 0;
@@ -173,14 +178,15 @@ body::before {
 .theme-toggle[data-mode="dark"] .ti-moon,
 .theme-toggle:not([data-mode="dark"]) .ti-sun { display: none; }
 @media (max-width: 639px) {
-  .theme-toggle {
+  .site-nav a, .theme-toggle {
     justify-content: center;
-    width: 30px; height: 30px; margin-left: .15em;
+    width: 30px; height: 30px; padding: 0;
     border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
     border-radius: 50%;
   }
-  .theme-toggle svg { width: 15px; height: 15px; }
-  .theme-toggle .tt-label {
+  .theme-toggle { margin-left: .15em; }
+  .site-nav a .ni, .theme-toggle svg { width: 15px; height: 15px; }
+  .site-nav a .nl, .theme-toggle .tt-label {
     position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
     overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
   }
@@ -190,17 +196,14 @@ body::before {
   .site-nav ul { gap: 0 .7em; }
 }
 
-/* header lists: a header control with data-drop opens a list under it (Work, and any list a header adds later;
-   js/site.js). The list is the header's own surface grown down by a row: while the header lies over a hero
-   (.is-over) it is see-through and its words are drawn like the header's, white in difference mode; everywhere else
-   it takes the page colour, as the band behind the header does once the page scrolls under it, and its words blend
-   against that, so they look exactly like the header's. Its items act like the header's links: the corners open
-   round them on hover and keyboard focus and rest, shorter and fainter, round the one you are in. A hairline parts
-   the control from the list. Opening, the control's top two corners stay where they are and the bottom two travel
-   to the list's bottom corners while the list unrolls between them, in the corners' own hover timing; closing runs
-   it back, and with reduced motion it all jumps. Words only, no chevron: icons are for controls such as the theme
-   switch. js/site.js measures the list and sets how far the bottom corners travel (--drop-l, --drop-r, --drop-b);
-   --drop-align on a list lines it up with the control's left edge (start), its right edge (end) or the gutters (full) */
+/* header lists: data-drop opens a row outside the header. Over a hero, the whole panel draws white in
+   difference mode against the page. A separate, empty drop-veil softens the picture underneath without tint;
+   the text never sits inside a backdrop-filter group. Away from a hero the panel keeps the page colour and its
+   inner list blends against that colour. The docked home intro keeps its own soft fill.
+   The control's upper corners stay around its icon and label; its lower corners travel past --drop-gap to the
+   bottom of the list. The panel and veil share their size and clip-path motion; reduced motion skips the unroll.
+   List items keep the header's hover, focus and current-page corners. No chevrons are added.
+   js/site.js measures --drop-gap and --drop-align (start, end or full), then sets --drop-l, --drop-r and --drop-b. */
 @property --drop-l { syntax: '<length>'; inherits: true; initial-value: 0px; }
 @property --drop-r { syntax: '<length>'; inherits: true; initial-value: 0px; }
 @property --drop-b { syntax: '<length>'; inherits: true; initial-value: 0px; }
@@ -213,25 +216,26 @@ body::before {
 .site-header .drop-trigger .hb-br { right: calc(50% - var(--px) - var(--drop-r)); bottom: calc(50% - var(--py) - var(--drop-b)); }
 .drop-panel {
   --drop-align: start;
+  --drop-gap: .5em;   /* about 11px at 1440px, measured below the hover frame */
   position: fixed; top: 0; left: 0; z-index: 19;
   background: var(--paper); color: #fff;
   font-size: var(--fs-ui); line-height: 1.2;
-  transition: clip-path .45s cubic-bezier(.25, .7, .2, 1);
 }
-.drop-panel[hidden] { display: none; }
+.drop-panel, .drop-veil { transition: clip-path .45s cubic-bezier(.25, .7, .2, 1); }
+.drop-veil { display: none; position: fixed; top: 0; left: 0; z-index: 19; pointer-events: none; }
+.drop-panel[hidden], .drop-veil[hidden] { display: none; }
 .drop-panel ul { padding: .55em .32em .6em; border-top: 1px solid; mix-blend-mode: difference; }   /* the hairline is the row's top edge */
 .site-header.is-over ~ .drop-panel { background: none; mix-blend-mode: difference; }   /* over a hero, see-through like the header */
 .site-header.is-over ~ .drop-panel ul { mix-blend-mode: normal; }
-/* over a picture (the home slideshow, a project's hero) the row also softens what lies under it, so its words read
-   over any detail: a blur, no tint and no fill, and its words blend against the softened picture as the header's do
-   against the sharp one. Only on a list that is showing and never under the name cover (a backdrop filter there
-   would bring back the dark boxes of a slow first visit); a browser without backdrop-filter keeps the row above */
+/* Only the empty sibling gets a filter. Both layers share the panel's opening and closing clip.
+   Without filter support, or while the name cover is up, the hero panel still blends like the header. */
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  html:not(.nm-cover-on) .site-header.is-over ~ .drop-panel:not([hidden]) {
-    mix-blend-mode: normal; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  html:not(.nm-cover-on) .site-header.is-over ~ .drop-veil:not([hidden]) {
+    display: block; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   }
-  html:not(.nm-cover-on) .site-header.is-over ~ .drop-panel:not([hidden]) ul { mix-blend-mode: difference; }
 }
+/* The docked intro already supplies a soft fill, so it needs no picture veil. */
+.home-dock.name-docked:not(.head-stuck):has(.slide-intro.is-active) .site-header.is-over ~ .drop-veil { display: none; }
 .drop-panel :is(a, li > span) {
   --hb: 0; --ha: 1; --ho: 1;
   position: relative; display: block;
@@ -244,17 +248,17 @@ body::before {
 @media (hover: hover) and (pointer: fine) {
   .drop-panel a:hover { --hb: 1; --ha: 1; --ho: 1; color: #4d4d4d; }
 }
-/* Work: Projects, Collections and Personal on one line from the left of Work, its first word under Work's, as far
-   apart as the nav's own words */
-.work-menu ul { display: flex; gap: 0 .9em; }
+/* Work: the first word sits under Work's label, after the icon and gap; spacing follows the nav. */
+.work-menu ul { display: flex; gap: 0 .9em; padding-left: 1.52em; }   /* .32em + .85em + .35em */
 @media (max-width: 639px) {
   /* phones: the line runs from gutter to gutter, the three spread across it with even room between them */
+  .drop-panel { --drop-gap: 8px; }
   .work-menu { --drop-align: full; }
-  .work-menu ul { justify-content: space-between; }
+  .work-menu ul { justify-content: space-between; padding-left: .32em; }
 }
 @media (prefers-reduced-motion: reduce) {
   .site-header .site-nav .drop-trigger, .drop-panel :is(a, li > span) { transition: color .3s var(--ease) !important; }
-  .drop-panel { transition: none !important; }
+  .drop-panel, .drop-veil { transition: none !important; }
 }
 
 html { scroll-padding-top: calc(var(--head-h) + 16px); }

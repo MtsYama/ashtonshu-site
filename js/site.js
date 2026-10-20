@@ -30,7 +30,7 @@
   if (window.ResizeObserver && wm) new ResizeObserver(function () { requestAnimationFrame(measure); }).observe(wm);
 })();
 
-// header links: the four corners that open round them on hover and keyboard focus (style.css, .hb)
+// header links: four corners frame each icon and label together on hover and keyboard focus (style.css, .hb)
 (function () {
   [].forEach.call(document.querySelectorAll('.site-header :is(.wordmark, .site-nav a, .theme-toggle)'), function (el) {
     el.insertAdjacentHTML('beforeend', '<i class="hb hb-tl" aria-hidden="true"></i><i class="hb hb-tr" aria-hidden="true"></i><i class="hb hb-bl" aria-hidden="true"></i><i class="hb hb-br" aria-hidden="true"></i>');
@@ -38,7 +38,8 @@
 })();
 
 // header lists: a header control with data-drop (Work, and any list a header adds later) opens the list its
-// aria-controls names, placed just under it and outside the header (style.css, "header lists"). The control's
+// aria-controls names, outside the header with --drop-gap below its row (style.css, "header lists"). An empty
+// sibling drop-veil shares the panel's bounds and clip, blurring the page separately from the blended text. The control's
 // own four corners frame the two: the top two stay on the control, the bottom two travel down to the list's bottom
 // corners and back on closing, while the list unrolls between them; the list's items get the corners of the
 // header's links. Work is a link to Projects without scripts and a button here. Opened from the keyboard, the focus
@@ -57,6 +58,11 @@
 
   function drop(b, menu) {
     var header = b.closest('.site-header'), shut = 0, raf = 0;
+    var veil = document.createElement('div');
+    veil.className = 'drop-veil';
+    veil.setAttribute('aria-hidden', 'true');
+    veil.hidden = menu.hidden;
+    menu.parentNode.insertBefore(veil, menu);
     if (!b.querySelector('.hb')) b.insertAdjacentHTML('beforeend', CORNERS);
     [].forEach.call(menu.querySelectorAll('a, li > span'), function (el) { el.insertAdjacentHTML('beforeend', CORNERS); });
     if (b.tagName === 'A') {
@@ -68,13 +74,16 @@
     function items() { return [].slice.call(menu.querySelectorAll(FOCUSABLE)); }
 
     // the control's frame is where its hover corners sit (.32em and .16em out, as in .hb); the list hangs from the
-    // frame's bottom edge, or from the foot of anything taller beside it in the header's line (the round buttons on
-    // a phone), at least as wide as the frame, and lines up with the frame's left edge, its right edge
+    // frame's bottom edge plus --drop-gap, below anything taller in the same header line (including phone buttons).
+    // It stays at least as wide as the frame and lines up with the frame's left edge, its right edge
     // (--drop-align: end) or the header's gutters (full), always inside the window
     function measure() {
       var r = b.getBoundingClientRect(), em = parseFloat(getComputedStyle(b).fontSize), vw = root.clientWidth;
       var row = { l: r.left - .32 * em, r: r.right + .32 * em, b: r.bottom + .16 * em };
-      var align = getComputedStyle(menu).getPropertyValue('--drop-align').trim(), left, w, top = row.b;
+      var css = getComputedStyle(menu), align = css.getPropertyValue('--drop-align').trim();
+      var gap = css.getPropertyValue('--drop-gap').trim();
+      var gapPx = (parseFloat(gap) || 0) * (/em$/.test(gap) ? parseFloat(css.fontSize) : 1);
+      var left, w, top = row.b;
       menu.style.width = '';
       menu.style.left = '0px';
       if (align === 'full') {
@@ -88,11 +97,16 @@
       }
       [].forEach.call(header.querySelectorAll('a, button'), function (el) {
         var e = el.getBoundingClientRect();
-        if (e.top < r.bottom && e.bottom > top && e.right > left && e.left < left + w) top = e.bottom;
+        if (e.top < r.bottom && e.bottom > r.top) top = Math.max(top, e.bottom);
       });
+      top += gapPx;
       menu.style.left = left + 'px';
       menu.style.top = top + 'px';
       menu.style.width = w + 'px';
+      veil.style.left = menu.style.left;
+      veil.style.top = menu.style.top;
+      veil.style.width = menu.style.width;
+      veil.style.height = menu.getBoundingClientRect().height + 'px';
       return { row: row, l: left, r: left + w, t: top, b: top + menu.getBoundingClientRect().height };
     }
     // open: the bottom corners sit on the list's bottom corners and the whole list shows; shut: the corners are
@@ -104,19 +118,21 @@
       b.style.setProperty('--drop-b', on ? (f.b - row.b) + 'px' : '0px');
       menu.style.clipPath = on ? 'inset(0px 0px 0px 0px)'
         : 'inset(0px ' + Math.max(0, f.r - row.r) + 'px ' + (f.b - f.t) + 'px ' + Math.max(0, row.l - f.l) + 'px)';
+      veil.style.clipPath = menu.style.clipPath;
     }
     function open(on, keyboard) {
       clearTimeout(shut);
       if (on) {
         var fresh = menu.hidden;                // not still rolling up from a moment ago
-        menu.hidden = false;
+        menu.hidden = veil.hidden = false;
         menu.inert = false;
         var f = measure();
         if (fresh) {                            // the list starts as a line under the control, then unrolls
-          menu.style.transition = 'none';
+          menu.style.transition = veil.style.transition = 'none';
           set(f, false);
           void menu.offsetWidth;
-          menu.style.transition = '';
+          void veil.offsetWidth;
+          menu.style.transition = veil.style.transition = '';
         }
         b.setAttribute('aria-expanded', 'true');
         set(f, true);
@@ -126,7 +142,7 @@
         b.setAttribute('aria-expanded', 'false');
         menu.inert = true;
         set(g, false);
-        shut = setTimeout(function () { menu.hidden = true; }, reduce.matches ? 0 : 460);
+        shut = setTimeout(function () { menu.hidden = veil.hidden = true; }, reduce.matches ? 0 : 460);
       }
     }
     // the header tightens as the page scrolls under it: the list follows the control for the length of that move
@@ -181,7 +197,7 @@
       b.style.transition = 'none';
       b.setAttribute('aria-expanded', 'false');
       ['--drop-l', '--drop-r', '--drop-b'].forEach(function (p) { b.style.setProperty(p, '0px'); });
-      menu.hidden = true;
+      menu.hidden = veil.hidden = true;
       void b.offsetWidth;
       b.style.transition = '';
     });
