@@ -199,10 +199,11 @@ body::before {
   .site-nav ul { gap: 0 .7em; }
 }
 
-/* header lists: data-drop opens a row outside the header. Over a hero, the whole panel draws white in
-   difference mode against the page. A separate, empty drop-veil softens the picture underneath without tint;
-   the text never sits inside a backdrop-filter group. Away from a hero the panel keeps the page colour and its
-   inner list blends against that colour. The docked home intro keeps its own soft fill.
+/* header lists: data-drop opens a row outside the header. Over a work image, both lists use the same
+   frost: an empty drop-veil blurs the picture and adds 78% of the page colour. The separate panel stays clear,
+   with normal text and corners in the page's ink, never inside the filter group. Without the needed CSS features,
+   or while the name cover is up, both lists use a plain page-colour fill with difference text. Away from a hero
+   the lists keep their page colour. The docked home intro keeps its own soft fill.
    The control's upper corners stay around its icon and label; its lower corners travel past --drop-gap to the
    bottom of the list. The panel and veil share their size and clip-path motion; reduced motion skips the unroll.
    List items keep the header's hover, focus and current-page corners. No chevrons are added.
@@ -228,17 +229,36 @@ body::before {
 .drop-veil { display: none; position: fixed; top: 0; left: 0; z-index: 19; pointer-events: none; }
 .drop-panel[hidden], .drop-veil[hidden] { display: none; }
 .drop-panel ul { padding: .55em .32em .6em; border-top: 1px solid; mix-blend-mode: difference; }   /* the hairline is the row's top edge */
-.site-header.is-over ~ .drop-panel { background: none; mix-blend-mode: difference; }   /* over a hero, see-through like the header */
-.site-header.is-over ~ .drop-panel ul { mix-blend-mode: normal; }
-/* Only the empty sibling gets a filter. Both layers share the panel's opening and closing clip.
-   Without filter support, or while the name cover is up, the hero panel still blends like the header. */
+.site-header.is-over ~ .drop-panel { background: var(--paper); mix-blend-mode: normal; }
+.site-header.is-over ~ .drop-panel ul { mix-blend-mode: difference; }
+/* Start with a plain fill. Frost needs both the filter and a page-colour mix.
+   Only the empty sibling gets the filter and tint, never the text or its corners.
+   The home intro keeps its existing fills. The name cover keeps the plain fallback. */
+@supports selector(:has(*)) and (background: color-mix(in srgb, white 78%, transparent)) and ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  html:not(.nm-cover-on):not(:has(.slide-intro.is-active)) .site-header.is-over ~ .drop-veil:not([hidden]) {
+    display: block;
+    background: color-mix(in srgb, var(--paper) 78%, transparent);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  }
+  html:not(.nm-cover-on):not(:has(.slide-intro.is-active)) .site-header.is-over ~ .drop-panel {
+    background: none; color: var(--ink); mix-blend-mode: normal;
+  }
+  html:not(.nm-cover-on):not(:has(.slide-intro.is-active)) .site-header.is-over ~ .drop-panel ul { mix-blend-mode: normal; }
+  html:not(.nm-cover-on):not(:has(.slide-intro.is-active)) .site-header.is-over ~ .drop-panel .hb { border-color: currentColor; }
+  html:not(.nm-cover-on):not(:has(.slide-intro.is-active)) .site-header.is-over ~ .drop-panel a:focus-visible { color: var(--ink-2); }
+  @media (hover: hover) and (pointer: fine) {
+    html:not(.nm-cover-on):not(:has(.slide-intro.is-active)) .site-header.is-over ~ .drop-panel a:hover { color: var(--ink-2); }
+  }
+}
+/* Before the home name docks, keep Work's existing clear panel over the intro.
+   Its empty veil still blurs there when supported. The language list keeps its soft fill. */
+html.home-dock:not(.name-docked):not(.nm-cover-on):has(.slide-intro.is-active) .site-header.is-over ~ .drop-panel.work-menu { background: none; mix-blend-mode: difference; }
+html.home-dock:not(.name-docked):not(.nm-cover-on):has(.slide-intro.is-active) .site-header.is-over ~ .drop-panel.work-menu ul { mix-blend-mode: normal; }
 @supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  html:not(.nm-cover-on) .site-header.is-over ~ .drop-veil:not([hidden]) {
+  html.home-dock:not(.name-docked):not(.nm-cover-on):has(.slide-intro.is-active) .site-header.is-over ~ .drop-veil:not([hidden]):has(+ .work-menu) {
     display: block; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   }
 }
-/* The docked intro already supplies a soft fill, so it needs no picture veil. */
-.home-dock.name-docked:not(.head-stuck):has(.slide-intro.is-active) .site-header.is-over ~ .drop-veil { display: none; }
 .drop-panel :is(a, li > span) {
   --hb: 0; --ha: 1; --ho: 1;
   position: relative; display: block;
@@ -684,7 +704,7 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 }
 
 /* Language: every page uses this globe and current name. It opens the same header list as Work.
-   Shared header lists supply the corners, blur, gap and motion. Phones show the globe alone. */
+   Shared header lists supply the corners, fill, gap and motion. Phones show the globe alone. */
 .site-header .lang-toggle {
   --hb: 0; --ha: 1; --ho: 1;
   position: relative;
@@ -730,13 +750,9 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .drop-panel.lang-menu { --drop-align: end; }
 .lang-menu ul { display: flex; flex-direction: column; gap: .8em; padding-left: 1.52em; }   /* .32em + the globe .85em + .35em */
 @media (max-width: 639px) { .lang-menu ul { padding-left: .32em; } }
-/* Over a hero the list of languages is six rows tall and runs into the busy middle of a work image, where
-   difference would turn its words into the image's opposite colours (purple over green). There it takes the page
-   colour instead, as it does away from a hero, and its words blend against that plain fill; no blur under it.
-   The one-row Work list keeps the see-through look. (Chosen 2026-10-20.) The docked home intro keeps its soft fill. */
-.site-header.is-over ~ .drop-panel.lang-menu { background: var(--paper); mix-blend-mode: normal; }
-.site-header.is-over ~ .drop-panel.lang-menu ul { mix-blend-mode: difference; }
-html .site-header.is-over ~ .drop-veil:has(+ .drop-panel.lang-menu) { display: none !important; }
+/* Work and languages share the same frost over work images. The empty veil carries the blur and tint;
+   this list carries normal text and corners. If frost is unavailable, both lists use the plain page-colour fill.
+   The docked home intro keeps its soft fill. */
 /* on the home page's "Ashton is" slide the fill is that slide's colour, so the list reads as part of it */
 .home-dock:has(.slide-intro.is-active) .site-header.is-over ~ .drop-panel.lang-menu { background: var(--soft); }
 
