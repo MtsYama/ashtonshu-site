@@ -228,7 +228,7 @@ body::before {
 .drop-panel, .drop-veil { transition: clip-path .45s cubic-bezier(.25, .7, .2, 1); }
 .drop-veil { display: none; position: fixed; top: 0; left: 0; z-index: 19; pointer-events: none; }
 .drop-panel[hidden], .drop-veil[hidden] { display: none; }
-.drop-panel ul { padding: .55em .32em .6em; border-top: 1px solid; mix-blend-mode: difference; }   /* the hairline is the row's top edge */
+.drop-panel ul { padding: .55em .55em .6em; border-top: 1px solid; mix-blend-mode: difference; }   /* the hairline is the row's top edge */
 .site-header.is-over ~ .drop-panel { background: var(--paper); mix-blend-mode: normal; }
 .site-header.is-over ~ .drop-panel ul { mix-blend-mode: difference; }
 /* Start with a plain fill. Frost needs both the filter and a page-colour mix.
@@ -271,13 +271,13 @@ html.home-dock:not(.name-docked):not(.nm-cover-on):has(.slide-intro.is-active) .
 @media (hover: hover) and (pointer: fine) {
   .drop-panel a:hover { --hb: 1; --ha: 1; --ho: 1; color: #4d4d4d; }
 }
-/* Work: the first word sits under Work's label, after the icon and gap; spacing follows the nav. */
-.work-menu ul { display: flex; gap: 0 .9em; padding-left: 1.52em; }   /* .32em + .85em + .35em */
+/* Work and languages use the same inset on both sides. */
+.work-menu ul { display: flex; gap: 0 .9em; }
 @media (max-width: 639px) {
   /* phones: the line runs from gutter to gutter, the three spread across it with even room between them */
   .drop-panel { --drop-gap: 8px; }
   .work-menu { --drop-align: full; }
-  .work-menu ul { justify-content: space-between; padding-left: .32em; }
+  .work-menu ul { justify-content: space-between; }
 }
 @media (prefers-reduced-motion: reduce) {
   .site-header .site-nav .drop-trigger, .drop-panel :is(a, li > span) { transition: color .3s var(--ease) !important; }
@@ -744,12 +744,9 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
   .site-nav ul { gap: 0 .55em; }
 }
 
-/* the list of languages, a header list (css/style.css), lined up with the right edge of the globe's frame: one name
-   under another, starting where the control's word starts (on phones, where the globe stands alone, at the list's
-   own edge); the language you are reading has the resting corners of the current page, as in the header */
+/* Languages line up with the right edge of the globe's frame, with the same inset as Work. */
 .drop-panel.lang-menu { --drop-align: end; }
-.lang-menu ul { display: flex; flex-direction: column; gap: .8em; padding-left: 1.52em; }   /* .32em + the globe .85em + .35em */
-@media (max-width: 639px) { .lang-menu ul { padding-left: .32em; } }
+.lang-menu ul { display: flex; flex-direction: column; gap: .8em; }
 /* Work and languages share the same frost over work images. The empty veil carries the blur and tint;
    this list carries normal text and corners. If frost is unavailable, both lists use the plain page-colour fill.
    The docked home intro keeps its soft fill. */
@@ -758,3 +755,27 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 
 /* the same list in the footer, for a page read without scripts */
 .foot-lang [aria-current] { color: var(--muted); }
+
+/* v131 single-frame arbitration: only visibility changes ownership immediately.
+   Keep --hb/--ha/--ho and all existing transition timings; a losing frame cannot
+   remain visible during its closing animation. Priority: hover > focus > open > current.
+   :where() gives every visibility rule the same specificity (.hb); order decides.
+   A closing panel is inert before it becomes hidden, so neither can claim a frame. */
+/* F0: hide every header/list frame, including current menu spans. */
+:where(.site-header, .drop-panel) .hb { visibility: hidden; }
+/* F1: no interaction falls back to the current page, if this page has one. */
+:where(.site-header .site-nav a[aria-current]) > .hb { visibility: visible; }
+/* F2: an open trigger replaces the current-page frame. */
+:where(html:has(.site-header .drop-trigger[aria-expanded="true"])) :where(.site-header, .drop-panel) .hb { visibility: hidden; }
+:where(.site-header .drop-trigger[aria-expanded="true"]) > .hb { visibility: visible; }
+/* F3: a visible keyboard focus replaces both fallback frames. */
+:where(html:has(.site-header :is(.wordmark, .site-nav a, .theme-toggle, .lang-toggle):focus-visible, .drop-panel:not([hidden]):not([inert]) :is(a, li > span):focus-visible)) :where(.site-header, .drop-panel) .hb { visibility: hidden; }
+:where(.site-header :is(.wordmark, .site-nav a, .theme-toggle, .lang-toggle):focus-visible, .drop-panel:not([hidden]):not([inert]) :is(a, li > span):focus-visible) > .hb { visibility: visible; }
+/* F4: a real pointer hover takes priority even if keyboard focus stays elsewhere.
+   Include the current-language span; touch devices keep focus/open/current priority. */
+@media (hover: hover) and (pointer: fine) {
+  :where(html:has(.site-header :is(.wordmark, .site-nav a, .theme-toggle, .lang-toggle):hover, .drop-panel:not([hidden]):not([inert]) :is(a, li > span):hover)) :where(.site-header, .drop-panel) .hb { visibility: hidden; }
+  :where(.site-header :is(.wordmark, .site-nav a, .theme-toggle, .lang-toggle):hover, .drop-panel:not([hidden]):not([inert]) :is(a, li > span):hover) > .hb { visibility: visible; }
+  .drop-panel:not([hidden]):not([inert]) li > span:hover { --hb: 1; --ha: 1; --ho: 1; }
+}
+/* End v131 single-frame arbitration. */
