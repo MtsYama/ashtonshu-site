@@ -19,7 +19,7 @@
   <link rel="preload" href="fonts/poppins-800-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fonts.css?v=20261020lang">
-  <link rel="stylesheet" href="css/style.css?v=20261031frames">
+  <link rel="stylesheet" href="css/style.css?v=20261031r4">
   <noscript><style>.is-line .is-out { opacity: 1; transform: none; }</style></noscript>
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#ffffff">
@@ -73,11 +73,11 @@
           <h1 class="is-line"><span class="is-static is-out"><span class="is-name">Ashton</span> <span class="is-verb" aria-hidden="true">is</span><span class="vh">is</span></span> <span class="is-cycle is-out" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, an illustrator, a photographer, a UI/UX designer, a concept artist, a digital painter, a character designer, a community gardener, an AI architect, a human storyteller in the loop and an AI evangelist, and was an electrical engineer.</span></h1>
           <figure class="is-face is-shut" aria-hidden="true"><img alt="" width="800" height="800" decoding="async" data-face="img/portrait.jpg"><i class="f-tl"></i><i class="f-tr"></i><i class="f-bl"></i><i class="f-br"></i></figure>
         </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 6: Superlinear Academy" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/sl-hero.jpg" alt="Superlinear Academy website with the redesigned logo over the article library" width="1920" height="1080" decoding="async">
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 6: Superlinear Academy logo motion" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
+          <img src="img/sl-logo-motion-hero.jpg" alt="Superlinear Academy symbol in white on black" width="1920" height="1080" decoding="async"><video data-hero-motion muted playsinline preload="auto" poster="img/sl-logo-motion-hero.jpg" width="1920" height="1080" aria-hidden="true"><source src="img/sl-logo-motion-hero.mp4" type="video/mp4"></video>
         </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="3 of 6: Tarot Deck" data-tone="light" data-name="Tarot Deck" data-href="work/tarot-deck" style="--bg:#dad9d3;--pz:1.1">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/ta-hero.jpg" alt="Tarot cards spread on a table, each with a silhouetted figure" width="1920" height="1280" decoding="async">
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="3 of 6: Superlinear Academy" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/sl-hero.jpg" alt="Superlinear Academy website with the redesigned logo over the article library" width="1920" height="1080" decoding="async">
         </div>
         <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="4 of 6: Greeting Cards" data-tone="light" data-name="Greeting Cards" data-href="work/greeting-cards" style="--bg:#ede7d9;--pz:1.1">
           <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/gc-hero.jpg" alt="Three greeting card fronts: The Vine and the Elm, Born with the Morning, and With Grace Returned" width="1920" height="1080" decoding="async">
@@ -173,7 +173,7 @@
       if (last) last.nodeValue = last.nodeValue.replace(/(\S)\s+(\S+\s*)$/, '$1\u00a0$2');
     });
   </script>
-  <script src="js/site.js?v=20261020lang"></script>
+  <script src="js/site.js?v=20261031r4"></script>
   <script src="js/name-motion.js?v=20261016b"></script>
   <script>
     // slideshow: one slide at a time, cross-fading on a timer. Dots, arrow keys and swipes move it;
@@ -335,11 +335,79 @@
       nav.appendChild(pause);
       show.appendChild(nav);
 
+      // Hero playback owns its dwell; keep the outgoing final frame for the existing cross-fade.
+      var heroMotion = stage.querySelector('video[data-hero-motion]');
+      var motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var motionState = 'idle', motionRun = 0;
+      function motionHere() { return heroMotion && slides[cur].contains(heroMotion); }
+      function motionFallback(run) {
+        if (run !== motionRun || !motionHere()) return; // ignore a rejected play from an earlier visit
+        heroMotion.pause();
+        heroMotion.hidden = true;
+        motionState = 'still';
+        schedule();
+      }
+      function playMotion(run) {
+        try {
+          var result = heroMotion.play();
+          if (result && result.catch) result.catch(function () { motionFallback(run); });
+        } catch (e) { motionFallback(run); }
+      }
+      function enterMotion() {
+        if (!motionHere()) return;
+        var run = ++motionRun;
+        heroMotion.pause();
+        try { heroMotion.currentTime = 0; } catch (e) {}
+        heroMotion.hidden = motionQuery.matches;
+        motionState = motionQuery.matches ? 'still' : 'waiting';
+        if (motionState === 'waiting' && !document.hidden) playMotion(run);
+      }
+      function leaveMotion() {
+        if (!motionHere()) return;
+        ++motionRun;
+        heroMotion.pause(); // do not seek here: is-prev must retain the last visible frame
+        motionState = 'idle';
+      }
+      if (heroMotion) {
+        heroMotion.addEventListener('ended', function () {
+          if (!motionHere() || motionState !== 'waiting' || !heroMotion.ended) return;
+          motionState = 'done';
+          // hold the landed frame until the next picture is decoded: a picture shown for the first time is decoded
+          // then, and meanwhile the cross-fade would show its bare ground over the symbol (seen on phones)
+          var run = motionRun, next = slides[(cur + 1) % slides.length];
+          var img = want((cur + 1) % slides.length) || next.querySelector('img'), sent = false;
+          var on = function () {
+            if (sent) return;
+            sent = true; clearTimeout(wait);
+            if (run === motionRun && motionHere() && motionState === 'done') schedule();
+          };
+          var wait = setTimeout(on, 4000);
+          var decode = function () { if (img.decode) img.decode().then(on, on); else on(); };
+          if (!img) on();
+          else if (img.complete && img.naturalWidth) decode();
+          else { img.addEventListener('load', decode, { once: true }); img.addEventListener('error', on, { once: true }); }
+        });
+        heroMotion.addEventListener('error', function () { motionFallback(motionRun); });
+        var motionPreference = function () { if (motionHere()) { enterMotion(); schedule(); } };
+        if (motionQuery.addEventListener) motionQuery.addEventListener('change', motionPreference);
+        else if (motionQuery.addListener) motionQuery.addListener(motionPreference);
+        document.addEventListener('visibilitychange', function () {
+          if (!motionHere() || motionState !== 'waiting') return;
+          if (document.hidden) heroMotion.pause(); else playMotion(motionRun);
+        });
+      }
+
       function held() { for (var k in holds) if (holds[k]) return true; return false; }
       function schedule() {
         clearTimeout(timer);
         if (!playing || held()) return;
-        // work slides are still images, 3 s each; the intro lasts as long as its phrases take
+        // Wait for ended; reduced motion or rejected playback uses the normal still-image dwell.
+        if (motionHere() && motionState === 'waiting') return;
+        if (motionHere() && motionState === 'done') {
+          timer = setTimeout(function () { go(cur + 1); }, 0);
+          return;
+        }
+        // Still work slides last 3 s; the intro lasts as long as its phrases take.
         var d = cur === 0 ? seq().length * STEP + 500 : (+slides[cur].getAttribute('data-duration') || 3000);
         timer = setTimeout(function () { go(cur + 1); }, d);
       }
@@ -356,6 +424,10 @@
         show.setAttribute('data-tone', tone);
         header.setAttribute('data-tone', tone);
         dots.forEach(function (d, n) { if (n === cur) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+        // the logo motion hands over to the Superlinear hero under the same name: keep the caption still
+        if (name && !cap.hidden && cap.textContent === name && cap.getAttribute('href') === href) {
+          clearTimeout(capTimer); capBox.classList.remove('is-out'); return;
+        }
         capBox.classList.add('is-out');
         clearTimeout(capTimer);
         capTimer = setTimeout(function () {
@@ -389,6 +461,7 @@
         want(n); want((n + 1) % slides.length);
         if (n !== cur) {
           var from = slides[cur], was = cur, turn = ++turns;
+          leaveMotion(); // manual navigation may interrupt the clip
           slides.forEach(function (s) { s.classList.remove('is-prev'); });
           from.classList.remove('is-active');
           from.classList.add('is-prev');
@@ -396,6 +469,7 @@
           prevTimer = setTimeout(function () { from.classList.remove('is-prev'); }, 650);
           slides[n].classList.add('is-active');
           cur = n;
+          enterMotion(); // every new visit starts at frame zero
           if (was === 0) shutFace();   // the face closes while the slide fades out
           if (cur === 0) { round++; i = 0; el.textContent = seq()[0].text; verb.textContent = 'is'; verb.classList.remove('is-out'); h1.classList.remove('is-past'); enter(200); }
           paint(); cycle();

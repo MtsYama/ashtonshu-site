@@ -203,3 +203,41 @@
     });
   }
 })();
+
+// The requested Logo Motion covers are the only moving card and home artwork.
+(function () {
+  var covers = [].slice.call(document.querySelectorAll('video[data-cover-motion]'));
+  if (!covers.length) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var visible = new Set();
+  function sync(v) {
+    var slide = v.closest('.slide');
+    var active = slide ? slide.classList.contains('is-active') : visible.has(v);
+    if (active && !reduce.matches && !document.hidden) {
+      var playing = v.play();
+      if (playing && playing.catch) playing.catch(function () {});
+    } else {
+      v.pause();
+      if (reduce.matches || (slide && !active)) {
+        try { v.currentTime = 0; } catch (e) {}
+      }
+    }
+  }
+  function syncAll() { covers.forEach(sync); }
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && entry.intersectionRatio > 0) visible.add(entry.target);
+        else visible.delete(entry.target);
+        sync(entry.target);
+      });
+    }, { threshold: 0.01 });
+    covers.forEach(function (v) { if (!v.closest('.slide')) observer.observe(v); });
+  }
+  var show = document.querySelector('.show');
+  if (show) show.addEventListener('show:change', syncAll);
+  if (reduce.addEventListener) reduce.addEventListener('change', syncAll);
+  else if (reduce.addListener) reduce.addListener(syncAll);
+  document.addEventListener('visibilitychange', syncAll);
+  syncAll();
+})();

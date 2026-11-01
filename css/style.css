@@ -53,7 +53,8 @@ h1, h2, h3, h4 { margin: 0; font-size: inherit; font-weight: 400; text-wrap: bal
 p { margin: 0; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 figure { margin: 0; }
-img { display: block; max-width: 100%; height: auto; }
+/* Hero video shares the image defaults and artwork geometry. */
+img, .slide video { display: block; max-width: 100%; height: auto; }
 button { font: inherit; color: inherit; }
 
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .22em; transition: opacity .3s var(--ease); }
@@ -362,10 +363,10 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .slide.is-active { z-index: 2; opacity: 1; visibility: visible; transition: opacity .6s ease-out; }
 .slide.is-prev { z-index: 1; opacity: 1; visibility: visible; }
 .slide[data-href] { cursor: pointer; }
-.slide img { width: 100%; height: 100%; object-fit: cover; transform: scale(var(--zoom, 1)); }
+.slide img, .slide video { width: 100%; height: 100%; object-fit: cover; transform: scale(var(--zoom, 1)); }
 /* on tall or square screens the whole artwork shows on its own ground colour instead of being cut,
    enlarged by --pz as far as its own margins allow */
-@media (max-aspect-ratio: 155/100) { .slide.is-fit img { object-fit: contain; transform: scale(var(--pz, 1)); } }
+@media (max-aspect-ratio: 155/100) { .slide.is-fit img, .slide.is-fit video { object-fit: contain; transform: scale(var(--pz, 1)); } }
 
 /* the first slide: "Ashton is ..." (index.html script), set as on the earlier home page:
    Poppins 800 over a light Inter phrase, on the page gutter, vertically centred.
@@ -779,3 +780,32 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
   .drop-panel:not([hidden]):not([inert]) li > span:hover { --hb: 1; --ha: 1; --ho: 1; }
 }
 /* End v131 single-frame arbitration. */
+
+/* Only the requested Logo Motion covers contain moving artwork. */
+.thumb.motion-cover { position: relative; background: #000; }
+.motion-cover > .motion-poster,
+.motion-cover > video {
+  display: block; width: 100%; height: 100%; object-fit: contain;
+  transform: none; background: #000;
+}
+.motion-cover > video { position: absolute; inset: 0; }
+@media (hover: hover) and (pointer: fine) {
+  .thumb.motion-cover > video { transition: opacity .3s var(--ease); }
+  .is-hover .card a:is(:hover, :focus-visible) .motion-cover > video { opacity: .08; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion-cover > video { display: none; transition: none; }
+}
+
+/* Overlay the hero clip on its still; neither layer changes the shared image scaling. */
+.slide video[data-hero-motion] { position: absolute; inset: 0; }
+.slide video[data-hero-motion][hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .slide video[data-hero-motion] { display: none; }
+}
+
+/* A wide clip fills its card like any picture (the square Superlinear loop sat on black). */
+.thumb.motion-cover.is-wide { background: var(--soft); }
+.motion-cover.is-wide > :is(.motion-poster, video) { object-fit: cover; background: none; }
+/* The project ends here: a 1px ink rule, as on the About page, sets Previous / Next apart from the last section. */
+.p-more { padding-top: clamp(40px, 4.2vw, 60px); border-top: 1px solid var(--ink); }
