@@ -76,7 +76,7 @@ a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .22em
 /* text link with an arrow that opens up on hover */
 .arrow-link { font-size: var(--fs-ui); text-decoration: none; }
 .arrow-link::after { content: "\2192"; display: inline-block; margin-left: .4em; transition: margin .3s var(--ease); }
-.arrow-link:hover { opacity: .3; }
+.arrow-link:hover { opacity: .85; }
 .arrow-link:hover::after { margin-left: .9em; }
 
 /* ---------- header ---------- */
@@ -312,7 +312,7 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
   margin-inline: auto;
 }
 .foot a { text-decoration: none; }
-.foot a:hover { opacity: .3; }
+.foot a:hover { opacity: .85; }
 .foot-sig .mark { width: 36px; height: 36px; margin-bottom: 14px; }
 .foot-based { margin-top: .35em; color: var(--muted); font-size: .85em; }
 .foot-links { display: flex; flex-wrap: wrap; gap: 0 48px; }
@@ -455,7 +455,7 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .show-caption a { display: inline-block; padding: var(--cap-pad) 0; text-decoration: none; }
 .show-caption a[hidden] { display: none; }
 .show-caption a::after { content: "\2192"; margin-left: .3em; transition: margin .3s var(--ease); }   /* inline, so the arrow never wraps alone */
-.show-caption a:hover { opacity: .3; }
+.show-caption a:hover { opacity: .85; }
 .show-caption a:hover::after { margin-left: .9em; }
 
 .show-nav { position: absolute; z-index: 3; right: calc(var(--gutter) - 9px); bottom: calc(var(--cap-pad) - 2px); display: flex; }
@@ -648,7 +648,7 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .c-links p { margin-top: .3em; }
 .big-link { display: inline-flex; align-items: center; gap: .45em; font-size: var(--fs-mid); text-decoration: none; }
 .big-link svg { width: .8em; height: .8em; }
-.big-link:hover { opacity: .3; }
+.big-link:hover { opacity: .85; }
 
 .contact-form { width: min(100% - 2 * var(--gutter), var(--text)); margin: clamp(80px, 9.2vw, 132px) auto 0; }
 .contact-form h2 { margin-bottom: 8px; font-size: var(--fs-mid); text-align: center; }
@@ -809,3 +809,14 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .motion-cover.is-wide > :is(.motion-poster, video) { object-fit: cover; background: none; }
 /* The project ends here: a 1px ink rule, as on the About page, sets Previous / Next apart from the last section. */
 .p-more { padding-top: clamp(40px, 4.2vw, 60px); border-top: 1px solid var(--ink); }
+
+/* Minimum independent targets; preserve text metrics and existing mobile circles. */
+.site-header :is(.wordmark, .site-nav a, button), .drop-panel a,
+.site-footer a {
+  min-width: 24px; min-height: 24px;
+}
+.site-header .wordmark, .site-footer a { display: inline-flex; align-items: center; }
+/* The error page keeps the shared frame, fonts and responsive footer. */
+.not-found .frame { min-width: 0; overflow-wrap: anywhere; }
+.not-found h1 { font-size: var(--fs-big); }
+.not-found p { margin-top: 1.5em; }

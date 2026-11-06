@@ -10,6 +10,7 @@
   <meta property="og:description" content="Exploring how AI and human creativity can learn from each other.">
   <link rel="icon" href="../img/front-favicon-20261106.ico" type="image/x-icon">
   <link rel="icon" href="../img/front-icon-32-20261106.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="../img/avatar-icon-192-20261106.png" type="image/png" sizes="192x192">
   <link rel="apple-touch-icon" href="../img/front-icon-180-20261106.png" sizes="180x180">
   <link rel="manifest" href="../site-draft.webmanifest">
   <link rel="preload" href="../fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
@@ -80,13 +81,13 @@
     <section class="p-sec" aria-labelledby="d2">
       <div class="p-art">
         <div class="p-stickers">
-          <video muted loop playsinline preload="none" poster="../img/da-sticker-yama-drawing.jpg" width="512" height="512" aria-label="Animated sticker: Yama, a green mountain in glasses, drawing on a tablet"><source src="../img/da-sticker-yama-drawing.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/da-sticker-yama-talking.jpg" width="512" height="512" aria-label="Animated sticker: Yama talking over the tablet"><source src="../img/da-sticker-yama-talking.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/da-sticker-bolo-typing.jpg" width="512" height="512" aria-label="Animated sticker: Bolo, a pineapple, typing on a laptop"><source src="../img/da-sticker-bolo-typing.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/da-sticker-bolo-talking.jpg" width="512" height="512" aria-label="Animated sticker: Bolo talking at the laptop"><source src="../img/da-sticker-bolo-talking.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/da-sticker-pendragon-trio.jpg" width="240" height="240" aria-label="Animated emoji: three small characters appear one by one in bursts of sparks, then a handwritten caption"><source src="../img/da-sticker-pendragon-trio.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/da-sticker-pendragon-birthday.jpg" width="240" height="240" aria-label="Animated emoji: a girl with a pink bow and closed eyes while handwritten Chinese words appear beside her"><source src="../img/da-sticker-pendragon-birthday.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/da-sticker-pendragon-newyear.jpg" width="240" height="240" aria-label="Animated emoji: a smiling girl in a red qipao and a New Year headdress, with a handwritten greeting"><source src="../img/da-sticker-pendragon-newyear.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/da-sticker-yama-drawing.jpg" width="512" height="512" aria-label="Animated sticker: Yama, a green mountain in glasses, drawing on a tablet"><source src="../img/da-sticker-yama-drawing.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/da-sticker-yama-talking.jpg" width="512" height="512" aria-label="Animated sticker: Yama talking over the tablet"><source src="../img/da-sticker-yama-talking.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/da-sticker-bolo-typing.jpg" width="512" height="512" aria-label="Animated sticker: Bolo, a pineapple, typing on a laptop"><source src="../img/da-sticker-bolo-typing.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/da-sticker-bolo-talking.jpg" width="512" height="512" aria-label="Animated sticker: Bolo talking at the laptop"><source src="../img/da-sticker-bolo-talking.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/da-sticker-pendragon-trio.jpg" width="240" height="240" aria-label="Animated emoji: three small characters appear one by one in bursts of sparks, then a handwritten caption"><source src="../img/da-sticker-pendragon-trio.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/da-sticker-pendragon-birthday.jpg" width="240" height="240" aria-label="Animated emoji: a girl with a pink bow and closed eyes while handwritten Chinese words appear beside her"><source src="../img/da-sticker-pendragon-birthday.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/da-sticker-pendragon-newyear.jpg" width="240" height="240" aria-label="Animated emoji: a smiling girl in a red qipao and a New Year headdress, with a handwritten greeting"><source src="../img/da-sticker-pendragon-newyear.mp4" type="video/mp4"></video>
         </div>
       </div>
       <div class="p-cap">
@@ -142,6 +143,7 @@
           <li><a href="../work/">Work</a></li>
           <li><a href="../about">About</a></li>
           <li><a href="../contact">Contact</a></li>
+          <li><a href="https://blog.ashtonshu.page/">Writing</a></li>
         </ul>
         <ul>
           <li><a class="icon-link" href="https://www.linkedin.com/in/ashton-z-shu/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg><span>LinkedIn</span></a></li>
@@ -164,21 +166,6 @@
   </script>
   <script src="../js/site.js?v=20261031r4"></script>
 
-  <script>
-    // stickers: each plays only while it is on screen, and never under reduced motion (the poster frame stays)
-    (function () {
-      var vs = document.querySelectorAll('.p-stickers video');
-      if (!vs.length || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          var v = e.target;
-          if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-          else v.pause();
-        });
-      }, { threshold: 0.25 });
-      vs.forEach(function (v) { io.observe(v); });
-    })();
-  </script>
 
   <script>
     // light / dark: follows the system in Auto; tap cycles Auto, Light, Dark and keeps the current choice
