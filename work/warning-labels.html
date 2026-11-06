@@ -22,7 +22,7 @@
   <link rel="preload" href="../fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../css/fonts.css?v=20261020lang">
   <link rel="stylesheet" href="../css/style.css?v=20261031r4">
-  <style>.p-motion video { display: block; width: 100%; height: auto; } .p-motion .row > video { flex: 1 1 0%; width: 0; min-width: 0; } @media (max-width: 639px) { .p-motion .row > video { flex: none; width: 100%; } } .p-cap .p-cta { margin-top: 1.2em; } .p-art .row.plate { background: var(--soft); padding: var(--g); } .p-note { color: var(--muted); }</style>
+  <style>.p-motion video { display: block; width: 100%; height: auto; } .p-motion .row > video { flex: 1 1 0%; width: 0; min-width: 0; } @media (max-width: 639px) { .p-motion .row > video { flex: none; width: 100%; } } .p-cap .p-cta { margin-top: 1.2em; } .p-art.plate { --pl: calc(min(100vw - 2 * var(--gutter), var(--wide)) * .04); background: #c6c6c6; padding: var(--pl); gap: var(--pl); } .p-art.plate .row { gap: var(--pl); } .p-note { color: var(--muted); }</style>
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#ffffff">
   <style>html{background:#fff}html[data-theme="dark"]{background:#0d0d0d}@media (prefers-color-scheme:dark){html:not([data-theme="light"]){background:#0d0d0d}}</style>
@@ -62,7 +62,7 @@
   </nav>
 
   <main id="main">
-    <figure class="p-hero is-fit" data-hero>
+    <figure class="p-hero is-fit" data-hero style="--hero-bg:#c6c6c6">
       <img src="../img/wl-arc-before-after.png" alt="Arc flash warning label before and after the redesign" width="970" height="672" fetchpriority="high" decoding="async">
     </figure>
     <header class="p-head">
@@ -75,8 +75,8 @@
       <p>Client: a Chinese switchgear manufacturer exporting to North America.</p>
     </div>
     <section class="p-sec" aria-labelledby="d-directions">
-      <div class="p-art">
-        <div class="row plate">
+      <div class="p-art plate">
+        <div class="row">
           <img src="../img/wl-v1.png" alt="First design direction for an electrical equipment warning label" width="480" height="336" style="--ar:1.4285714285714286" loading="lazy" decoding="async">
           <img src="../img/wl-v2.png" alt="Second design direction for an electrical equipment warning label in portrait format" width="336" height="480" style="--ar:0.7" loading="lazy" decoding="async">
           <img src="../img/wl-v3.png" alt="Third design direction for an electrical equipment warning label" width="480" height="336" style="--ar:1.4285714285714286" loading="lazy" decoding="async">
@@ -88,8 +88,8 @@
       </div>
     </section>
     <section class="p-sec" aria-labelledby="d-revisions">
-      <div class="p-art">
-        <div class="row plate">
+      <div class="p-art plate">
+        <div class="row">
           <img src="../img/wl-after-us.png" alt="Revised US version of an electrical equipment warning label" width="480" height="336" style="--ar:1.4285714285714286" loading="lazy" decoding="async">
           <img src="../img/wl-after-ca.png" alt="Revised Canadian version of an electrical equipment warning label" width="480" height="336" style="--ar:1.4285714285714286" loading="lazy" decoding="async">
         </div>
@@ -100,8 +100,8 @@
       </div>
     </section>
     <section class="p-sec" aria-labelledby="d-arc">
-      <div class="p-art">
-        <div class="row plate">
+      <div class="p-art plate">
+        <div class="row">
           <img src="../img/wl-arc-before.png" alt="Arc flash warning label before revision" width="384" height="576" style="--ar:0.6666666666666666" loading="lazy" decoding="async">
           <img src="../img/wl-arc-after.png" alt="Arc flash warning label after revision" width="480" height="672" style="--ar:0.7142857142857143" loading="lazy" decoding="async">
         </div>
@@ -112,8 +112,8 @@
       </div>
     </section>
     <section class="p-sec" aria-labelledby="d-personnel">
-      <div class="p-art">
-        <div class="row plate">
+      <div class="p-art plate">
+        <div class="row">
           <img src="../img/wl-qp-caution-person.png" alt="CAUTION label with a person at an equipment panel: qualified personnel only" width="301" height="554" style="--ar:0.5433212996389891" loading="lazy" decoding="async">
           <img src="../img/wl-qp-notice-person.png" alt="NOTICE label with the same person at the panel: qualified personnel only" width="301" height="554" style="--ar:0.5433212996389891" loading="lazy" decoding="async">
           <img src="../img/wl-qp-caution-prohibition.png" alt="CAUTION label with a crossed-out walking figure: qualified personnel only" width="301" height="554" style="--ar:0.5433212996389891" loading="lazy" decoding="async">
@@ -126,7 +126,7 @@
       </div>
     </section>
     <section class="p-sec" aria-labelledby="d-website">
-      <div class="p-art">
+      <div class="p-art plate">
         <div class="row">
           <img src="../img/wl-site-home-desktop.png" alt="Desktop home page of the website, with certification marks, introductory text and a switchgear photograph." width="1440" height="900" style="--ar:1.6" loading="lazy" decoding="async">
           <img src="../img/wl-site-labels-desktop.png" alt="Desktop label library page of the website, introducing the safety label guide beside a hazardous voltage warning label." width="1440" height="900" style="--ar:1.6" loading="lazy" decoding="async">
