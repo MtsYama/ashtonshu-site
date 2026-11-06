@@ -1,0 +1,30 @@
+{
+  "name": "Ashton Z. Shu",
+  "short_name": "Ashton Z. Shu",
+  "id": "/draft",
+  "start_url": "/work/digital-art",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "img/front-icon-192-20261106.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "img/front-icon-512-20261106.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "img/front-icon-maskable-512-20261106.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
