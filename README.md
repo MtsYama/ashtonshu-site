@@ -61,7 +61,7 @@ Zhengshen Shu 的个人网站原型。纯静态 HTML、CSS、JS,没有框架,也
 - 换图:把新图放进 `img/`,改 `src`(首页轮播的图改 `data-src`),顺手改 `width`、`height` 和 `alt`。网页用的图长边 2000 像素以内的 JPEG 就够。
 - 项目页顶部的大图:电脑上裁成 2:1,`style` 里的 `--pos` 决定保留图的哪一部分(例如 `50% 0%` 是保留上沿);页头的字压在图上,所以 `<header class="site-header">` 的 `data-tone` 按图来写:`dark`、`light`,图太花时写 `mixed`(字底下垫白块)。不想裁的图给 `figure` 加 `is-fit`,整张放在浅灰底上。
 - 加项目:复制 `work/` 下任意一页改内容,`<head>` 里那行 canonical 改成新页面自己的短网址(例如 `https://ashton.is/work/new-project`);在它所属那组的页面(Projects 是 `work/index.html`,另外两组是 `work/collections.html` 和 `work/personal.html`)里加一张卡片;项目页底部 “More projects” 的前后两张卡片只在本组里循环,改新页面和它前后两页的卡片(链接、缩略图、名字);面包屑中间一级写本组(Work、Collections 或 Personal),页头后面 Work 菜单里本组那一项加 `aria-current="true"`。想上首页轮播就照上面加一张 slide,同时把每张的 `aria-label` 里的 “x of 6” 改对。
-- 网站图标(favicon):新页面默认用 `img/favicon-draft.png`(黑底白标),草稿、WIP 和以后其他还没定稿的页面都用它;页面做好上线时才换成 `img/favicon-solid.png`(白底黑标)。从做好的页面复制页头时记得改回 draft。两者都是 64×64,由 `img/mark.png` 生成;页面里显示的 logo 照旧用无底色的 `mark.png`。`img/favicon.png` 留着同样是白底版,只为兜底旧链接。
+- 网站图标(favicon):v1.3.3 正式页用胸像 avatar,保留 noindex 的草稿页用白底黑标 front。两套图标在 img/,文件名带 20261106,包括 ico、32、180、192、512 和 maskable 512。每页 head 引用 ico、32、180 和 manifest;正式版 site.webmanifest、草稿版 site-draft.webmanifest,display 均为 standalone。旧 favicon-solid.png、apple-touch-icon.png、favicon-draft.png 保留为兼容文件;新页面使用带日期的文件名。翻译和后台生成器须同步处理完整图标链接与 manifest,详见本次改动包 README。
 - 本地预览:要用一个像 GitHub Pages 那样把 `/about` 对到 `about.html` 的本地服务器,站内短链接才点得通;`python -m http.server` 和直接双击 `index.html` 做不到。这个脚本放在仓库外面,因为仓库里的文件都会发布到网站上。
 - 发布:`git add -A`,`git commit`,`git push`。GitHub Pages 一两分钟后更新。
 
