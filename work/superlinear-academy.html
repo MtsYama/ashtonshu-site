@@ -182,10 +182,10 @@
     <section class="p-sec" aria-labelledby="d-motion">
       <div class="p-art p-motion">
         <div class="row">
-          <video muted loop playsinline preload="none" poster="../img/sl-motion-scan.jpg" width="720" height="720" aria-label="Scan: a band of light runs through the lines of the symbol, white on black"><source src="../img/sl-motion-scan.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/sl-motion-breathe.jpg" width="720" height="720" aria-label="Breathe: the lines of the symbol fade down and back, white on black"><source src="../img/sl-motion-breathe.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/sl-motion-cone-rotate.jpg" width="720" height="720" aria-label="Cone Rotate: the tapered lines of the symbol turn like a cone, white on black"><source src="../img/sl-motion-cone-rotate.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/sl-motion-turn.jpg" width="720" height="720" aria-label="Turn: the lines of the symbol turn in place one after another, white on black"><source src="../img/sl-motion-turn.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/sl-motion-scan.jpg" width="720" height="720" aria-label="Scan: a band of light runs through the lines of the symbol, white on black"><source src="../img/sl-motion-scan.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/sl-motion-breathe.jpg" width="720" height="720" aria-label="Breathe: the lines of the symbol fade down and back, white on black"><source src="../img/sl-motion-breathe.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/sl-motion-cone-rotate.jpg" width="720" height="720" aria-label="Cone Rotate: the tapered lines of the symbol turn like a cone, white on black"><source src="../img/sl-motion-cone-rotate.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/sl-motion-turn.jpg" width="720" height="720" aria-label="Turn: the lines of the symbol turn in place one after another, white on black"><source src="../img/sl-motion-turn.mp4" type="video/mp4"></video>
         </div>
       </div>
       <div class="p-cap">
@@ -276,20 +276,6 @@
   </script>
   <script src="../js/site.js?v=20261031r4"></script>
 
-  <script>
-    // logo motion: each loop plays only while it is on screen, and never under reduced motion (the poster frame stays)
-    (function () {
-      var vs = document.querySelectorAll('.p-motion video');
-      if (!vs.length || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { var p = e.target.play(); if (p && p.catch) p.catch(function () {}); }
-          else e.target.pause();
-        });
-      }, { threshold: 0.25 });
-      Array.prototype.forEach.call(vs, function (v) { io.observe(v); });
-    })();
-  </script>
 
   <script>
     // light / dark: follows the system in Auto; tap cycles Auto, Light, Dark and keeps the current choice

@@ -209,11 +209,11 @@
   var covers = [].slice.call(document.querySelectorAll('video[data-cover-motion]'));
   if (!covers.length) return;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var visible = new Set();
+  var visible = new Set(), showPlaying = true;
   function sync(v) {
     var slide = v.closest('.slide');
     var active = slide ? slide.classList.contains('is-active') : visible.has(v);
-    if (active && !reduce.matches && !document.hidden) {
+    if (active && (!slide || showPlaying) && !reduce.matches && !document.hidden) {
       var playing = v.play();
       if (playing && playing.catch) playing.catch(function () {});
     } else {
@@ -235,7 +235,54 @@
     covers.forEach(function (v) { if (!v.closest('.slide')) observer.observe(v); });
   }
   var show = document.querySelector('.show');
-  if (show) show.addEventListener('show:change', syncAll);
+  if (show) {
+    show.addEventListener('show:change', syncAll);
+    show.addEventListener('show:playing', function (e) { showPlaying = e.detail.playing; syncAll(); });
+  }
+  if (reduce.addEventListener) reduce.addEventListener('change', syncAll);
+  else if (reduce.addListener) reduce.addListener(syncAll);
+  document.addEventListener('visibilitychange', syncAll);
+  syncAll();
+})();
+
+// Project loops share live reduced-motion handling and native pause controls.
+(function () {
+  var videos = [].slice.call(document.querySelectorAll('.p-motion video[loop], .p-stickers video[loop]'));
+  if (!videos.length) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var visible = new Set(), userPaused = new Set();
+  function eligible(v) { return visible.has(v) && !reduce.matches && !document.hidden; }
+  function firstFrame(v) {
+    v.pause();
+    try { v.currentTime = 0; } catch (e) {}
+  }
+  function sync(v) {
+    if (reduce.matches) { firstFrame(v); return; }
+    if (eligible(v) && !userPaused.has(v)) {
+      var result = v.play();
+      if (result && result.catch) result.catch(function () {});
+    } else v.pause();
+  }
+  function syncAll() { videos.forEach(sync); }
+  videos.forEach(function (v) {
+    v.controls = true;
+    v.preload = 'metadata';
+    v.addEventListener('loadedmetadata', function () { if (reduce.matches) firstFrame(v); });
+    v.addEventListener('pause', function () { if (eligible(v) && v.paused) userPaused.add(v); });
+    v.addEventListener('play', function () {
+      if (reduce.matches) { firstFrame(v); return; }
+      userPaused.delete(v);
+    });
+  });
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) visible.add(entry.target); else visible.delete(entry.target);
+        sync(entry.target);
+      });
+    }, { threshold: 0.25 });
+    videos.forEach(function (v) { observer.observe(v); });
+  }
   if (reduce.addEventListener) reduce.addEventListener('change', syncAll);
   else if (reduce.addListener) reduce.addListener(syncAll);
   document.addEventListener('visibilitychange', syncAll);

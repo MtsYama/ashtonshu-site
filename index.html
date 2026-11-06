@@ -73,7 +73,7 @@
       <div class="slides">
         <div class="slide slide-intro is-active" role="group" aria-roledescription="slide" aria-label="1 of 6" data-tone="ink">
           <h1 class="is-line"><span class="is-static is-out"><span class="is-name">Ashton</span> <span class="is-verb" aria-hidden="true">is</span><span class="vh">is</span></span> <span class="is-cycle is-out" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, an illustrator, a photographer, a UI/UX designer, a concept artist, a digital painter, a character designer, a community gardener, an AI architect, a human storyteller in the loop and an AI evangelist, and was an electrical engineer.</span></h1>
-          <figure class="is-face is-shut" aria-hidden="true"><img alt="" width="800" height="800" decoding="async" data-face="img/portrait.jpg"><i class="f-tl"></i><i class="f-tr"></i><i class="f-bl"></i><i class="f-br"></i></figure>
+          <figure class="is-face is-shut"><img alt="Ashton Z. Shu in black rectangular glasses, with headphones around the neck, beside the portfolio introduction." width="800" height="800" decoding="async" data-face="img/portrait.jpg"><i class="f-tl"></i><i class="f-tr"></i><i class="f-bl"></i><i class="f-br"></i></figure>
         </div>
         <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 6: Superlinear Academy logo motion" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
           <img src="img/sl-logo-motion-hero.jpg" alt="Superlinear Academy symbol in white on black" width="1920" height="1080" decoding="async"><video data-hero-motion muted playsinline preload="auto" poster="img/sl-logo-motion-hero.jpg" width="1920" height="1080" aria-hidden="true"><source src="img/sl-logo-motion-hero.mp4" type="video/mp4"></video>
@@ -199,7 +199,9 @@
         ['a community gardener.', 'an AI architect.', 'a human storyteller in the loop.', 'an AI evangelist.'],
         ['an electrical engineer.']
       ];
-      var STEP = 1900, steps = [];
+      var STEP = 1900, steps = [], wordJobs = [];
+      function wordLater(fn) { var job = { fn: fn, id: 0 }; wordJobs.push(job); job.id = setTimeout(function () { wordJobs.splice(wordJobs.indexOf(job), 1); fn(); }, 300); }
+      function settleWords() { wordJobs.splice(0).forEach(function (job) { clearTimeout(job.id); job.fn(); }); }
       roles.forEach(function (r) { r.forEach(function (t, k) { steps.push({ text: t, dir: k ? 'h' : 'v' }); }); });
       var words = steps.map(function (s) { return s.text; });
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -289,13 +291,13 @@
       }
       function swap(node, cls, text) {   // hide with cls, change the text, take cls off so it comes back the same way
         node.classList.add(cls);
-        setTimeout(function () { node.textContent = text; node.classList.remove(cls); }, 300);
+        wordLater(function () { node.textContent = text; node.classList.remove(cls); });
       }
       function move(s) {          // drop in for a new role, open sideways for a branch; "is" turns into "was" for the role before design
         swap(el, s.dir === 'h' ? 'is-wipe' : 'is-out', s.text);
         var v = s.text === PAST ? 'was' : 'is';
         if (verb.textContent !== v) swap(verb, 'is-out', v);
-        setTimeout(function () { h1.classList.toggle('is-past', s.text === PAST); }, 300);   // while the words are hidden
+        wordLater(function () { h1.classList.toggle('is-past', s.text === PAST); });   // while the words are hidden
       }
       function enter(delay) {     // the phrase drops in the same way the roles change
         el.style.transition = 'none';
@@ -350,6 +352,7 @@
         schedule();
       }
       function playMotion(run) {
+        if (!playing || motionQuery.matches || document.hidden) return;
         try {
           var result = heroMotion.play();
           if (result && result.catch) result.catch(function () { motionFallback(run); });
@@ -390,7 +393,11 @@
           else { img.addEventListener('load', decode, { once: true }); img.addEventListener('error', on, { once: true }); }
         });
         heroMotion.addEventListener('error', function () { motionFallback(motionRun); });
-        var motionPreference = function () { if (motionHere()) { enterMotion(); schedule(); } };
+        var motionPreference = function () {
+          reduce = motionQuery.matches;
+          if (reduce) setPlaying(false);
+          if (motionHere()) { enterMotion(); schedule(); }
+        };
         if (motionQuery.addEventListener) motionQuery.addEventListener('change', motionPreference);
         else if (motionQuery.addListener) motionQuery.addListener(motionPreference);
         document.addEventListener('visibilitychange', function () {
@@ -415,6 +422,12 @@
       }
       function setPlaying(on) {
         playing = on;
+        if (!on) settleWords();
+        if (heroMotion) {
+          if (!on) heroMotion.pause();
+          else if (motionHere() && motionState === 'waiting') playMotion(motionRun);
+        }
+        show.dispatchEvent(new CustomEvent('show:playing', { detail: { playing: on } }));
         pause.classList.toggle('is-paused', !on);
         pause.setAttribute('aria-label', on ? 'Pause slideshow' : 'Play slideshow');
         stage.setAttribute('aria-live', on ? 'off' : 'polite');

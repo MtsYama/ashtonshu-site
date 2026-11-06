@@ -123,14 +123,17 @@
     <section class="p-sec" aria-labelledby="d-website">
       <div class="p-art">
         <div class="row">
-          <img src="../img/wl-home-a.png" alt="First homepage design direction for the companion website" width="1440" height="1240" style="--ar:1.1612903225806452" loading="lazy" decoding="async">
-          <img src="../img/wl-home-b.png" alt="Second homepage design direction for the companion website" width="1440" height="1240" style="--ar:1.1612903225806452" loading="lazy" decoding="async">
+          <img src="../img/wl-site-home-desktop.png" alt="Desktop home page of the companion website, with certification marks, introductory text and a switchgear photograph." width="1440" height="900" style="--ar:1.6" loading="lazy" decoding="async">
+          <img src="../img/wl-site-labels-desktop.png" alt="Desktop label library page of the companion website, introducing the safety label guide beside a hazardous voltage warning label." width="1440" height="900" style="--ar:1.6" loading="lazy" decoding="async">
         </div>
-          <img src="../img/wl-home-after-finder.png" alt="Revised companion website homepage with a finder feature" width="1232" height="476" style="--ar:2.588235294117647" loading="lazy" decoding="async">
+        <div class="row">
+          <img src="../img/wl-site-product-desktop.png" alt="Desktop product page of the companion website, showing low-voltage switchgear, product details and quote and specification buttons." width="1440" height="900" style="--ar:1.6" loading="lazy" decoding="async">
+          <img src="../img/wl-site-home-phone.png" alt="Phone home page of the companion website, with a compact menu, certification marks, introductory text and a fixed request-a-quote button." width="780" height="1688" style="--ar:0.46208530805687204" loading="lazy" decoding="async">
+        </div>
       </div>
       <div class="p-cap">
         <h2 id="d-website">Website</h2>
-        <p>Two homepage directions, followed by a revised homepage with a finder feature.</p>
+        <p>The finished companion website: home, label library and product pages, on desktop and phone.</p>
       </div>
     </section>
     <nav class="p-more" aria-label="More projects">
@@ -202,20 +205,6 @@
   </script>
   <script src="../js/site.js?v=20261031r4"></script>
 
-  <script>
-    // logo motion: each loop plays only while it is on screen, and never under reduced motion (the poster frame stays)
-    (function () {
-      var vs = document.querySelectorAll('.p-motion video');
-      if (!vs.length || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { var p = e.target.play(); if (p && p.catch) p.catch(function () {}); }
-          else e.target.pause();
-        });
-      }, { threshold: 0.25 });
-      Array.prototype.forEach.call(vs, function (v) { io.observe(v); });
-    })();
-  </script>
 
   <script>
     // light / dark: follows the system in Auto; tap cycles Auto, Light, Dark and keeps the current choice

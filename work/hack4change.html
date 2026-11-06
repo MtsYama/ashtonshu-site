@@ -168,7 +168,7 @@
 
     <section class="p-sec" aria-labelledby="d3">
       <div class="p-art p-motion">
-        <video muted loop playsinline preload="none" poster="../img/h4-motion.jpg" width="1080" height="1350" aria-label="Event teaser: Get Ready, Moncton! March 13 to 15, 2026, typed over a tinted photo of the Capitol Theatre"><source src="../img/h4-motion.mp4" type="video/mp4"></video>
+        <video controls muted loop playsinline preload="none" poster="../img/h4-motion.jpg" width="1080" height="1350" aria-label="Event teaser: Get Ready, Moncton! March 13 to 15, 2026, typed over a tinted photo of the Capitol Theatre"><source src="../img/h4-motion.mp4" type="video/mp4"></video>
       </div>
       <div class="p-cap">
         <h2 id="d3">Event Teaser</h2>
@@ -256,19 +256,6 @@
   </script>
   <script src="../js/site.js?v=20261031r4"></script>
 
-  <script>
-    // event teaser: plays only while it is on screen, and never under reduced motion (the poster frame stays)
-    (function () {
-      var v = document.querySelector('.p-motion video');
-      if (!v || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-          else v.pause();
-        });
-      }, { threshold: 0.25 }).observe(v);
-    })();
-  </script>
 
   <script>
     // light / dark: follows the system in Auto; tap cycles Auto, Light, Dark and keeps the current choice

@@ -80,13 +80,13 @@
     <section class="p-sec" aria-labelledby="d2">
       <div class="p-art">
         <div class="p-stickers">
-          <video muted loop playsinline preload="none" poster="../img/da-sticker-yama-drawing.jpg" width="512" height="512" aria-label="Animated sticker: Yama, a green mountain in glasses, drawing on a tablet"><source src="../img/da-sticker-yama-drawing.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/da-sticker-yama-talking.jpg" width="512" height="512" aria-label="Animated sticker: Yama talking over the tablet"><source src="../img/da-sticker-yama-talking.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/da-sticker-bolo-typing.jpg" width="512" height="512" aria-label="Animated sticker: Bolo, a pineapple, typing on a laptop"><source src="../img/da-sticker-bolo-typing.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/da-sticker-bolo-talking.jpg" width="512" height="512" aria-label="Animated sticker: Bolo talking at the laptop"><source src="../img/da-sticker-bolo-talking.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/da-sticker-pendragon-trio.jpg" width="240" height="240" aria-label="Animated emoji: three small characters appear one by one in bursts of sparks, then a handwritten caption"><source src="../img/da-sticker-pendragon-trio.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/da-sticker-pendragon-birthday.jpg" width="240" height="240" aria-label="Animated emoji: a girl with a pink bow and closed eyes while handwritten Chinese words appear beside her"><source src="../img/da-sticker-pendragon-birthday.mp4" type="video/mp4"></video>
-          <video muted loop playsinline preload="none" poster="../img/da-sticker-pendragon-newyear.jpg" width="240" height="240" aria-label="Animated emoji: a smiling girl in a red qipao and a New Year headdress, with a handwritten greeting"><source src="../img/da-sticker-pendragon-newyear.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/da-sticker-yama-drawing.jpg" width="512" height="512" aria-label="Animated sticker: Yama, a green mountain in glasses, drawing on a tablet"><source src="../img/da-sticker-yama-drawing.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/da-sticker-yama-talking.jpg" width="512" height="512" aria-label="Animated sticker: Yama talking over the tablet"><source src="../img/da-sticker-yama-talking.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/da-sticker-bolo-typing.jpg" width="512" height="512" aria-label="Animated sticker: Bolo, a pineapple, typing on a laptop"><source src="../img/da-sticker-bolo-typing.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/da-sticker-bolo-talking.jpg" width="512" height="512" aria-label="Animated sticker: Bolo talking at the laptop"><source src="../img/da-sticker-bolo-talking.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/da-sticker-pendragon-trio.jpg" width="240" height="240" aria-label="Animated emoji: three small characters appear one by one in bursts of sparks, then a handwritten caption"><source src="../img/da-sticker-pendragon-trio.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/da-sticker-pendragon-birthday.jpg" width="240" height="240" aria-label="Animated emoji: a girl with a pink bow and closed eyes while handwritten Chinese words appear beside her"><source src="../img/da-sticker-pendragon-birthday.mp4" type="video/mp4"></video>
+          <video controls muted loop playsinline preload="none" poster="../img/da-sticker-pendragon-newyear.jpg" width="240" height="240" aria-label="Animated emoji: a smiling girl in a red qipao and a New Year headdress, with a handwritten greeting"><source src="../img/da-sticker-pendragon-newyear.mp4" type="video/mp4"></video>
         </div>
       </div>
       <div class="p-cap">
@@ -164,21 +164,6 @@
   </script>
   <script src="../js/site.js?v=20261031r4"></script>
 
-  <script>
-    // stickers: each plays only while it is on screen, and never under reduced motion (the poster frame stays)
-    (function () {
-      var vs = document.querySelectorAll('.p-stickers video');
-      if (!vs.length || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          var v = e.target;
-          if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
-          else v.pause();
-        });
-      }, { threshold: 0.25 });
-      vs.forEach(function (v) { io.observe(v); });
-    })();
-  </script>
 
   <script>
     // light / dark: follows the system in Auto; tap cycles Auto, Light, Dark and keeps the current choice

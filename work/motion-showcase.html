@@ -176,20 +176,6 @@
   </script>
   <script src="../js/site.js?v=20261031r4"></script>
 
-  <script>
-    // logo motion: each loop plays only while it is on screen, and never under reduced motion (the poster frame stays)
-    (function () {
-      var vs = document.querySelectorAll('.p-motion video');
-      if (!vs.length || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { var p = e.target.play(); if (p && p.catch) p.catch(function () {}); }
-          else e.target.pause();
-        });
-      }, { threshold: 0.25 });
-      Array.prototype.forEach.call(vs, function (v) { io.observe(v); });
-    })();
-  </script>
 
   <script>
     // light / dark: follows the system in Auto; tap cycles Auto, Light, Dark and keeps the current choice
