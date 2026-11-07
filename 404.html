@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex">
 <meta name="color-scheme" content="light dark">
-<title>Page not found</title>
+<title>Nothing here right now</title>
 <style>
 :root{color-scheme:light;--ink:#111;--ink-2:#444;--muted:#6b6b6b;--paper:#fff;--soft:#f2f2f2;--line:#d9d9d9;--accent:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--ink:#f2f2f2;--ink-2:#c6c6c6;--muted:#a3a3a3;--paper:#0d0d0d;--soft:#1a1a1a;--line:#333}}
@@ -23,7 +23,7 @@ html[data-embed="slide"] .art{height:100svh;display:grid;place-items:center}
 html[data-embed="slide"] .scene-slot{width:min(100vw,calc(100svh * 680 / 460))}
 </style>
 <script>
-(()=>{const r=document.documentElement,p=new URLSearchParams(location.search),embed=p.get('embed');if(embed==='slide'||embed==='stage'){r.dataset.embed=embed;r.lang=p.get('lang')==='zh'?'zh':'en';document.title=r.lang==='zh'?'页面不存在':'Page not found';const theme=()=>{try{const t=localStorage.getItem('theme');if(t==='dark'||t==='light')r.dataset.theme=t;else delete r.dataset.theme}catch{}};theme();window.addEventListener('storage',e=>{if(e.key==='theme'||e.key===null)theme()});return}let l;try{const t=localStorage.getItem('theme');if(t==='dark'||t==='light')r.dataset.theme=t;l=localStorage.getItem('404-language')}catch{}const q=new URLSearchParams(location.search).get('lang');r.lang=q==='zh'||q==='en'?q:location.pathname.startsWith('/zh')?'zh':l==='zh'||l==='en'?l:'en';document.title=r.lang==='zh'?'页面不存在':'Page not found';})();
+(()=>{const r=document.documentElement,p=new URLSearchParams(location.search),embed=p.get('embed');if(embed==='slide'||embed==='stage'){r.dataset.embed=embed;r.lang=p.get('lang')==='zh'?'zh':'en';document.title=r.lang==='zh'?'这里暂时没有内容':'Nothing here right now';const theme=()=>{try{const t=localStorage.getItem('theme');if(t==='dark'||t==='light')r.dataset.theme=t;else delete r.dataset.theme}catch{}};theme();window.addEventListener('storage',e=>{if(e.key==='theme'||e.key===null)theme()});return}let l;try{const t=localStorage.getItem('theme');if(t==='dark'||t==='light')r.dataset.theme=t;l=localStorage.getItem('404-language')}catch{}const q=new URLSearchParams(location.search).get('lang');r.lang=q==='zh'||q==='en'?q:location.pathname.startsWith('/zh')?'zh':l==='zh'||l==='en'?l:'en';document.title=r.lang==='zh'?'这里暂时没有内容':'Nothing here right now';})();
 </script>
 </head>
 <body>
@@ -48,9 +48,9 @@ html[data-embed="slide"] .scene-slot{width:min(100vw,calc(100svh * 680 / 460))}
 <figcaption class="scene-meta" aria-live="polite" aria-atomic="true"><span id="scene-label"><span class="en">Mountain reflection · No. 1 of 24</span><span class="zh">山与倒影 · 第 1 张，共 24 张</span></span></figcaption>
 </figure>
 <section class="copy">
-<h1><span class="en">Page not found</span><span class="zh">页面不存在</span></h1>
-<p class="message" data-orphan><span class="en">This page doesn't exist. The address may be mistyped, or the page may have moved.</span><span class="zh">这个页面不存在。地址可能打错了，也可能已经搬走了。</span></p>
-<p class="intro" data-orphan><span class="en">But these places are still here.</span><span class="zh">但这些地方都在。</span></p>
+<h1><span class="en">Nothing here right now</span><span class="zh">这里暂时没有内容</span></h1>
+<p class="message" data-orphan><span class="en">The site is being updated. This page may still be in progress, or it may have moved.</span><span class="zh">网站正在更新，这个页面可能还在更新中，也可能换了地址。</span></p>
+<p class="intro" data-orphan><span class="en">For now, you can look around here.</span><span class="zh">你可以先去这些地方看看。</span></p>
 <nav class="links" aria-label="Explore / 去这些地方看看">
 <a href="https://ashton.is/"><b><span class="en">Portfolio</span><span class="zh">作品集</span></b><span class="arrow" aria-hidden="true">↗</span></a>
 <a href="https://blog.ashtonshu.page/"><b><span class="en">Writing</span><span class="zh">文章</span></b><span class="arrow" aria-hidden="true">↗</span></a>
@@ -202,7 +202,7 @@ const read=k=>{try{return localStorage.getItem(k)}catch{return null}},write=(k,v
 const params=new URLSearchParams(location.search),requested=params.get('mode');
 let ordered=(requested==='order'||requested==='random'?requested:read('404-mode'))==='order';write('404-mode',ordered?'order':'random');
 function pick(previous){if(scenes.length<2)return 0;const p=Number(previous),valid=previous!==null&&Number.isInteger(p)&&p>=0&&p<scenes.length;const n=Math.floor(Math.random()*(scenes.length-(valid?1:0)));return valid&&n>=p?n+1:n}
-function labels(){const zh=root.lang==='zh';document.title=zh?'页面不存在':'Page not found';label.textContent=scenes[current].title[zh?'zh':'en']+' · '+(zh?'第 '+(current+1)+' 张，共 '+scenes.length+' 张':'No. '+(current+1)+' of '+scenes.length);another.querySelector('.en').textContent=ordered?'Next':'Show another';another.querySelector('.zh').textContent=ordered?'下一张':'换一张';mode.querySelector('.en').textContent=ordered?'Random':'In order';mode.querySelector('.zh').textContent=ordered?'随机':'按顺序';mode.setAttribute('aria-pressed',String(ordered));motion.querySelector('.en').textContent=paused?'Play animation':'Pause animation';motion.querySelector('.zh').textContent=paused?'继续动画':'暂停动画';language.setAttribute('aria-label',zh?'Switch to English':'切换到中文');document.querySelector('nav').setAttribute('aria-label',zh?'去这些地方看看':'Explore');if(window.fixOrphans)window.fixOrphans()}
+function labels(){const zh=root.lang==='zh';document.title=zh?'这里暂时没有内容':'Nothing here right now';label.textContent=scenes[current].title[zh?'zh':'en']+' · '+(zh?'第 '+(current+1)+' 张，共 '+scenes.length+' 张':'No. '+(current+1)+' of '+scenes.length);another.querySelector('.en').textContent=ordered?'Next':'Show another';another.querySelector('.zh').textContent=ordered?'下一张':'换一张';mode.querySelector('.en').textContent=ordered?'Random':'In order';mode.querySelector('.zh').textContent=ordered?'随机':'按顺序';mode.setAttribute('aria-pressed',String(ordered));motion.querySelector('.en').textContent=paused?'Play animation':'Pause animation';motion.querySelector('.zh').textContent=paused?'继续动画':'暂停动画';language.setAttribute('aria-label',zh?'Switch to English':'切换到中文');document.querySelector('nav').setAttribute('aria-label',zh?'去这些地方看看':'Explore');if(window.fixOrphans)window.fixOrphans()}
 function show(n){current=n;host.replaceChildren(document.getElementById('scene-'+scenes[n].id).content.cloneNode(true));write('404-previous',n);labels()}
 function syncURL(){try{const u=new URL(location.href);u.searchParams.delete('scene');u.searchParams.delete('mode');if(ordered)u.searchParams.set('mode','order');history.replaceState(null,'',u)}catch{}}
 language.hidden=another.hidden=mode.hidden=motion.hidden=false;
