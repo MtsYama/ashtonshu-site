@@ -448,7 +448,8 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .w-switch-divider { padding: 0 .8em; color: var(--muted); }
 @media (max-width: 639px) {
   .w-switch { flex-direction: column; align-items: flex-start; }
-  .w-switch-divider { display: none; }
+  /* the two groups stack; a short rule between them says they are two groups, not one wrapped line (11-07) */
+  .w-switch-divider { display: block; width: 24px; height: 0; margin: 2px 0; padding: 0; border-top: 1px solid var(--muted); font-size: 0; line-height: 0; overflow: hidden; }
 }
 .archive .group:has(+ .work-intro) { margin-bottom: 12px; }
 .work-intro { margin-bottom: clamp(20px, 2.5vw, 36px); }
