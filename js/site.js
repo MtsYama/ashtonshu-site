@@ -211,3 +211,123 @@
     covers.forEach(function (c) { c.classList.toggle('is-swapped'); });
   }, 2000);
 })();
+
+// Full-screen view of project images with share and download, and a share button for the page.
+// The site shows clean images; only the files in /dl carry a credit, on pages marked main[data-dl].
+(function () {
+  var root = document.documentElement;
+  var code = (root.lang || 'en').toLowerCase();
+  var key = code.indexOf('zh-hant') === 0 ? 'zht' : code.slice(0, 2);
+  var words = {
+    en: ['Back', 'Share', 'Download', 'Link copied', 'View larger', 'Free to share with credit.'],
+    fr: ['Retour', 'Partager', 'Télécharger', 'Lien copié', 'Agrandir', 'Partage libre avec mention de l’auteur.'],
+    zh: ['返回', '分享', '下载', '链接已复制', '查看大图', '可以自由转发，请署名。'],
+    zht: ['返回', '分享', '下載', '連結已複製', '檢視大圖', '可以自由轉發，請署名。'],
+    ja: ['戻る', '共有', 'ダウンロード', 'リンクをコピーしました', '拡大して見る', '共有は自由です。クレジットを記載してください。'],
+    ko: ['뒤로', '공유', '다운로드', '링크를 복사했습니다', '크게 보기', '자유롭게 공유하되 출처를 밝혀 주세요.']
+  };
+  var t = words[key] || words.en;
+  var icon = function (d) { return '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; };
+  var shareIcon = icon('<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="m16 6-4-4-4 4"/><path d="M12 2v13"/>');
+  var saveIcon = icon('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/>');
+  var backIcon = icon('<path d="m15 18-6-6 6-6"/>');
+  var host = /^world\./.test(location.hostname) ? 'https://ashton.is' : '';
+  var page = document.querySelector('main[data-dl]');
+
+  function toast(parent) {
+    var n = document.createElement('p');
+    n.className = 'share-toast';
+    n.setAttribute('role', 'status');
+    n.textContent = t[3];
+    parent.appendChild(n);
+    setTimeout(function () { n.remove(); }, 2000);
+  }
+  function share(parent) {
+    var url = location.href.split('#')[0];
+    if (navigator.share) { navigator.share({ title: document.title, url: url }).catch(function () {}); return; }
+    if (navigator.clipboard) navigator.clipboard.writeText(url).then(function () { toast(parent); });
+  }
+  function shareButton(cls) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = cls;
+    b.setAttribute('aria-label', t[1]);
+    b.title = t[1];
+    b.innerHTML = shareIcon;
+    return b;
+  }
+
+  var head = document.querySelector('.p-head');
+  var isHome = document.querySelector('.site-footer') && /^\/([a-z-]+\/)?(index(\.html)?)?$/.test(location.pathname);
+  var slot = head || (isHome ? document.querySelector('.foot-links') : null);
+  if (slot) {
+    var pageShare = shareButton('share-page');
+    pageShare.addEventListener('click', function () { share(document.body); });
+    slot.appendChild(pageShare);
+  }
+
+  if (page) {
+    page.querySelectorAll('video source').forEach(function (s) {
+      var name = (s.getAttribute('src') || '').split('/').pop().replace(/\.mp4.*$/, '');
+      var box = s.closest('.p-art') || s.parentNode.parentNode;
+      var p = document.createElement('p');
+      p.className = 'p-cta';
+      p.innerHTML = '<a class="arrow-link" href="' + host + '/dl/ashton-shu-' + name + '.mp4"></a>';
+      p.firstChild.textContent = t[2];
+      box.parentNode.insertBefore(p, box.nextSibling);
+    });
+  }
+
+  var images = document.querySelectorAll('.p-art img, .p-hero img');
+  if (!images.length || typeof HTMLDialogElement === 'undefined') return;
+  var box = document.createElement('dialog');
+  box.className = 'viewer';
+  box.innerHTML = '<img class="viewer-img" alt=""><button class="viewer-btn viewer-back" type="button"></button><div class="viewer-actions"></div><p class="viewer-credit" hidden></p>';
+  var big = box.querySelector('.viewer-img');
+  var back = box.querySelector('.viewer-back');
+  var actions = box.querySelector('.viewer-actions');
+  var credit = box.querySelector('.viewer-credit');
+  back.innerHTML = backIcon;
+  back.setAttribute('aria-label', t[0]);
+  var send = shareButton('viewer-btn');
+  send.addEventListener('click', function () { share(box); });
+  actions.appendChild(send);
+  var save = null;
+  if (page) {
+    save = document.createElement('a');
+    save.className = 'viewer-btn';
+    save.setAttribute('aria-label', t[2]);
+    save.title = t[2];
+    save.innerHTML = saveIcon;
+    actions.appendChild(save);
+    credit.hidden = false;
+    credit.innerHTML = '© Ashton Z. Shu. ' + t[5] + ' <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license noopener" target="_blank">CC BY-NC 4.0</a>';
+  }
+  document.body.appendChild(box);
+
+  function open(img) {
+    big.src = img.currentSrc || img.src;
+    big.alt = img.alt || '';
+    box.setAttribute('aria-label', img.alt || t[4]);
+    if (save) save.href = host + '/dl/ashton-shu-' + (img.currentSrc || img.src).split('/').pop().split('?')[0].replace(/\.[a-z0-9]+$/i, '') + '.jpg';
+    box.showModal();
+    root.classList.add('viewer-open');
+    history.pushState({ viewer: 1 }, '');
+    back.focus();
+  }
+  back.addEventListener('click', function () { box.close(); });
+  big.addEventListener('click', function () { box.close(); });
+  box.addEventListener('close', function () {
+    root.classList.remove('viewer-open');
+    if (history.state && history.state.viewer) history.back();
+  });
+  window.addEventListener('popstate', function () { if (box.open) box.close(); });
+  images.forEach(function (img) {
+    img.classList.add('can-open');
+    img.tabIndex = 0;
+    img.setAttribute('role', 'button');
+    img.setAttribute('aria-label', t[4] + ': ' + (img.alt || ''));
+    img.addEventListener('click', function () { open(img); });
+    img.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); } });
+  });
+})();
