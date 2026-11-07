@@ -794,8 +794,8 @@ html.viewer-open { overflow: hidden; }
 .viewer-back { position: absolute; top: max(16px, env(safe-area-inset-top)); left: 16px; }
 .viewer-actions { position: absolute; right: 16px; bottom: max(20px, env(safe-area-inset-bottom)); display: grid; gap: 12px; }
 .viewer-credit { position: absolute; left: 16px; right: 84px; bottom: max(20px, env(safe-area-inset-bottom)); margin: 0; font-size: 13px; line-height: 1.4; color: #c4c4c4; }
-.viewer-credit a { color: inherit; }
-.share-page { display: grid; place-items: center; width: 44px; height: 44px; margin: 16px auto 0; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: none; color: var(--ink); cursor: pointer; }
+.viewer-credit a { color: inherit; white-space: nowrap; }
+.share-page { display: grid; place-items: center; width: 44px; height: 44px; margin: 16px auto 0; padding: 0; border: 1px solid color-mix(in srgb, currentColor 35%, transparent); border-radius: 50%; background: none; color: var(--ink); cursor: pointer; }
 .share-page:hover { background: var(--soft); }
 .share-page:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 .foot-links .share-page { margin: 16px 0 0; }
