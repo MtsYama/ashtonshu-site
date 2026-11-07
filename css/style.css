@@ -428,9 +428,16 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 
 /* ---------- work archive ---------- */
 
-/* Client · Student · Collections at the top of the three Work pages */
-.w-switch { margin-top: -10px; margin-bottom: clamp(20px, 2.5vw, 36px); }
-.w-switch ul { display: flex; flex-wrap: wrap; }
+/* Client · Concept | Collections at the top of the three Work pages */
+.w-switch { display: flex; align-items: center; margin-top: -10px; margin-bottom: clamp(20px, 2.5vw, 36px); }
+.w-switch ul { display: flex; flex-wrap: nowrap; }
+.w-switch-divider { padding: 0 .8em; color: var(--muted); }
+@media (max-width: 639px) {
+  .w-switch { flex-direction: column; align-items: flex-start; }
+  .w-switch-divider { display: none; }
+}
+.archive .group:has(+ .work-intro) { margin-bottom: 12px; }
+.work-intro { margin-bottom: clamp(20px, 2.5vw, 36px); }
 .w-switch li + li::before { content: "\00b7"; content: "\00b7" / ""; padding: 0 .5em; color: var(--muted); }
 .w-switch a { display: inline-block; padding: 10px 0; color: var(--muted); text-decoration: none; transition: color .3s var(--ease); }
 .w-switch a:hover { color: var(--ink); }
