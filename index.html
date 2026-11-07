@@ -278,14 +278,9 @@
       // the next frame, as changing sizes inside a ResizeObserver callback warns of a loop
       if (window.ResizeObserver) new ResizeObserver(function () { requestAnimationFrame(place); }).observe(name);
 
-      function seq() {            // first visit: everything; later rounds: each role plus one of its branches, a different one each round
-        if (!round) return steps;
-        var list = [];
-        roles.forEach(function (r) {
-          list.push({ text: r[0], dir: 'v' });
-          if (r.length > 1) list.push({ text: r[1 + (round - 1) % (r.length - 1)], dir: 'h' });
-        });
-        return list;
+      function seq() {            // first visit: primary roles only; later rounds: every role and branch in order
+        if (round) return steps;
+        return roles.map(function (r) { return { text: r[0], dir: 'v' }; });
       }
       function cycle() {          // the next phrase every 1.9 s while the first slide shows; the last one stays until the slide changes
         clearInterval(tick);
