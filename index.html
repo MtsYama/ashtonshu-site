@@ -21,8 +21,8 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="preload" href="fonts/poppins-800-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/fonts.css?v=20261106h">
-  <link rel="stylesheet" href="css/style.css?v=20261106h">
+  <link rel="stylesheet" href="css/fonts.css?v=20261106i">
+  <link rel="stylesheet" href="css/style.css?v=20261106i">
   <noscript><style>.is-line .is-out { opacity: 1; transform: none; }</style></noscript>
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#ffffff">
@@ -30,7 +30,7 @@
   <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}
   // the page colour, color-scheme and theme-color are right from the first frame, and follow later theme changes
   (function(){var r=document.documentElement,q=matchMedia('(prefers-color-scheme: dark)'),m=document.querySelector('meta[name="theme-color"]');function s(){var d=(r.getAttribute('data-theme')||(q.matches?'dark':'light'))==='dark';r.style.colorScheme=d?'dark':'light';if(m)m.content=d?'#0d0d0d':'#ffffff'}s();new MutationObserver(s).observe(r,{attributes:true,attributeFilter:['data-theme']});if(q.addEventListener)q.addEventListener('change',s)})()</script>
-  <link rel="stylesheet" href="css/name-motion.css?v=20261106h">
+  <link rel="stylesheet" href="css/name-motion.css?v=20261106i">
   <script>try{if(!sessionStorage.getItem('nm-cover')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){sessionStorage.setItem('nm-cover','1');document.documentElement.classList.add('nm-cover-on')}}catch(e){}</script>
   <script>/* the big "Ashton" of the first slide stands in for the header wordmark until it docks there (script at the end) */document.documentElement.classList.add('home-dock')</script>
   <link rel="alternate" hreflang="en" href="https://ashton.is/">
@@ -85,14 +85,17 @@
         <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 5: Superlinear Academy logo motion" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
           <img src="img/sl-logo-motion-hero.jpg" alt="Superlinear Academy symbol in white on black" width="1920" height="1080" decoding="async"><video data-hero-motion muted playsinline preload="auto" poster="img/sl-logo-motion-hero.jpg" width="1920" height="1080" aria-hidden="true"><source src="img/sl-logo-motion-hero.mp4" type="video/mp4"></video>
         </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="3 of 5: Superlinear Academy" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 5: Superlinear Academy" data-with-previous data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
           <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/sl-hero.jpg" alt="Superlinear Academy website with the redesigned logo over the article library" width="1920" height="1080" decoding="async">
         </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="4 of 5: Greeting Cards" data-tone="light" data-name="Greeting Cards" data-href="work/greeting-cards" style="--bg:#ede7d9;--pz:1.1">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/gc-hero.jpg" alt="Three greeting card fronts: The Vine and the Elm, Born with the Morning, and With Grace Returned" width="1920" height="1080" decoding="async">
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="3 of 5: Tarot Deck" data-tone="light" data-name="Tarot Deck" data-href="work/tarot-deck" style="--bg:#f7f3ea;--pz:1.1">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/ta-hero.jpg" alt="Tarot cards spread on a table, each with a silhouetted figure" width="2880" height="1920" decoding="async">
         </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="5 of 5: hack4change" data-tone="dark" data-name="hack4change" data-href="work/hack4change" style="--bg:#2b1f27;--pz:1.15">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/h4-hero.jpg" alt="hack4change logo over a black and white photo of the host city" width="1920" height="1080" decoding="async">
+        <div class="slide slide-404" role="group" aria-roledescription="slide" aria-label="4 of 5: 404 Set" data-tone="ink" data-name="404 Set" data-href="work/404-set" data-duration="6000">
+          <iframe data-src="/404-scenes?embed=slide" title="" tabindex="-1" aria-hidden="true"></iframe>
+        </div>
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="5 of 5: Greeting Cards" data-tone="light" data-name="Greeting Cards" data-href="work/greeting-cards" style="--bg:#ede7d9;--pz:1.1">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/gc-hero.jpg" alt="Three greeting card fronts: The Vine and the Elm, Born with the Morning, and With Grace Returned" width="1920" height="1080" decoding="async">
         </div>
       </div>
       <p class="show-caption"><a href="#" hidden></a></p>
@@ -107,18 +110,18 @@
       <h2 class="vh" id="featured">Selected work</h2>
       <ul class="cards is-hover">
         <li class="card">
-          <a href="work/warning-labels">
+          <a href="work/superlinear-academy">
             <figure>
-              <span class="thumb"><img src="img/wl-cover.png" alt="" width="1760" height="1100" loading="lazy" decoding="async"></span>
-              <figcaption><span class="card-name">Inspection Ready</span><span class="card-sub">Safety Communication System</span></figcaption>
+              <span class="thumb"><img src="img/sl-hero.jpg" alt="" width="1920" height="1080" loading="lazy" decoding="async"></span>
+              <figcaption><span class="card-name">Superlinear Academy</span><span class="card-sub">Visual Identity Redesign</span></figcaption>
             </figure>
           </a>
         </li>
         <li class="card">
-          <a href="work/motion-showcase">
+          <a href="work/warning-labels">
             <figure>
-              <span class="thumb motion-cover is-wide"><img class="motion-poster" src="img/motion-showcase.jpg" alt="" width="1920" height="1080" decoding="async"><video data-cover-motion muted loop playsinline preload="metadata" poster="img/motion-showcase.jpg" width="1280" height="720" aria-hidden="true"><source src="img/motion-showcase-loop.mp4" type="video/mp4"></video></span>
-              <figcaption><span class="card-name">Motion Showcase</span><span class="card-sub">Motion Graphics</span></figcaption>
+              <span class="thumb"><img src="img/wl-cover-labels.png" alt="" width="1760" height="1100" loading="lazy" decoding="async"></span>
+              <figcaption><span class="card-name">Inspection Ready</span><span class="card-sub">Safety Communication System</span></figcaption>
             </figure>
           </a>
         </li>
@@ -131,10 +134,10 @@
           </a>
         </li>
         <li class="card">
-          <a href="work/drink-packaging">
+          <a href="work/motion-showcase">
             <figure>
-              <span class="thumb"><img src="img/dr-open.jpg" alt="" width="1110" height="1090" style="object-position:50% 0%;transform:scale(1.08);transform-origin:50% 0" loading="lazy" decoding="async"></span>
-              <figcaption><span class="card-name">Drink Packaging</span><span class="card-sub">Bottle &amp; Carrier Packaging System</span></figcaption>
+              <span class="thumb motion-cover is-wide"><img class="motion-poster" src="img/motion-showcase.jpg" alt="" width="1920" height="1080" decoding="async"><video data-cover-motion muted loop playsinline preload="metadata" poster="img/motion-showcase.jpg" width="1280" height="720" aria-hidden="true"><source src="img/motion-showcase-loop.mp4" type="video/mp4"></video></span>
+              <figcaption><span class="card-name">Motion Showcase</span><span class="card-sub">Motion Graphics</span></figcaption>
             </figure>
           </a>
         </li>
@@ -180,8 +183,8 @@
       if (last) last.nodeValue = last.nodeValue.replace(/(\S)\s+(\S+\s*)$/, '$1\u00a0$2');
     });
   </script>
-  <script src="js/site.js?v=20261106h"></script>
-  <script src="js/name-motion.js?v=20261106h"></script>
+  <script src="js/site.js?v=20261106i"></script>
+  <script src="js/name-motion.js?v=20261106i"></script>
   <script>
     // slideshow: one slide at a time, cross-fading on a timer. Dots, arrow keys and swipes move it;
     // it waits while the caption or dots are hovered or focused, and stays put with reduced motion.
@@ -328,12 +331,20 @@
 
       var nav = document.createElement('div');
       nav.className = 'show-nav';
-      var dots = slides.map(function (s, n) {
+      // a slide marked data-with-previous carries on from the one before it: the two share a dot, and manual moves pass over it
+      var heads = slides.filter(function (s) { return !s.hasAttribute('data-with-previous'); });
+      function headOf(k) { while (k > 0 && slides[k].hasAttribute('data-with-previous')) k--; return k; }
+      function step(dir) {
+        var k = headOf(cur);
+        do { k = (k + dir + slides.length) % slides.length; } while (slides[k].hasAttribute('data-with-previous'));
+        return k;
+      }
+      var dots = heads.map(function (s, n) {
         var b = document.createElement('button');
         b.type = 'button';
         b.className = 'show-dot';
         b.setAttribute('aria-label', 'Slide ' + (n + 1) + ': ' + (s.getAttribute('data-name') || 'Introduction'));
-        b.addEventListener('click', function () { go(n); });
+        b.addEventListener('click', function () { go(slides.indexOf(s)); });
         nav.appendChild(b);
         return b;
       });
@@ -443,7 +454,8 @@
         var name = s.getAttribute('data-name'), href = s.getAttribute('data-href');
         show.setAttribute('data-tone', tone);
         header.setAttribute('data-tone', tone);
-        dots.forEach(function (d, n) { if (n === cur) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+        var on = heads.indexOf(slides[headOf(cur)]);
+        dots.forEach(function (d, n) { if (n === on) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
         // the logo motion hands over to the Superlinear hero under the same name: keep the caption still
         if (name && !cap.hidden && cap.textContent === name && cap.getAttribute('href') === href) {
           clearTimeout(capTimer); capBox.classList.remove('is-out'); return;
@@ -459,8 +471,9 @@
       // the work images are in data-src: they load once the page itself has (fonts and all), one by one in slide order,
       // so on a slow line they never hold up the opening; a slide the show moves to loads its own, and the next, at once
       function want(n) {
-        var img = slides[n] && slides[n].querySelector('img[data-src]');
+        var img = slides[n] && slides[n].querySelector('img[data-src]'), frame = slides[n] && slides[n].querySelector('iframe[data-src]');
         if (img) { img.src = img.getAttribute('data-src'); img.removeAttribute('data-src'); }
+        if (frame) { frame.src = frame.getAttribute('data-src') + '&lang=' + (/^zh/.test(document.documentElement.lang) ? 'zh' : 'en'); frame.removeAttribute('data-src'); }
         return img;
       }
       function queue(k) {
@@ -476,8 +489,19 @@
       }
       if (document.readyState === 'complete') queue(1); else window.addEventListener('load', function () { queue(1); }, { once: true });
 
+      // the 404 slide: a small page in a frame draws a random 404 scene each time the show reaches it, and says how long
+      // one round lasts; the slide stays that long. Until that page has arrived the show passes over the slide
+      var errSlide = stage.querySelector('.slide-404'), errFrame = errSlide && errSlide.querySelector('iframe'), errReady = false, errTimer = 0;
+      function errSend(type) { if (errReady && errFrame.contentWindow) errFrame.contentWindow.postMessage({ type: type }, location.origin); }
+      if (errFrame) window.addEventListener('message', function (e) {
+        if (e.origin !== location.origin || e.source !== errFrame.contentWindow || !e.data) return;
+        if (e.data.type === 'err404-ready') { errReady = true; if (slides[cur] === errSlide) errSend('err404-play'); }
+        if (e.data.type === 'err404-period') { errSlide.setAttribute('data-duration', String(e.data.ms)); if (slides[cur] === errSlide) schedule(); }
+      });
+
       function go(n) {
         n = (n + slides.length) % slides.length;
+        if (errSlide && slides[n] === errSlide && !errReady) n = (n + 1) % slides.length;
         want(n); want((n + 1) % slides.length);
         if (n !== cur) {
           var from = slides[cur], was = cur, turn = ++turns;
@@ -490,6 +514,8 @@
           slides[n].classList.add('is-active');
           cur = n;
           enterMotion(); // every new visit starts at frame zero
+          if (from === errSlide) { clearTimeout(errTimer); errTimer = setTimeout(function () { if (slides[cur] !== errSlide) errSend('err404-stop'); }, 650); }
+          if (errSlide && slides[cur] === errSlide) { clearTimeout(errTimer); errSend('err404-play'); }
           if (was === 0) shutFace();   // the face closes while the slide fades out
           if (cur === 0) { round++; i = 0; el.textContent = seq()[0].text; verb.textContent = 'is'; verb.classList.remove('is-out'); h1.classList.remove('is-past'); enter(200); }
           paint(); cycle();
@@ -511,14 +537,14 @@
       show.addEventListener('keydown', function (e) {
         if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
         e.preventDefault();
-        go(cur + (e.key === 'ArrowRight' ? 1 : -1));
-        if (document.activeElement && document.activeElement.classList.contains('show-dot')) dots[cur].focus();
+        go(step(e.key === 'ArrowRight' ? 1 : -1));
+        if (document.activeElement && document.activeElement.classList.contains('show-dot')) dots[heads.indexOf(slides[headOf(cur)])].focus();
       });
       var sx = 0, sy = 0;
       stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
       stage.addEventListener('touchend', function (e) {
         var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
-        if (Math.abs(dx) > 40 && Math.abs(dx) > 1.5 * Math.abs(dy)) go(cur + (dx < 0 ? 1 : -1));
+        if (Math.abs(dx) > 40 && Math.abs(dx) > 1.5 * Math.abs(dy)) go(step(dx < 0 ? 1 : -1));
       }, { passive: true });
       stage.addEventListener('click', function () {
         var href = slides[cur].getAttribute('data-href');

@@ -271,6 +271,9 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .slide.is-prev { z-index: 1; opacity: 1; visibility: visible; }
 .slide[data-href] { cursor: pointer; }
 .slide img, .slide video { width: 100%; height: 100%; object-fit: cover; transform: scale(var(--zoom, 1)); }
+/* a 404 scene drawn in a frame, clear of the header and the caption; clicks and swipes go through to the slide */
+.slide-404 { --bg: var(--paper); }
+.slide iframe { position: absolute; top: 14%; left: 6%; width: 88%; height: 70%; border: 0; pointer-events: none; }
 /* on tall or square screens the whole artwork shows on its own ground colour instead of being cut,
    enlarged by --pz as far as its own margins allow */
 @media (max-aspect-ratio: 155/100) { .slide.is-fit img, .slide.is-fit video { object-fit: contain; transform: scale(var(--pz, 1)); } }
@@ -475,6 +478,9 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .p-sec { margin-top: clamp(64px, 9.2vw, 132px); }
 .p-art { display: flex; flex-direction: column; gap: var(--g); width: min(100% - 2 * var(--gutter), var(--wide)); margin-inline: auto; }
 .p-art img { width: 100%; }
+/* live pages inside a project page: the frame takes the height its page reports, or a fixed window onto another site */
+.p-frame { display: block; width: 100%; height: 70vh; border: 0; }
+.p-stage { width: min(100% - 2 * var(--gutter), var(--wide)); margin: var(--head-h) auto 0; }
 .p-cap { padding-top: clamp(20px, 3vw, 44px); }
 /* section headings: a size and weight above the text, every word capitalised, and as much room below as between paragraphs */
 .p-cap h2 { margin-bottom: .8em; font-size: var(--fs-mid); font-weight: 600; line-height: 1.25; letter-spacing: -.01em; text-transform: capitalize; }
