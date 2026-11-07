@@ -257,13 +257,17 @@
     return b;
   }
 
-  var head = document.querySelector('.p-head');
-  var isHome = document.querySelector('.site-footer') && /^\/([a-z-]+\/)?(index(\.html)?)?$/.test(location.pathname);
-  var slot = head || (isHome ? document.querySelector('.foot-links') : null);
-  if (slot) {
-    var pageShare = shareButton('share-page');
+  var social = document.querySelector('.foot-links a.icon-link');
+  if (social) {
+    var row = document.createElement('li');
+    var pageShare = document.createElement('button');
+    pageShare.type = 'button';
+    pageShare.className = 'icon-link foot-share';
+    pageShare.innerHTML = icon('<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="m16 6-4-4-4 4"/><path d="M12 2v13"/>').replace(/width="22" height="22"/, 'width="18" height="18"') + '<span></span>';
+    pageShare.lastChild.textContent = t[1];
     pageShare.addEventListener('click', function () { share(document.body); });
-    slot.appendChild(pageShare);
+    row.appendChild(pageShare);
+    social.closest('ul').appendChild(row);
   }
 
   if (page) {
