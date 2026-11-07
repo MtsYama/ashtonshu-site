@@ -6,6 +6,11 @@ Ashton Z. Shu’s birth name is Zhengshen Shu. Online, he also goes by Mts Shu, 
 
 ## Pages
 - [About](https://ashton.is/about): Biography and résumé.
-- [Work](https://ashton.is/work/): Design projects and collections.
+- [Client](https://ashton.is/work/): Client graphic design work.
+- [Concept](https://ashton.is/work/concept): Concept graphic design work.
+- [Experimental](https://ashton.is/work/experimental): Interactive pieces, small tools and ideas.
+- [404 Set](https://ashton.is/work/404-set): Twenty-four animated error pages, picked at random.
+- [Living Checklist](https://ashton.is/work/living-checklist): A single HTML file that turns any step-by-step process into a self-saving checklist.
+- [Collections](https://ashton.is/work/collections): Graphic design collections.
 - [Contact](https://ashton.is/contact): Get in touch.
 - [Mountainside](https://blog.ashtonshu.page/): Articles and reflections.

@@ -21,8 +21,8 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="preload" href="fonts/poppins-800-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/fonts.css?v=20261020lang">
-  <link rel="stylesheet" href="css/style.css?v=20261031r4">
+  <link rel="stylesheet" href="css/fonts.css?v=20261106i">
+  <link rel="stylesheet" href="css/style.css?v=20261106i">
   <noscript><style>.is-line .is-out { opacity: 1; transform: none; }</style></noscript>
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#ffffff">
@@ -30,7 +30,7 @@
   <script>try{var t=localStorage.getItem('theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}
   // the page colour, color-scheme and theme-color are right from the first frame, and follow later theme changes
   (function(){var r=document.documentElement,q=matchMedia('(prefers-color-scheme: dark)'),m=document.querySelector('meta[name="theme-color"]');function s(){var d=(r.getAttribute('data-theme')||(q.matches?'dark':'light'))==='dark';r.style.colorScheme=d?'dark':'light';if(m)m.content=d?'#0d0d0d':'#ffffff'}s();new MutationObserver(s).observe(r,{attributes:true,attributeFilter:['data-theme']});if(q.addEventListener)q.addEventListener('change',s)})()</script>
-  <link rel="stylesheet" href="css/name-motion.css?v=20261017b">
+  <link rel="stylesheet" href="css/name-motion.css?v=20261106i">
   <script>try{if(!sessionStorage.getItem('nm-cover')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){sessionStorage.setItem('nm-cover','1');document.documentElement.classList.add('nm-cover-on')}}catch(e){}</script>
   <script>/* the big "Ashton" of the first slide stands in for the header wordmark until it docks there (script at the end) */document.documentElement.classList.add('home-dock')</script>
   <link rel="alternate" hreflang="en" href="https://ashton.is/">
@@ -58,45 +58,44 @@
     <a class="wordmark" href="./" aria-label="Ashton Z. Shu">Ashton</a>
     <nav class="site-nav" aria-label="Main">
       <ul>
-        <li><a class="drop-trigger" href="work/" aria-controls="work-menu" data-drop><svg class="ni" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span class="nl">Work</span></a></li>
+        <li><a href="work/"><svg class="ni" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span class="nl">Work</span></a></li>
         <li><a href="about"><svg class="ni" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="nl">About</span></a></li>
         <li><a href="contact"><svg class="ni" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg><span class="nl">Contact</span></a></li>
-        <li><button class="lang-toggle drop-trigger" type="button" aria-expanded="false" aria-controls="lang-menu" data-drop aria-label="Language: English"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span class="lt-label">English</span></button></li>
-        <li><button class="theme-toggle" type="button" data-mode="auto" data-label-auto="Auto" data-label-light="Light" data-label-dark="Dark" data-aria="Display mode: {mode}. Tap to change." aria-label="Display mode: Auto. Tap to change."><svg class="ti ti-auto" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg><svg class="ti ti-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="ti ti-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><span class="tt-label">Auto</span></button></li>
+        <li><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu" data-panel-toggle aria-haspopup="dialog" aria-label="Language: English"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span class="lt-label">English</span></button></li>
+        <li><button class="theme-toggle" type="button" data-panel-toggle aria-haspopup="dialog" aria-expanded="false" aria-controls="color-menu"><svg class="ti ti-auto" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg><span class="tt-label">Colour</span></button></li>
       </ul>
     </nav>
   </header>
-  <nav class="drop-panel lang-menu" id="lang-menu" aria-label="Languages" hidden><ul><li><span aria-current="true" lang="en">English</span></li><li><a href="https://world.ashton.is/fr/" lang="fr-CA" hreflang="fr-CA">Français</a></li><li><a href="https://world.ashton.is/zh-hans/" lang="zh-Hans" hreflang="zh-Hans">简体中文</a></li><li><a href="https://world.ashton.is/zh-hant/" lang="zh-Hant" hreflang="zh-Hant">繁體中文</a></li><li><a href="https://world.ashton.is/ja/" lang="ja" hreflang="ja">日本語</a></li><li><a href="https://world.ashton.is/ko/" lang="ko" hreflang="ko">한국어</a></li></ul></nav>
-
-  <nav class="drop-panel work-menu" id="work-menu" aria-label="Work" hidden>
-    <ul>
-      <li><a href="work/">Projects</a></li>
-      <li><a href="work/collections">Collections</a></li>
-      <li><a href="work/personal">Personal</a></li>
-    </ul>
-  </nav>
+  <section class="settings-panel language-panel" id="lang-menu" role="dialog" aria-labelledby="language-title" hidden>
+    <div class="panel-head"><h2 id="language-title">Language</h2><button class="panel-close" type="button" data-panel-close aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
+    <ul><li><button type="button" aria-current="true" lang="en">English</button></li><li><a href="https://world.ashton.is/fr/" lang="fr-CA" hreflang="fr-CA">Français</a></li><li><a href="https://world.ashton.is/zh-hans/" lang="zh-Hans" hreflang="zh-Hans">简体中文</a></li><li><a href="https://world.ashton.is/zh-hant/" lang="zh-Hant" hreflang="zh-Hant">繁體中文</a></li><li><a href="https://world.ashton.is/ja/" lang="ja" hreflang="ja">日本語</a></li><li><a href="https://world.ashton.is/ko/" lang="ko" hreflang="ko">한국어</a></li></ul>
+  </section>
+  <section class="settings-panel color-panel" id="color-menu" role="dialog" aria-labelledby="color-title" hidden>
+    <div class="panel-head"><h2 id="color-title">Colour mode</h2><button class="panel-close" type="button" data-panel-close aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
+    <div class="color-choices"><button type="button" data-theme-choice="auto" aria-pressed="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M8 21h8M12 16v5"/></svg><span>System</span></button><button type="button" data-theme-choice="light" aria-pressed="false"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg><span>Light</span></button><button type="button" data-theme-choice="dark" aria-pressed="false"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span>Dark</span></button></div>
+  </section>
 
   <main id="main">
     <section class="show" aria-roledescription="carousel" aria-label="Featured work" data-hero>
       <div class="slides">
-        <div class="slide slide-intro is-active" role="group" aria-roledescription="slide" aria-label="1 of 6" data-tone="ink">
+        <div class="slide slide-intro is-active" role="group" aria-roledescription="slide" aria-label="1 of 5" data-tone="ink">
           <h1 class="is-line"><span class="is-static is-out"><span class="is-name">Ashton</span> <span class="is-verb" aria-hidden="true">is</span><span class="vh">is</span></span> <span class="is-cycle is-out" aria-hidden="true">a graphic designer.</span><span class="vh">a graphic designer, an illustrator, a photographer, a UI/UX designer, a concept artist, a digital painter, a character designer, a community gardener, an AI architect, a human storyteller in the loop and an AI evangelist, and was an electrical engineer.</span></h1>
           <figure class="is-face is-shut"><img alt="Ashton Z. Shu in black rectangular glasses, with headphones around the neck, beside the portfolio introduction." width="800" height="800" decoding="async" data-face="img/portrait.jpg"><i class="f-tl"></i><i class="f-tr"></i><i class="f-bl"></i><i class="f-br"></i></figure>
         </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 6: Superlinear Academy logo motion" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 5: Superlinear Academy logo motion" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
           <img src="img/sl-logo-motion-hero.jpg" alt="Superlinear Academy symbol in white on black" width="1920" height="1080" decoding="async"><video data-hero-motion muted playsinline preload="auto" poster="img/sl-logo-motion-hero.jpg" width="1920" height="1080" aria-hidden="true"><source src="img/sl-logo-motion-hero.mp4" type="video/mp4"></video>
         </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="3 of 6: Superlinear Academy" data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="2 of 5: Superlinear Academy" data-with-previous data-tone="dark" data-name="Superlinear Academy" data-href="work/superlinear-academy" style="--bg:#0d0d0f;--zoom:1.14;--pz:2">
           <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/sl-hero.jpg" alt="Superlinear Academy website with the redesigned logo over the article library" width="1920" height="1080" decoding="async">
         </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="4 of 6: Greeting Cards" data-tone="light" data-name="Greeting Cards" data-href="work/greeting-cards" style="--bg:#ede7d9;--pz:1.1">
+        <div class="slide has-wash" role="group" aria-roledescription="slide" aria-label="3 of 5: Tarot Deck" data-tone="light" data-name="Tarot Deck" data-href="work/tarot-deck" style="--bg:#f7f3ea;--pz:1.1">
+          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/ta-hero.jpg" alt="Tarot cards spread on a table, each with a silhouetted figure" width="2880" height="1920" decoding="async" style="object-position:46% 50%">
+        </div>
+        <div class="slide slide-404" role="group" aria-roledescription="slide" aria-label="4 of 5: 404 Set" data-tone="ink" data-name="404 Set" data-href="work/404-set" data-duration="6000">
+          <iframe data-src="/404-scenes?embed=slide" title="" tabindex="-1" aria-hidden="true"></iframe>
+        </div>
+        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="5 of 5: Greeting Cards" data-tone="light" data-name="Greeting Cards" data-href="work/greeting-cards" style="--bg:#ede7d9;--pz:1.1">
           <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/gc-hero.jpg" alt="Three greeting card fronts: The Vine and the Elm, Born with the Morning, and With Grace Returned" width="1920" height="1080" decoding="async">
-        </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="5 of 6: Wine &amp; Dance" data-tone="dark" data-name="Wine &amp; Dance" data-href="work/wine-and-dance" style="--bg:#2c2c2a;--pz:1.3">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/wd-hero.jpg" alt="Wine &amp; Dance title over a dimmed photo of the calendar" width="1920" height="1080" decoding="async">
-        </div>
-        <div class="slide is-fit" role="group" aria-roledescription="slide" aria-label="6 of 6: hack4change" data-tone="dark" data-name="hack4change" data-href="work/hack4change" style="--bg:#2b1f27;--pz:1.15">
-          <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="img/h4-hero.jpg" alt="hack4change logo over a black and white photo of the host city" width="1920" height="1080" decoding="async">
         </div>
       </div>
       <p class="show-caption"><a href="#" hidden></a></p>
@@ -119,6 +118,14 @@
           </a>
         </li>
         <li class="card">
+          <a href="work/warning-labels">
+            <figure>
+              <span class="thumb"><img src="img/wl-cover-labels.png" alt="" width="1760" height="1100" loading="lazy" decoding="async"></span>
+              <figcaption><span class="card-name">Inspection Ready</span><span class="card-sub">Safety Communication System</span></figcaption>
+            </figure>
+          </a>
+        </li>
+        <li class="card">
           <a href="work/wine-and-dance">
             <figure>
               <span class="thumb"><img src="img/wd-mock.jpg" alt="" width="1200" height="675" loading="lazy" decoding="async"></span>
@@ -127,18 +134,10 @@
           </a>
         </li>
         <li class="card">
-          <a href="work/greeting-cards">
+          <a href="work/motion-showcase">
             <figure>
-              <span class="thumb"><img src="img/gc-card.jpg" alt="" width="1600" height="1000" loading="lazy" decoding="async"></span>
-              <figcaption><span class="card-name">Greeting Cards</span><span class="card-sub">Trilingual Card System</span></figcaption>
-            </figure>
-          </a>
-        </li>
-        <li class="card">
-          <a href="work/farms-360">
-            <figure>
-              <span class="thumb"><img src="img/fc-card.jpg" alt="" width="1600" height="1000" loading="lazy" decoding="async"></span>
-              <figcaption><span class="card-name">Farms 360</span><span class="card-sub">Interface &amp; Design System</span></figcaption>
+              <span class="thumb motion-cover is-wide"><img class="motion-poster" src="img/motion-showcase.jpg" alt="" width="1920" height="1080" decoding="async"><video data-cover-motion muted loop playsinline preload="metadata" poster="img/motion-showcase.jpg" width="1280" height="720" aria-hidden="true"><source src="img/motion-showcase-loop.mp4" type="video/mp4"></video></span>
+              <figcaption><span class="card-name">Motion Showcase</span><span class="card-sub">Motion Graphics</span></figcaption>
             </figure>
           </a>
         </li>
@@ -184,8 +183,8 @@
       if (last) last.nodeValue = last.nodeValue.replace(/(\S)\s+(\S+\s*)$/, '$1\u00a0$2');
     });
   </script>
-  <script src="js/site.js?v=20261031r4"></script>
-  <script src="js/name-motion.js?v=20261016b"></script>
+  <script src="js/site.js?v=20261106i"></script>
+  <script src="js/name-motion.js?v=20261106i"></script>
   <script>
     // slideshow: one slide at a time, cross-fading on a timer. Dots, arrow keys and swipes move it;
     // it waits while the caption or dots are hovered or focused, and stays put with reduced motion.
@@ -279,14 +278,9 @@
       // the next frame, as changing sizes inside a ResizeObserver callback warns of a loop
       if (window.ResizeObserver) new ResizeObserver(function () { requestAnimationFrame(place); }).observe(name);
 
-      function seq() {            // first visit: everything; later rounds: each role plus one of its branches, a different one each round
-        if (!round) return steps;
-        var list = [];
-        roles.forEach(function (r) {
-          list.push({ text: r[0], dir: 'v' });
-          if (r.length > 1) list.push({ text: r[1 + (round - 1) % (r.length - 1)], dir: 'h' });
-        });
-        return list;
+      function seq() {            // first visit: primary roles only; later rounds: every role and branch in order
+        if (round) return steps;
+        return roles.map(function (r) { return { text: r[0], dir: 'v' }; });
       }
       function cycle() {          // the next phrase every 1.9 s while the first slide shows; the last one stays until the slide changes
         clearInterval(tick);
@@ -332,12 +326,20 @@
 
       var nav = document.createElement('div');
       nav.className = 'show-nav';
-      var dots = slides.map(function (s, n) {
+      // a slide marked data-with-previous carries on from the one before it: the two share a dot, and manual moves pass over it
+      var heads = slides.filter(function (s) { return !s.hasAttribute('data-with-previous'); });
+      function headOf(k) { while (k > 0 && slides[k].hasAttribute('data-with-previous')) k--; return k; }
+      function step(dir) {
+        var k = headOf(cur);
+        do { k = (k + dir + slides.length) % slides.length; } while (slides[k].hasAttribute('data-with-previous'));
+        return k;
+      }
+      var dots = heads.map(function (s, n) {
         var b = document.createElement('button');
         b.type = 'button';
         b.className = 'show-dot';
         b.setAttribute('aria-label', 'Slide ' + (n + 1) + ': ' + (s.getAttribute('data-name') || 'Introduction'));
-        b.addEventListener('click', function () { go(n); });
+        b.addEventListener('click', function () { go(slides.indexOf(s)); });
         nav.appendChild(b);
         return b;
       });
@@ -447,7 +449,8 @@
         var name = s.getAttribute('data-name'), href = s.getAttribute('data-href');
         show.setAttribute('data-tone', tone);
         header.setAttribute('data-tone', tone);
-        dots.forEach(function (d, n) { if (n === cur) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+        var on = heads.indexOf(slides[headOf(cur)]);
+        dots.forEach(function (d, n) { if (n === on) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
         // the logo motion hands over to the Superlinear hero under the same name: keep the caption still
         if (name && !cap.hidden && cap.textContent === name && cap.getAttribute('href') === href) {
           clearTimeout(capTimer); capBox.classList.remove('is-out'); return;
@@ -463,8 +466,9 @@
       // the work images are in data-src: they load once the page itself has (fonts and all), one by one in slide order,
       // so on a slow line they never hold up the opening; a slide the show moves to loads its own, and the next, at once
       function want(n) {
-        var img = slides[n] && slides[n].querySelector('img[data-src]');
+        var img = slides[n] && slides[n].querySelector('img[data-src]'), frame = slides[n] && slides[n].querySelector('iframe[data-src]');
         if (img) { img.src = img.getAttribute('data-src'); img.removeAttribute('data-src'); }
+        if (frame) { frame.src = frame.getAttribute('data-src') + '&lang=' + (/^zh/.test(document.documentElement.lang) ? 'zh' : 'en'); frame.removeAttribute('data-src'); }
         return img;
       }
       function queue(k) {
@@ -480,8 +484,19 @@
       }
       if (document.readyState === 'complete') queue(1); else window.addEventListener('load', function () { queue(1); }, { once: true });
 
+      // the 404 slide: a small page in a frame draws a random 404 scene each time the show reaches it, and says how long
+      // one round lasts; the slide stays that long. Until that page has arrived the show passes over the slide
+      var errSlide = stage.querySelector('.slide-404'), errFrame = errSlide && errSlide.querySelector('iframe'), errReady = false, errTimer = 0;
+      function errSend(type) { if (errReady && errFrame.contentWindow) errFrame.contentWindow.postMessage({ type: type }, location.origin); }
+      if (errFrame) window.addEventListener('message', function (e) {
+        if (e.origin !== location.origin || e.source !== errFrame.contentWindow || !e.data) return;
+        if (e.data.type === 'err404-ready') { errReady = true; if (slides[cur] === errSlide) errSend('err404-play'); }
+        if (e.data.type === 'err404-period') { errSlide.setAttribute('data-duration', String(e.data.ms)); if (slides[cur] === errSlide) schedule(); }
+      });
+
       function go(n) {
         n = (n + slides.length) % slides.length;
+        if (errSlide && slides[n] === errSlide && !errReady) n = (n + 1) % slides.length;
         want(n); want((n + 1) % slides.length);
         if (n !== cur) {
           var from = slides[cur], was = cur, turn = ++turns;
@@ -494,6 +509,8 @@
           slides[n].classList.add('is-active');
           cur = n;
           enterMotion(); // every new visit starts at frame zero
+          if (from === errSlide) { clearTimeout(errTimer); errTimer = setTimeout(function () { if (slides[cur] !== errSlide) errSend('err404-stop'); }, 650); }
+          if (errSlide && slides[cur] === errSlide) { clearTimeout(errTimer); errSend('err404-play'); }
           if (was === 0) shutFace();   // the face closes while the slide fades out
           if (cur === 0) { round++; i = 0; el.textContent = seq()[0].text; verb.textContent = 'is'; verb.classList.remove('is-out'); h1.classList.remove('is-past'); enter(200); }
           paint(); cycle();
@@ -515,14 +532,14 @@
       show.addEventListener('keydown', function (e) {
         if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
         e.preventDefault();
-        go(cur + (e.key === 'ArrowRight' ? 1 : -1));
-        if (document.activeElement && document.activeElement.classList.contains('show-dot')) dots[cur].focus();
+        go(step(e.key === 'ArrowRight' ? 1 : -1));
+        if (document.activeElement && document.activeElement.classList.contains('show-dot')) dots[heads.indexOf(slides[headOf(cur)])].focus();
       });
       var sx = 0, sy = 0;
       stage.addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
       stage.addEventListener('touchend', function (e) {
         var dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
-        if (Math.abs(dx) > 40 && Math.abs(dx) > 1.5 * Math.abs(dy)) go(cur + (dx < 0 ? 1 : -1));
+        if (Math.abs(dx) > 40 && Math.abs(dx) > 1.5 * Math.abs(dy)) go(step(dx < 0 ? 1 : -1));
       }, { passive: true });
       stage.addEventListener('click', function () {
         var href = slides[cur].getAttribute('data-href');
@@ -803,32 +820,6 @@
       if (window.visualViewport) visualViewport.addEventListener('resize', remeasure);
       if (reduce.addEventListener) reduce.addEventListener('change', update);
       update();
-    })();
-  </script>
-
-  <script>
-    // light / dark: follows the system in Auto; tap cycles Auto, Light, Dark and keeps the current choice
-    (function () {
-      var b = document.querySelector('.theme-toggle'), root = document.documentElement;
-      if (!b) return;
-      var modes = ['auto', 'light', 'dark'], label = b.querySelector('.tt-label');
-      function show(m) {
-        var name = b.getAttribute('data-label-' + m) || m;
-        b.setAttribute('data-mode', m);
-        if (label) label.textContent = name;
-        b.setAttribute('aria-label', (b.getAttribute('data-aria') || '{mode}').replace('{mode}', name));
-      }
-      function choose(m) {
-        if (m === 'auto') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', m);
-        try { localStorage.setItem('theme', m); } catch (e) {}
-        show(m);
-      }
-      var saved = null;
-      try { saved = localStorage.getItem('theme'); } catch (e) {}
-      show(modes.indexOf(saved) < 0 ? 'auto' : saved);
-      b.addEventListener('click', function () {
-        choose(modes[(modes.indexOf(b.getAttribute('data-mode')) + 1) % modes.length]);
-      });
     })();
   </script>
 </body>
