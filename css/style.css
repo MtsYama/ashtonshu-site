@@ -408,6 +408,10 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .card a { display: block; text-decoration: none; }
 .thumb { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--soft); transition: background-color .3s var(--ease); }
 .thumb img { width: 100%; height: 100%; object-fit: cover; transition: opacity .3s var(--ease); }
+.thumb[data-err404-card] { position: relative; }
+.thumb[data-err404-card] iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; opacity: 0; transition: opacity .3s var(--ease); }
+.thumb[data-err404-card].is-live img { opacity: 0; }
+.thumb[data-err404-card].is-live iframe { opacity: 1; }
 .card figcaption { margin-top: 12px; }
 .card-name { display: block; line-height: 1.3; }
 .card-sub { display: block; margin-top: .15em; color: var(--muted); font-size: .875em; }
@@ -428,6 +432,7 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
   .is-hover .card-sub { font-size: 15px; }
   .is-hover .card a:is(:hover, :focus-visible) .thumb { background: var(--paper); }
   .is-hover .card a:is(:hover, :focus-visible) img { opacity: .08; }
+  .is-hover .card a:is(:hover, :focus-visible) .thumb[data-err404-card].is-live iframe { opacity: .08; }
   .is-hover .card a:is(:hover, :focus-visible) figcaption { opacity: 1; transform: none; }
 }
 
