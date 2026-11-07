@@ -1,6 +1,6 @@
 {
   "name": "Ashton Z. Shu",
-  "short_name": "Ashton Z. Shu",
+  "short_name": "Ashton",
   "id": "/",
   "start_url": "/",
   "scope": "/",
@@ -9,19 +9,19 @@
   "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "img/avatar-icon-192-20261106.png",
+      "src": "img/avatar-icon-192-20261107.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "img/avatar-icon-512-20261106.png",
+      "src": "img/avatar-icon-512-20261107.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "img/avatar-icon-maskable-512-20261106.png",
+      "src": "img/avatar-icon-maskable-512-20261107.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
