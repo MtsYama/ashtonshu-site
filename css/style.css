@@ -480,7 +480,7 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .p-art img { width: 100%; }
 /* live pages inside a project page: the frame takes the height its page reports, or a fixed window onto another site */
 .p-frame { display: block; width: 100%; height: 70vh; border: 0; }
-.p-stage { width: min(100% - 2 * var(--gutter), var(--wide)); margin: var(--head-h) auto 0; }
+.p-stage { width: min(100% - 2 * var(--gutter), 760px); margin: var(--head-h) auto 0; }
 .p-cap { padding-top: clamp(20px, 3vw, 44px); }
 /* section headings: a size and weight above the text, every word capitalised, and as much room below as between paragraphs */
 .p-cap h2 { margin-bottom: .8em; font-size: var(--fs-mid); font-weight: 600; line-height: 1.25; letter-spacing: -.01em; text-transform: capitalize; }
