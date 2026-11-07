@@ -219,12 +219,12 @@
   var code = (root.lang || 'en').toLowerCase();
   var key = code.indexOf('zh-hant') === 0 ? 'zht' : code.slice(0, 2);
   var words = {
-    en: ['Back', 'Share', 'Download', 'Link copied', 'View larger', 'Free to share with credit.'],
-    fr: ['Retour', 'Partager', 'Télécharger', 'Lien copié', 'Agrandir', 'Partage libre avec mention de l’auteur.'],
-    zh: ['返回', '分享', '下载', '链接已复制', '查看大图', '可以自由转发，请署名。'],
-    zht: ['返回', '分享', '下載', '連結已複製', '檢視大圖', '可以自由轉發，請署名。'],
-    ja: ['戻る', '共有', 'ダウンロード', 'リンクをコピーしました', '拡大して見る', '共有は自由です。クレジットを記載してください。'],
-    ko: ['뒤로', '공유', '다운로드', '링크를 복사했습니다', '크게 보기', '자유롭게 공유하되 출처를 밝혀 주세요.']
+    en: ['Back', 'Share', 'Download', 'Link copied', 'View larger', 'Free to share with credit.', 'Share this project', 'Share this site', 'Share this page'],
+    fr: ['Retour', 'Partager', 'Télécharger', 'Lien copié', 'Agrandir', 'Partage libre avec mention de l’auteur.', 'Partager ce projet', 'Partager ce site', 'Partager cette page'],
+    zh: ['返回', '分享', '下载', '链接已复制', '查看大图', '可以自由转发，请署名。', '分享这个项目', '分享这个网站', '分享这一页'],
+    zht: ['返回', '分享', '下載', '連結已複製', '檢視大圖', '可以自由轉發，請署名。', '分享這個專案', '分享這個網站', '分享這一頁'],
+    ja: ['戻る', '共有', 'ダウンロード', 'リンクをコピーしました', '拡大して見る', '共有は自由です。クレジットを記載してください。', 'このプロジェクトを共有', 'このサイトを共有', 'このページを共有'],
+    ko: ['뒤로', '공유', '다운로드', '링크를 복사했습니다', '크게 보기', '자유롭게 공유하되 출처를 밝혀 주세요.', '이 프로젝트 공유', '이 사이트 공유', '이 페이지 공유']
   };
   var t = words[key] || words.en;
   var icon = function (d) { return '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>'; };
@@ -264,21 +264,36 @@
     pageShare.type = 'button';
     pageShare.className = 'icon-link foot-share';
     pageShare.innerHTML = icon('<path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="m16 6-4-4-4 4"/><path d="M12 2v13"/>').replace(/width="22" height="22"/, 'width="18" height="18"') + '<span></span>';
-    pageShare.lastChild.textContent = t[1];
+    // says what it shares: the project on a project page, the site on the home page
+    pageShare.lastChild.textContent = document.querySelector('.p-head') ? t[6] : /^\/([a-z-]+\/)?(index(\.html)?)?$/.test(location.pathname) ? t[7] : t[8];
     pageShare.addEventListener('click', function () { share(document.body); });
     row.appendChild(pageShare);
     social.closest('ul').appendChild(row);
   }
 
+  // a video cannot open full screen like the images, so the same two round buttons sit under it
   if (page) {
     page.querySelectorAll('video source').forEach(function (s) {
       var name = (s.getAttribute('src') || '').split('/').pop().replace(/\.mp4.*$/, '');
       var box = s.closest('.p-art') || s.parentNode.parentNode;
-      var p = document.createElement('p');
-      p.className = 'p-cta';
-      p.innerHTML = '<a class="arrow-link" href="' + host + '/dl/ashton-shu-' + name + '.mp4"></a>';
-      p.firstChild.textContent = t[2];
-      box.parentNode.insertBefore(p, box.nextSibling);
+      var row = document.createElement('div');
+      row.className = 'media-actions';
+      var send = document.createElement('button');
+      send.type = 'button';
+      send.className = 'media-btn';
+      send.setAttribute('aria-label', t[1]);
+      send.title = t[1];
+      send.innerHTML = shareIcon;
+      send.addEventListener('click', function () { share(document.body); });
+      var get = document.createElement('a');
+      get.className = 'media-btn';
+      get.href = host + '/dl/ashton-shu-' + name + '.mp4';
+      get.setAttribute('aria-label', t[2]);
+      get.title = t[2];
+      get.innerHTML = saveIcon;
+      row.appendChild(send);
+      row.appendChild(get);
+      box.parentNode.insertBefore(row, box.nextSibling);
     });
   }
 
