@@ -6,15 +6,13 @@
 @media(min-width:850px){.page{padding:24px 40px}main{display:grid;grid-template-columns:minmax(0,1.24fr) minmax(0,1fr);align-items:center;gap:48px;min-height:min(660px,calc(100svh - 205px));margin-top:20px}.copy{margin:0}.scene-meta{margin-top:12px}footer{justify-content:flex-end;margin-top:16px}}
 @media(prefers-reduced-motion:reduce){.scene-slot *,.scene-slot *::before,.scene-slot *::after{animation:none!important;transition:none!important}.motion{display:none!important}}
 
-html[data-embed],html[data-embed] body{background:transparent}
-html[data-embed] header,html[data-embed] section.copy{display:none}
-html[data-embed] .page{padding:0;max-width:100%}
-html[data-embed="slide"] main,html[data-embed="stage"] main{display:block;min-height:0;margin:0}
+html[data-embed="slide"],html[data-embed="slide"] body{background:transparent}
+html[data-embed="slide"] header,html[data-embed="slide"] section.copy{display:none}
+html[data-embed="slide"] .page{padding:0;max-width:100%}
+html[data-embed="slide"] main{display:block;min-height:0;margin:0}html[data-embed="stage"] main{min-height:0}
 html[data-embed="slide"] .scene-meta,html[data-embed="slide"] footer,html[data-embed] #language{display:none}
 html[data-embed="slide"] .art{height:100svh;display:grid;place-items:center}
 html[data-embed="slide"] .scene-slot{width:min(100vw,calc(100svh * 680 / 460))}
-html[data-embed="stage"] footer{justify-content:center;margin:16px 0 0}
-html[data-embed="stage"] .scene-meta{margin:8px 0 0;text-align:center}
 
 body{padding:20px;max-width:1480px;margin:auto}.overview-header{display:flex;align-items:center;justify-content:space-between;gap:20px;border:0;padding:0}.overview-title{font-size:24px;color:var(--ink);margin:12px 0 8px}.overview-note{color:var(--muted);font-size:14px;margin:0 0 24px}.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 12px}.card{display:block;border:1px solid var(--line);padding:8px;min-width:0}.thumb{aspect-ratio:680/460;width:100%}.thumb>div{width:100%;height:100%}.thumb svg{display:block;width:100%;height:auto;font-family:inherit}.thumb *{animation:none!important;transition:none!important}.card p{font-size:13px;line-height:1.6;margin:10px 2px 4px;overflow-wrap:anywhere}.card small{font-size:12px;color:var(--muted)}@media(min-width:850px){.gallery{grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}body{padding:32px}}
 html[data-embed="grid"] .overview-header,html[data-embed="grid"] .overview-note{display:none}html[data-embed="grid"] body{padding:0}html[data-embed="grid"] .gallery{margin:0;min-height:0}

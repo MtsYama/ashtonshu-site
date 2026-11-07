@@ -14,15 +14,13 @@
 @media(min-width:850px){.page{padding:24px 40px}main{display:grid;grid-template-columns:minmax(0,1.24fr) minmax(0,1fr);align-items:center;gap:48px;min-height:min(660px,calc(100svh - 205px));margin-top:20px}.copy{margin:0}.scene-meta{margin-top:12px}footer{justify-content:flex-end;margin-top:16px}}
 @media(prefers-reduced-motion:reduce){.scene-slot *,.scene-slot *::before,.scene-slot *::after{animation:none!important;transition:none!important}.motion{display:none!important}}
 
-html[data-embed],html[data-embed] body{background:transparent}
-html[data-embed] header,html[data-embed] section.copy{display:none}
-html[data-embed] .page{padding:0;max-width:100%}
-html[data-embed="slide"] main,html[data-embed="stage"] main{display:block;min-height:0;margin:0}
+html[data-embed="slide"],html[data-embed="slide"] body{background:transparent}
+html[data-embed="slide"] header,html[data-embed="slide"] section.copy{display:none}
+html[data-embed="slide"] .page{padding:0;max-width:100%}
+html[data-embed="slide"] main{display:block;min-height:0;margin:0}html[data-embed="stage"] main{min-height:0}
 html[data-embed="slide"] .scene-meta,html[data-embed="slide"] footer,html[data-embed] #language{display:none}
 html[data-embed="slide"] .art{height:100svh;display:grid;place-items:center}
 html[data-embed="slide"] .scene-slot{width:min(100vw,calc(100svh * 680 / 460))}
-html[data-embed="stage"] footer{justify-content:center;margin:16px 0 0}
-html[data-embed="stage"] .scene-meta{margin:8px 0 0;text-align:center}
 </style>
 <script>
 (()=>{const r=document.documentElement,p=new URLSearchParams(location.search),embed=p.get('embed');if(embed==='slide'||embed==='stage'){r.dataset.embed=embed;r.lang=p.get('lang')==='zh'?'zh':'en';document.title=r.lang==='zh'?'页面不存在':'Page not found';const theme=()=>{try{const t=localStorage.getItem('theme');if(t==='dark'||t==='light')r.dataset.theme=t;else delete r.dataset.theme}catch{}};theme();window.addEventListener('storage',e=>{if(e.key==='theme'||e.key===null)theme()});return}let l;try{const t=localStorage.getItem('theme');if(t==='dark'||t==='light')r.dataset.theme=t;l=localStorage.getItem('404-language')}catch{}const q=new URLSearchParams(location.search).get('lang');r.lang=q==='zh'||q==='en'?q:l==='zh'||l==='en'?l:(location.pathname.startsWith('/zh')||/^zh\b/i.test(navigator.language)?'zh':'en');document.title=r.lang==='zh'?'页面不存在':'Page not found';})();
@@ -190,6 +188,7 @@ function period(){let ms=-Infinity;try{for(const a of host.getAnimations({subtre
 function play(){let recent=[];try{const saved=JSON.parse(sessionStorage.getItem('err404-slide-recent'));if(Array.isArray(saved))recent=saved.filter(id=>index(id)>=0).slice(-8)}catch{}const choices=scenes.map((s,i)=>i).filter(i=>!recent.includes(scenes[i].id));const n=choices[Math.floor(Math.random()*choices.length)];show(n);recent.push(scenes[n].id);try{sessionStorage.setItem('err404-slide-recent',JSON.stringify(recent.slice(-8)))}catch{}send({type:'err404-period',ms:period(),scene:scenes[n].id})}
 window.addEventListener('message',event=>{if(event.origin!==location.origin||event.source!==parent)return;const m=event.data;if(!m||typeof m!=='object')return;if(embed==='slide'){if(m.type==='err404-play')play();else if(m.type==='err404-stop')host.replaceChildren()}else if(m.type==='err404-pick'){const n=index(m.scene);if(n>=0)show(n)}});
 if(embed==='slide'){host.replaceChildren();send({type:'err404-ready'})}else{
+for(const a of document.querySelectorAll('a[href]'))a.target='_top';
 another.hidden=mode.hidden=motion.hidden=false;
 another.addEventListener('click',()=>show(ordered?(current+1)%scenes.length:random(current)));
 mode.addEventListener('click',()=>{ordered=!ordered;show(ordered?0:random(current))});
