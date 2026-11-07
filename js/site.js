@@ -201,3 +201,13 @@
   document.addEventListener('visibilitychange', syncAll);
   syncAll();
 })();
+
+// a cover with two images: they fade into each other every two seconds, so the card says there is more than one thing inside
+(function () {
+  var covers = document.querySelectorAll('[data-swap]');
+  if (!covers.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  setInterval(function () {
+    if (document.hidden) return;
+    covers.forEach(function (c) { c.classList.toggle('is-swapped'); });
+  }, 2000);
+})();
