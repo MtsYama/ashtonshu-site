@@ -428,7 +428,7 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 
 /* ---------- work archive ---------- */
 
-/* Projects · Collections · Personal at the top of the three Work pages */
+/* Client · Student · Collections at the top of the three Work pages */
 .w-switch { margin-top: -10px; margin-bottom: clamp(20px, 2.5vw, 36px); }
 .w-switch ul { display: flex; flex-wrap: wrap; }
 .w-switch li + li::before { content: "\00b7"; content: "\00b7" / ""; padding: 0 .5em; color: var(--muted); }
