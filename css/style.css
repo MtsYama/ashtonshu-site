@@ -158,10 +158,6 @@ body::before {
    it never run into the wordmark and the links. Over a work image the header stays see-through, before the name docks
    nothing changes, and an open header list (see "header lists") takes the band's colour too */
 .home-dock.name-docked:not(.head-stuck):has(.slide-intro.is-active) body::before { height: var(--head-h); background: var(--soft); opacity: 1; }
-.home-dock.name-docked:not(.head-stuck):has(.slide-intro.is-active) .site-header.is-over ~ .drop-panel:not([hidden]) {
-  background: var(--soft); mix-blend-mode: normal; -webkit-backdrop-filter: none; backdrop-filter: none;
-}
-.home-dock.name-docked:not(.head-stuck):has(.slide-intro.is-active) .site-header.is-over ~ .drop-panel:not([hidden]) ul { mix-blend-mode: difference; }
 .site-nav { min-width: 0; max-width: 100%; }
 .site-nav ul { display: flex; flex-wrap: wrap; align-items: center; gap: 6px .9em; }
 .site-nav li { flex: none; }
@@ -169,18 +165,14 @@ body::before {
 .site-nav a { display: inline-flex; align-items: center; gap: .35em; }
 .site-nav a .ni { width: .85em; height: .85em; flex: none; }
 
-/* Display mode: Auto, Light, Dark. The icon and label show the current choice. Phones use round icons. */
+/* Color settings trigger; phones show only the permanent half-filled icon. */
 .theme-toggle {
   display: inline-flex; align-items: center; gap: .35em;
   margin-left: .35em; padding: 0; border: 0;
   background: none; cursor: pointer;
 }
 .theme-toggle svg { width: .85em; height: .85em; flex: none; }
-/* theme: Auto, Light, Dark; the icon and the word show the current choice (js/world.js) */
-.site-header .theme-toggle .ti { display: none; }
-.site-header .theme-toggle[data-mode="auto"] .ti-auto,
-.site-header .theme-toggle[data-mode="light"] .ti-sun,
-.site-header .theme-toggle[data-mode="dark"] .ti-moon { display: block; }
+ .site-header .theme-toggle .ti-auto { display: block; }
 @media (max-width: 639px) {
   .site-nav a, .theme-toggle {
     justify-content: center;
@@ -198,91 +190,6 @@ body::before {
 @media (max-width: 379px) {
   .site-header { column-gap: 12px; }
   .site-nav ul { gap: 0 .7em; }
-}
-
-/* header lists: data-drop opens a row outside the header. Over a work image, both lists use the same
-   frost: an empty drop-veil blurs the picture and adds 78% of the page colour. The separate panel stays clear,
-   with normal text and corners in the page's ink, never inside the filter group. Without the needed CSS features,
-   or while the name cover is up, both lists use a plain page-colour fill with difference text. Away from a hero
-   the lists keep their page colour. The docked home intro keeps its own soft fill.
-   The control's upper corners stay around its icon and label; its lower corners travel past --drop-gap to the
-   bottom of the list. The panel and veil share their size and clip-path motion; reduced motion skips the unroll.
-   List items keep the header's hover, focus and current-page corners. No chevrons are added.
-   js/site.js measures --drop-gap and --drop-align (start, end or full), then sets --drop-l, --drop-r and --drop-b. */
-@property --drop-l { syntax: '<length>'; inherits: true; initial-value: 0px; }
-@property --drop-r { syntax: '<length>'; inherits: true; initial-value: 0px; }
-@property --drop-b { syntax: '<length>'; inherits: true; initial-value: 0px; }
-.site-header .site-nav .drop-trigger {
-  transition: color .3s var(--ease), --hb .45s cubic-bezier(.25, .7, .2, 1), --ha .45s cubic-bezier(.25, .7, .2, 1), --ho .3s var(--ease),
-              --drop-l .45s cubic-bezier(.25, .7, .2, 1), --drop-r .45s cubic-bezier(.25, .7, .2, 1), --drop-b .45s cubic-bezier(.25, .7, .2, 1);
-}
-.site-header .site-nav .drop-trigger[aria-expanded="true"] { --hb: 1; --ha: 1; --ho: 1; color: inherit; outline: none; }   /* the word keeps its colour */
-.site-header .drop-trigger .hb-bl { left: calc(50% - var(--px) - var(--drop-l)); bottom: calc(50% - var(--py) - var(--drop-b)); }
-.site-header .drop-trigger .hb-br { right: calc(50% - var(--px) - var(--drop-r)); bottom: calc(50% - var(--py) - var(--drop-b)); }
-.drop-panel {
-  --drop-align: start;
-  --drop-gap: .5em;   /* about 11px at 1440px, measured below the hover frame */
-  position: fixed; top: 0; left: 0; z-index: 19;
-  background: var(--paper); color: #fff;
-  font-size: var(--fs-ui); line-height: 1.2;
-}
-.drop-panel, .drop-veil { transition: clip-path .45s cubic-bezier(.25, .7, .2, 1); }
-.drop-veil { display: none; position: fixed; top: 0; left: 0; z-index: 19; pointer-events: none; }
-.drop-panel[hidden], .drop-veil[hidden] { display: none; }
-.drop-panel ul { padding: .55em .55em .6em; border-top: 1px solid; mix-blend-mode: difference; }   /* the hairline is the row's top edge */
-.site-header.is-over ~ .drop-panel { background: var(--paper); mix-blend-mode: normal; }
-.site-header.is-over ~ .drop-panel ul { mix-blend-mode: difference; }
-/* Start with a plain fill. Frost needs both the filter and a page-colour mix.
-   Only the empty sibling gets the filter and tint, never the text or its corners.
-   The home intro keeps its existing fills. The name cover keeps the plain fallback. */
-@supports selector(:has(*)) and (background: color-mix(in srgb, white 78%, transparent)) and ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  html:not(.nm-cover-on):not(:has(.slide-intro.is-active)) .site-header.is-over ~ .drop-veil:not([hidden]) {
-    display: block;
-    background: color-mix(in srgb, var(--paper) 78%, transparent);
-    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  }
-  html:not(.nm-cover-on):not(:has(.slide-intro.is-active)) .site-header.is-over ~ .drop-panel {
-    background: none; color: var(--ink); mix-blend-mode: normal;
-  }
-  html:not(.nm-cover-on):not(:has(.slide-intro.is-active)) .site-header.is-over ~ .drop-panel ul { mix-blend-mode: normal; }
-  html:not(.nm-cover-on):not(:has(.slide-intro.is-active)) .site-header.is-over ~ .drop-panel .hb { border-color: currentColor; }
-  html:not(.nm-cover-on):not(:has(.slide-intro.is-active)) .site-header.is-over ~ .drop-panel a:focus-visible { color: var(--ink-2); }
-  @media (hover: hover) and (pointer: fine) {
-    html:not(.nm-cover-on):not(:has(.slide-intro.is-active)) .site-header.is-over ~ .drop-panel a:hover { color: var(--ink-2); }
-  }
-}
-/* Before the home name docks, keep Work's existing clear panel over the intro.
-   Its empty veil still blurs there when supported. The language list keeps its soft fill. */
-html.home-dock:not(.name-docked):not(.nm-cover-on):has(.slide-intro.is-active) .site-header.is-over ~ .drop-panel.work-menu { background: none; mix-blend-mode: difference; }
-html.home-dock:not(.name-docked):not(.nm-cover-on):has(.slide-intro.is-active) .site-header.is-over ~ .drop-panel.work-menu ul { mix-blend-mode: normal; }
-@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  html.home-dock:not(.name-docked):not(.nm-cover-on):has(.slide-intro.is-active) .site-header.is-over ~ .drop-veil:not([hidden]):has(+ .work-menu) {
-    display: block; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  }
-}
-.drop-panel :is(a, li > span) {
-  --hb: 0; --ha: 1; --ho: 1;
-  position: relative; display: block;
-  white-space: nowrap; text-decoration: none;
-  transition: color .3s var(--ease), --hb .45s cubic-bezier(.25, .7, .2, 1), --ha .45s cubic-bezier(.25, .7, .2, 1), --ho .3s var(--ease);
-}
-.drop-panel a::after { content: ""; position: absolute; inset: -.4em -.2em; }   /* a target larger than the word */
-.drop-panel [aria-current] { --hb: 1; --ha: .55; --ho: .6; }
-.drop-panel a:focus-visible { --hb: 1; --ha: 1; --ho: 1; color: #4d4d4d; outline: none; }
-@media (hover: hover) and (pointer: fine) {
-  .drop-panel a:hover { --hb: 1; --ha: 1; --ho: 1; color: #4d4d4d; }
-}
-/* Work and languages use the same inset on both sides. */
-.work-menu ul { display: flex; gap: 0 .9em; }
-@media (max-width: 639px) {
-  /* phones: the line runs from gutter to gutter, the three spread across it with even room between them */
-  .drop-panel { --drop-gap: 8px; }
-  .work-menu { --drop-align: full; }
-  .work-menu ul { justify-content: space-between; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .site-header .site-nav .drop-trigger, .drop-panel :is(a, li > span) { transition: color .3s var(--ease) !important; }
-  .drop-panel, .drop-veil { transition: none !important; }
 }
 
 html { scroll-padding-top: calc(var(--head-h) + 16px); }
@@ -745,15 +652,6 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
   .site-nav ul { gap: 0 .55em; }
 }
 
-/* Languages line up with the right edge of the globe's frame, with the same inset as Work. */
-.drop-panel.lang-menu { --drop-align: end; }
-.lang-menu ul { display: flex; flex-direction: column; gap: .8em; }
-/* Work and languages share the same frost over work images. The empty veil carries the blur and tint;
-   this list carries normal text and corners. If frost is unavailable, both lists use the plain page-colour fill.
-   The docked home intro keeps its soft fill. */
-/* on the home page's "Ashton is" slide the fill is that slide's colour, so the list reads as part of it */
-.home-dock:has(.slide-intro.is-active) .site-header.is-over ~ .drop-panel.lang-menu { background: var(--soft); }
-
 /* the same list in the footer, for a page read without scripts */
 .foot-lang [aria-current] { color: var(--muted); }
 
@@ -820,3 +718,38 @@ html { scroll-padding-top: calc(var(--head-h) + 16px); }
 .not-found .frame { min-width: 0; overflow-wrap: anywhere; }
 .not-found h1 { font-size: var(--fs-big); }
 .not-found p { margin-top: 1.5em; }
+
+/* Header settings match the article reader panel frame. Opaque paper keeps text contrast over heroes. */
+.settings-panel {
+  position: fixed; z-index: 25; top: calc(var(--head-h) + 12px); right: var(--gutter);
+  width: 340px; max-width: calc(100vw - 24px); padding: 24px; margin: 0;
+  border: 1px solid color-mix(in srgb, var(--muted) 28%, var(--paper)); border-radius: 12px;
+  background: var(--paper); color: var(--ink); box-shadow: 0 8px 34px rgba(0,0,0,.16);
+  font-size: 15px; line-height: 1.5; overflow: auto; overscroll-behavior: contain;
+}
+.settings-panel[hidden] { display: none; }
+.panel-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+.panel-head h2 { font-size: 18px; line-height: 1.4; font-weight: 600; }
+.panel-close { display: grid; place-items: center; flex: none; width: 44px; height: 44px; padding: 0; border: 0; background: none; color: var(--ink); cursor: pointer; }
+.language-panel ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.language-panel :is(a, li > button), .color-choices button {
+  display: flex; align-items: center; justify-content: center; min-height: 44px; width: 100%; padding: 8px 4px;
+  border: 1px solid color-mix(in srgb, var(--muted) 28%, var(--paper)); border-radius: 6px;
+  background: var(--paper); color: var(--ink); font: inherit; text-decoration: none; cursor: pointer;
+}
+.settings-panel :is([aria-current], [aria-pressed="true"]) { background: var(--soft); border-color: var(--ink); box-shadow: inset 0 -2px var(--ink); }
+.settings-panel :is(a, button):hover { background: var(--soft); opacity: 1; }
+.settings-panel :is(a, button):focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.color-choices { display: flex; gap: 8px; }
+.color-choices button { flex: 1; min-width: 0; flex-direction: column; gap: 8px; padding: 12px 4px; }
+.color-choices span { font-size: 14px; }
+.site-header :is(.site-nav a, .lang-toggle, .theme-toggle) { min-height: 44px; min-width: 44px; }
+.site-header :is(.lang-toggle, .theme-toggle):focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+.w-switch a { min-height: 44px; }
+@media (max-width: 639px) {
+  .site-header { flex-wrap: nowrap; gap: 8px; }
+  .site-nav { flex: none; }
+  .site-nav ul { flex-wrap: nowrap; gap: 2px; }
+  .site-header :is(.site-nav a, .lang-toggle, .theme-toggle) { width: 44px; height: 44px; margin-left: 0; }
+  .settings-panel { max-width: calc(100vw - 32px); }
+}

@@ -20,8 +20,8 @@
   <link rel="apple-touch-icon" href="img/avatar-icon-180-20261106.png" sizes="180x180">
   <link rel="manifest" href="site.webmanifest">
   <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="css/fonts.css?v=20261020lang">
-  <link rel="stylesheet" href="css/style.css?v=20261031r4">
+  <link rel="stylesheet" href="css/fonts.css?v=20261106h">
+  <link rel="stylesheet" href="css/style.css?v=20261106h">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#ffffff">
   <style>html{background:#fff}html[data-theme="dark"]{background:#0d0d0d}@media (prefers-color-scheme:dark){html:not([data-theme="light"]){background:#0d0d0d}}</style>
@@ -42,23 +42,22 @@
     <a class="wordmark" href="./" aria-label="Ashton Z. Shu">Ashton</a>
     <nav class="site-nav" aria-label="Main">
       <ul>
-        <li><a class="drop-trigger" href="work/" aria-controls="work-menu" data-drop><svg class="ni" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span class="nl">Work</span></a></li>
+        <li><a href="work/"><svg class="ni" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg><span class="nl">Work</span></a></li>
         <li><a href="about"><svg class="ni" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span class="nl">About</span></a></li>
         <li><a href="contact" aria-current="page"><svg class="ni" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg><span class="nl">Contact</span></a></li>
-        <li><button class="lang-toggle drop-trigger" type="button" aria-expanded="false" aria-controls="lang-menu" data-drop aria-label="Language: English"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span class="lt-label">English</span></button></li>
-        <li><button class="theme-toggle" type="button" data-mode="auto" data-label-auto="Auto" data-label-light="Light" data-label-dark="Dark" data-aria="Display mode: {mode}. Tap to change." aria-label="Display mode: Auto. Tap to change."><svg class="ti ti-auto" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg><svg class="ti ti-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><svg class="ti ti-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg><span class="tt-label">Auto</span></button></li>
+        <li><button class="lang-toggle" type="button" aria-expanded="false" aria-controls="lang-menu" data-panel-toggle aria-haspopup="dialog" aria-label="Language: English"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg><span class="lt-label">English</span></button></li>
+        <li><button class="theme-toggle" type="button" data-panel-toggle aria-haspopup="dialog" aria-expanded="false" aria-controls="color-menu"><svg class="ti ti-auto" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none"/></svg><span class="tt-label">Color</span></button></li>
       </ul>
     </nav>
   </header>
-  <nav class="drop-panel lang-menu" id="lang-menu" aria-label="Languages" hidden><ul><li><span aria-current="true" lang="en">English</span></li><li><a href="https://world.ashton.is/fr/contact" lang="fr-CA" hreflang="fr-CA">Français</a></li><li><a href="https://world.ashton.is/zh-hans/contact" lang="zh-Hans" hreflang="zh-Hans">简体中文</a></li><li><a href="https://world.ashton.is/zh-hant/contact" lang="zh-Hant" hreflang="zh-Hant">繁體中文</a></li><li><a href="https://world.ashton.is/ja/contact" lang="ja" hreflang="ja">日本語</a></li><li><a href="https://world.ashton.is/ko/contact" lang="ko" hreflang="ko">한국어</a></li></ul></nav>
-
-  <nav class="drop-panel work-menu" id="work-menu" aria-label="Work" hidden>
-    <ul>
-      <li><a href="work/">Projects</a></li>
-      <li><a href="work/collections">Collections</a></li>
-      <li><a href="work/personal">Personal</a></li>
-    </ul>
-  </nav>
+  <section class="settings-panel language-panel" id="lang-menu" role="dialog" aria-labelledby="language-title" hidden>
+    <div class="panel-head"><h2 id="language-title">Language</h2><button class="panel-close" type="button" data-panel-close aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
+    <ul><li><button type="button" aria-current="true" lang="en">English</button></li><li><a href="https://world.ashton.is/fr/contact" lang="fr-CA" hreflang="fr-CA">Français</a></li><li><a href="https://world.ashton.is/zh-hans/contact" lang="zh-Hans" hreflang="zh-Hans">简体中文</a></li><li><a href="https://world.ashton.is/zh-hant/contact" lang="zh-Hant" hreflang="zh-Hant">繁體中文</a></li><li><a href="https://world.ashton.is/ja/contact" lang="ja" hreflang="ja">日本語</a></li><li><a href="https://world.ashton.is/ko/contact" lang="ko" hreflang="ko">한국어</a></li></ul>
+  </section>
+  <section class="settings-panel color-panel" id="color-menu" role="dialog" aria-labelledby="color-title" hidden>
+    <div class="panel-head"><h2 id="color-title">Color mode</h2><button class="panel-close" type="button" data-panel-close aria-label="Close"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
+    <div class="color-choices"><button type="button" data-theme-choice="auto" aria-pressed="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="13" rx="2"/><path d="M8 21h8M12 16v5"/></svg><span>System</span></button><button type="button" data-theme-choice="light" aria-pressed="false"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg><span>Light</span></button><button type="button" data-theme-choice="dark" aria-pressed="false"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg><span>Dark</span></button></div>
+  </section>
 
   <main id="main" class="page">
     <header class="a-head">
@@ -135,7 +134,7 @@
       if (last) last.nodeValue = last.nodeValue.replace(/(\S)\s+(\S+\s*)$/, '$1\u00a0$2');
     });
   </script>
-  <script src="js/site.js?v=20261031r4"></script>
+  <script src="js/site.js?v=20261106h"></script>
   <script>
     // the form opens the visitor's email app with the message filled in
     (function () {
@@ -151,32 +150,6 @@
           '?subject=' + encodeURIComponent('Website message from ' + name) +
           '&body=' + encodeURIComponent(body);
         status.textContent = 'Your email app should open with the message. If it does not, write to hello@ashton.is.';
-      });
-    })();
-  </script>
-
-  <script>
-    // light / dark: follows the system in Auto; tap cycles Auto, Light, Dark and keeps the current choice
-    (function () {
-      var b = document.querySelector('.theme-toggle'), root = document.documentElement;
-      if (!b) return;
-      var modes = ['auto', 'light', 'dark'], label = b.querySelector('.tt-label');
-      function show(m) {
-        var name = b.getAttribute('data-label-' + m) || m;
-        b.setAttribute('data-mode', m);
-        if (label) label.textContent = name;
-        b.setAttribute('aria-label', (b.getAttribute('data-aria') || '{mode}').replace('{mode}', name));
-      }
-      function choose(m) {
-        if (m === 'auto') root.removeAttribute('data-theme'); else root.setAttribute('data-theme', m);
-        try { localStorage.setItem('theme', m); } catch (e) {}
-        show(m);
-      }
-      var saved = null;
-      try { saved = localStorage.getItem('theme'); } catch (e) {}
-      show(modes.indexOf(saved) < 0 ? 'auto' : saved);
-      b.addEventListener('click', function () {
-        choose(modes[(modes.indexOf(b.getAttribute('data-mode')) + 1) % modes.length]);
       });
     })();
   </script>
